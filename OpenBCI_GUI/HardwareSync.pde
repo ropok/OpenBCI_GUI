@@ -181,6 +181,10 @@ void writeRawData_dataPacket_bdf() {
 void startRunning() {
   verbosePrint("startRunning...");
   output("Data stream started.");
+    // topNav.stopButton.setString(topNav.stopButton_pressToStart_txt);
+  // jupuk.widgetTemplateButton.setString("1");
+   // W_ambilData.flagMulai.setValue(int(0));
+  // W_ambilData.widgetTemplateButton.setString("A");
   if (eegDataSource == DATASOURCE_GANGLION) {
     if (ganglion != null) {
       ganglion.startDataTransfer();
@@ -198,6 +202,7 @@ void stopRunning() {
   // openBCI.changeState(0); //make sure it's no longer interpretting as binary
   verbosePrint("OpenBCI_GUI: stopRunning: stop running...");
   output("Data stream stopped.");
+    // W_ambilData.flagMulai = false;
   if (eegDataSource == DATASOURCE_GANGLION) {
     if (ganglion != null) {
       ganglion.stopDataTransfer();

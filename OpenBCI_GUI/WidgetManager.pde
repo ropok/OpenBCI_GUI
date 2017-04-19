@@ -21,9 +21,15 @@ W_ganglionImpedance w_ganglionImpedance;
 W_template w_template1;
 W_emg w_emg;
 W_openBionics w_openbionics;
+W_ambilData w_ambildata;
 
 //ADD YOUR WIDGET TO WIDGETS OF WIDGETMANAGER
 void setupWidgets(PApplet _this, ArrayList<Widget> w){
+
+  w_ambildata = new W_ambilData(_this);
+  w_ambildata.setTitle("Widget Ambil Data");
+  addWidget(w_ambildata, w);
+  
   w_timeSeries = new W_timeSeries(_this);
   w_timeSeries.setTitle("Time Series");
   addWidget(w_timeSeries, w);
@@ -120,7 +126,7 @@ class WidgetManager{
       currentContainerLayout = 1;
       setNewContainerLayout(currentContainerLayout); //sets and fills layout with widgets in order of widget index, to reorganize widget index, reorder the creation in setupWidgets()
     } else {
-      currentContainerLayout = 4; //default layout ... tall container left and 2 shorter containers stacked on the right
+      currentContainerLayout = 0; //default layout ... tall container left and 2 shorter containers stacked on the right
       setNewContainerLayout(currentContainerLayout); //sets and fills layout with widgets in order of widget index, to reorganize widget index, reorder the creation in setupWidgets()
     }
   }
