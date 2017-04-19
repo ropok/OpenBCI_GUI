@@ -178,6 +178,7 @@ void writeRawData_dataPacket_bdf() {
   fileoutput_bdf.writeRawData_dataPacket(dataPacketBuff[curBDFDataPacketInd]);
 }
 
+
 void startRunning() {
   verbosePrint("startRunning...");
   output("Data stream started.");

@@ -170,52 +170,53 @@ class TopNav {
   }
 
   void draw(){
-    pushStyle();
+    // pushStyle();
 
-    if(colorScheme == COLOR_SCHEME_DEFAULT){
-      noStroke();
-      fill(229);
-      rect(0, 0, width, topNav_h);
-      stroke(bgColor);
-      fill(255);
-      rect(-1, 0, width+2, navBarHeight);
-      image(logo_blue, width/2 - (128/2) - 2, 6, 128, 22);
-    } else if (colorScheme == COLOR_SCHEME_ALTERNATIVE_A){
-      noStroke();
-      fill(100);
-      fill(57,128,204);
-      rect(0, 0, width, topNav_h);
-      stroke(bgColor);
-      fill(31,69,110);
-      rect(-1, 0, width+2, navBarHeight);
-      image(logo_white, width/2 - (128/2) - 2, 6, 128, 22);
-    }
 
     // if(colorScheme == COLOR_SCHEME_DEFAULT){
-    //
+    //   noStroke();
+    //   fill(229);
+    //   rect(0, 0, width, topNav_h);
+    //   stroke(bgColor);
+    //   fill(255);
+    //   rect(-1, 0, width+2, navBarHeight);
+    //   image(logo_blue, width/2 - (128/2) - 2, 6, 128, 22);
     // } else if (colorScheme == COLOR_SCHEME_ALTERNATIVE_A){
-    //
+    //   noStroke();
+    //   fill(100);
+    //   fill(57,128,204);
+    //   rect(0, 0, width, topNav_h);
+    //   stroke(bgColor);
+    //   fill(31,69,110);
+    //   rect(-1, 0, width+2, navBarHeight);
+    //   image(logo_white, width/2 - (128/2) - 2, 6, 128, 22);
     // }
 
-    popStyle();
+    // // if(colorScheme == COLOR_SCHEME_DEFAULT){
+    // //
+    // // } else if (colorScheme == COLOR_SCHEME_ALTERNATIVE_A){
+    // //
+    // // }
 
-    if(systemMode == SYSTEMMODE_POSTINIT){
-      stopButton.draw();
-      filtBPButton.draw();
-      filtNotchButton.draw();
-      layoutButton.draw();
-    }
+    // popStyle();
 
-    controlPanelCollapser.draw();
-    tutorialsButton.draw();
-    issuesButton.draw();
-    shopButton.draw();
+    // if(systemMode == SYSTEMMODE_POSTINIT){
+    //   stopButton.draw();
+    //   filtBPButton.draw();
+    //   filtNotchButton.draw();
+    //   layoutButton.draw();
+    // }
 
-    // image(logo_blue, width/2 - (128/2) - 2, 6, 128, 22);
+    // controlPanelCollapser.draw();
+    // tutorialsButton.draw();
+    // issuesButton.draw();
+    // shopButton.draw();
+
+    // // image(logo_blue, width/2 - (128/2) - 2, 6, 128, 22);
 
 
-    layoutSelector.draw();
-    tutorialSelector.draw();
+    // layoutSelector.draw();
+    // tutorialSelector.draw();
 
   }
 
@@ -388,7 +389,7 @@ class LayoutSelector{
   void draw(){
     if(isVisible){ //only draw if visible
       pushStyle();
-
+      background(255);
       // println("it's happening");
       stroke(bgColor);
       // fill(229); //bg
@@ -598,20 +599,20 @@ class TutorialSelector{
     if(isVisible){ //only draw if visible
       pushStyle();
 
-      // println("it's happening");
-      stroke(bgColor);
-      // fill(229); //bg
-      fill(31,69,110); //bg
-      rect(x, y, w, h);
+      // // println("it's happening");
+      // stroke(bgColor);
+      // // fill(229); //bg
+      // fill(31,69,110); //bg
+      // rect(x, y, w, h);
 
-      for(int i = 0; i < tutorialOptions.size(); i++){
-        tutorialOptions.get(i).draw();
-      }
+      // for(int i = 0; i < tutorialOptions.size(); i++){
+      //   tutorialOptions.get(i).draw();
+      // }
 
-      fill(openbciBlue);
-      // fill(177, 184, 193);
-      noStroke();
-      rect(x+w-(topNav.tutorialsButton.but_dx-1), y, (topNav.tutorialsButton.but_dx-1) , 1);
+      // fill(openbciBlue);
+      // // fill(177, 184, 193);
+      // noStroke();
+      // rect(x+w-(topNav.tutorialsButton.but_dx-1), y, (topNav.tutorialsButton.but_dx-1) , 1);
 
       popStyle();
     }

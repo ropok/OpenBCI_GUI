@@ -29,8 +29,8 @@ void setupWidgets(PApplet _this, ArrayList<Widget> w){
   w_ambildata = new W_ambilData(_this);
   w_ambildata.setTitle("Widget Ambil Data");
   addWidget(w_ambildata, w);
-  
-  w_timeSeries = new W_timeSeries(_this);
+
+  w_timeSeries = new W_timeSeries(_this); 
   w_timeSeries.setTitle("Time Series");
   addWidget(w_timeSeries, w);
 
@@ -181,7 +181,7 @@ class WidgetManager{
         if(widgets.get(i).isActive){
           pushStyle();
           widgets.get(i).draw();
-          widgets.get(i).drawDropdowns();
+          // widgets.get(i).drawDropdowns();
           popStyle();
         }
       }

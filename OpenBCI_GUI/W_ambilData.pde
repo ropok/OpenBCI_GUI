@@ -22,7 +22,7 @@ class W_ambilData extends Widget {
   //timer
   float lastTimeCheck;
   float timeInterval;
-  int detik;
+  public int detik;
   int waktuDetik = -1;
   int ulang = 0;
 
@@ -40,9 +40,9 @@ class W_ambilData extends Widget {
     // addDropdown("Dropdown2", "Drop 2", Arrays.asList("C", "D", "E"), 1);
     // addDropdown("Dropdown3", "Drop 3", Arrays.asList("F", "G", "H", "I"), 3);
 
-    widgetTemplateButton = new Button (x + w/2, y + h/2, 200, navHeight, "Belum Mulai", 12);
+    widgetTemplateButton = new Button (x + w/2, y + h/2, 200, navHeight, "Tekan Spasi Untuk Memulai", 12);
     widgetTemplateButton.setFont(p4, 14);
-    widgetTemplateButton.setURL("http://docs.openbci.com/OpenBCI%20Software/");
+    //widgetTemplateButton.setURL("http://docs.openbci.com/OpenBCI%20Software/");
 
     //timer
     detik = waktuDetik;
@@ -69,6 +69,16 @@ class W_ambilData extends Widget {
       // rect(x,y+500,w,h-30);
       // rect(x0,y0,w0,h0);
       rect(x,y-1,w,h+1);
+
+  }
+
+void kotakBiruTest(){
+    fullScreen();
+    noStroke();
+      fill(3,255,232);
+      // rect(x,y+500,w,h-30);
+      // rect(x0,y0,w0,h0);
+      rect(0,0,w,h+1);
 
   }
 
@@ -99,6 +109,10 @@ class W_ambilData extends Widget {
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
     pushStyle();
+    //kotakBiruTest();
+
+    // background(51);
+    //print(mouseX, " ", mouseY);
 
     widgetTemplateButton.draw();
     // if(widgetTemplateButton.Text == "1")
@@ -114,7 +128,7 @@ class W_ambilData extends Widget {
     if (isRunning)
     if (eegDataSource == DATASOURCE_SYNTHETIC){
     timerDetik();
-      widgetTemplateButton.setString("Hore");
+      // widgetTemplateButton.setString("Hore");
       if(ulang < 1){
       if(detik == waktuDetik) kotakPutih();
       if(detik >= 3 && detik < 8) kotakMerah();
@@ -128,7 +142,7 @@ class W_ambilData extends Widget {
     }
 
     if (isRunning == false){
-      widgetTemplateButton.setString("DULL");
+      // widgetTemplateButton.setString("DULL");
       detik = waktuDetik;
     }
 
