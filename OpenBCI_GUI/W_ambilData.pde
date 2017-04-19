@@ -29,6 +29,7 @@ class W_ambilData extends Widget {
   //to see all core variables/methods of the Widget class, refer to Widget.pde
   //put your custom variables here...
   Button widgetTemplateButton;
+  Button sudahSelesaiButton;
 
   W_ambilData(PApplet _parent){
     super(_parent); //calls the parent CONSTRUCTOR method of Widget (DON'T REMOVE)
@@ -42,6 +43,11 @@ class W_ambilData extends Widget {
 
     widgetTemplateButton = new Button (x + w/2, y + h/2, 200, navHeight, "Tekan Spasi Untuk Memulai", 12);
     widgetTemplateButton.setFont(p4, 14);
+
+
+    sudahSelesaiButton = new Button (x + w/2, y + h/2, 200, navHeight, "Sudah Selesai", 12);
+    sudahSelesaiButton.setFont(p4, 14);
+
     //widgetTemplateButton.setURL("http://docs.openbci.com/OpenBCI%20Software/");
 
     //timer
@@ -111,12 +117,12 @@ class W_ambilData extends Widget {
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
     pushStyle();
     //kotakBiruTest();
-    kotakBiru();
-    kotakMerah();
+    // kotakBiru();
+    // kotakMerah();
     // background(51);
     //print(mouseX, " ", mouseY);
 
-    widgetTemplateButton.draw();
+    // widgetTemplateButton.draw();
     // if(widgetTemplateButton.Text == "1")
     //   widgetTemplateButton.setString("2");
 
@@ -131,21 +137,25 @@ class W_ambilData extends Widget {
     if (eegDataSource == DATASOURCE_SYNTHETIC){
     timerDetik();
       // widgetTemplateButton.setString("Hore");
-      if(ulang < 1){
+      if(ulang < 3){
       if(detik == waktuDetik) kotakPutih();
       if(detik >= 3 && detik < 8) kotakMerah();
       if(detik >= 8 && detik < 11) kotakPutih();
       if(detik >= 11 && detik < 16) kotakBiru();
       if(detik == 16) {detik = waktuDetik; ulang += 1;}
       // widgetTemplateButton.setString("3 detik");
-      } //else openBCI.stopDataTransfer();
+      } else sudahSelesaiButton.draw(); 
+      //else openBCI.stopDataTransfer();
     println(detik);
+    
 
     }
 
     if (isRunning == false){
       // widgetTemplateButton.setString("DULL");
       detik = waktuDetik;
+      widgetTemplateButton.draw();
+      ulang = 0;
     }
 
 
@@ -159,6 +169,7 @@ class W_ambilData extends Widget {
 
     //put your code here...
     widgetTemplateButton.setPos(x + w/2 - widgetTemplateButton.but_dx/2, y + h/2 - widgetTemplateButton.but_dy/2);
+    sudahSelesaiButton.setPos(x + w/2 - widgetTemplateButton.but_dx/2, y + h/2 - widgetTemplateButton.but_dy/2);
 
 
   }
