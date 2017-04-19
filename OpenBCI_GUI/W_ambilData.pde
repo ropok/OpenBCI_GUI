@@ -68,17 +68,8 @@ class W_ambilData extends Widget {
       fill(255,3,3);
       // rect(x,y+500,w,h-30);
       // rect(x0,y0,w0,h0);
-      rect(x,y-1,w,h+1);
-
-  }
-
-void kotakBiruTest(){
-    fullScreen();
-    noStroke();
-      fill(3,255,232);
-      // rect(x,y+500,w,h-30);
-      // rect(x0,y0,w0,h0);
-      rect(0,0,w,h+1);
+      // rect(x,y+400,w/4+35,h+1);
+      rect(x,y+400,w/4,h);
 
   }
 
@@ -87,9 +78,19 @@ void kotakBiruTest(){
       fill(3,255,232);
       // rect(x,y+500,w,h-30);
       // rect(x0,y0,w0,h0);
-      rect(x,y-1,w,h+1);
-
+      // rect(x+1000,y+400,width,height);
+      rect(w-(w/4),y+400,w/4,h);
   }
+// void kotakBiruTest(){
+//     fullScreen();
+//     noStroke();
+//       fill(3,255,232);
+//       // rect(x,y+500,w,h-30);
+//       // rect(x0,y0,w0,h0);
+//       rect(0,0,w,h+1);
+
+//   }
+
 
   // void kotakBiru(){
 
@@ -110,7 +111,8 @@ void kotakBiruTest(){
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
     pushStyle();
     //kotakBiruTest();
-
+    kotakBiru();
+    kotakMerah();
     // background(51);
     //print(mouseX, " ", mouseY);
 
