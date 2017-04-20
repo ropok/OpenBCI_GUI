@@ -22,9 +22,18 @@ class W_ambilData extends Widget {
   //timer
   float lastTimeCheck;
   float timeInterval;
+  int timeIntervalMili;
   public int detik;
+  float milidetik;
   int waktuDetik = -1;
   int ulang = 0;
+
+  //Variabel Kedip
+  boolean bMerah = true;
+  boolean bBlinkMerah;
+  int time = 0;
+  int timeDelay11 = 45;
+  int timeDelay12 = 40;
 
   //to see all core variables/methods of the Widget class, refer to Widget.pde
   //put your custom variables here...
@@ -54,6 +63,7 @@ class W_ambilData extends Widget {
     detik = waktuDetik;
     lastTimeCheck = millis();
     timeInterval = 1000;
+    timeIntervalMili = 0;
   }
 
   void timerDetik(){
@@ -61,6 +71,61 @@ class W_ambilData extends Widget {
       lastTimeCheck = millis();
       detik += 1;
     }
+  }
+
+    void timerDetikMili(){
+    if (millis() > lastTimeCheck + timeIntervalMili){
+      lastTimeCheck = millis();
+      // milidetik += 0.001;
+    }
+    // println(milidetik);
+  }
+
+  void kotakMerahKedip(){
+    // if(bMerah){
+    //   if(millis() - time >= timeDelay11){
+    //     time = millis();
+    //     bBlinkMerah = true;
+    //   }
+    //   if (bBlinkMerah){
+    //     kotakPutih();
+    //     bMerah = !bMerah;
+    //   }
+    // }
+
+    // else if(!bMerah){
+    //   if(millis() - time >= timeDelay11){
+    //     time = millis();
+    //     bBlinkMerah = false;
+    //   }
+    //   if (!bBlinkMerah){
+    //     kotakMerah();
+    //     bMerah = !bMerah;
+    //   }
+    // }
+
+    // if(bMerah){
+      if(millis() - time >= timeDelay11){
+        time = millis();
+        //bBlinkMerah = true;
+        kotakPutih();
+      }
+    // }
+
+    else kotakMerah();
+
+
+  }
+
+  void kotakBiruKedip(){
+      if(millis() - time >= timeDelay12){
+        time = millis();
+        kotakPutih();
+      }
+
+    else kotakBiru();
+
+
   }
 
   void kotakPutih(){
@@ -76,7 +141,6 @@ class W_ambilData extends Widget {
       // rect(x0,y0,w0,h0);
       // rect(x,y+400,w/4+35,h+1);
       rect(x,y+400,w/4,h);
-
   }
 
   void kotakBiru(){
@@ -116,6 +180,8 @@ class W_ambilData extends Widget {
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
     pushStyle();
+    //kotakMerahKedip();
+    // kotakBiruKedip();
     //kotakBiruTest();
     // kotakBiru();
     // kotakMerah();
@@ -133,27 +199,44 @@ class W_ambilData extends Widget {
     8-11 detik : kotakPutih
     11-16 detik : kotakBiru
     */
+    // int milidetik = millis();
     if (isRunning)
-    if (eegDataSource == DATASOURCE_SYNTHETIC){
+    if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
     timerDetik();
       // widgetTemplateButton.setString("Hore");
       if(ulang < 3){
       if(detik == waktuDetik) kotakPutih();
-      if(detik >= 3 && detik < 8) kotakMerah();
+      if(detik >= 3 && detik < 8) kotakMerahKedip();
       if(detik >= 8 && detik < 11) kotakPutih();
-      if(detik >= 11 && detik < 16) kotakBiru();
+      if(detik >= 11 && detik < 16) kotakBiruKedip();
       if(detik == 16) {detik = waktuDetik; ulang += 1;}
       // widgetTemplateButton.setString("3 detik");
       } else sudahSelesaiButton.draw(); 
       //else openBCI.stopDataTransfer();
-    println(detik);
-    
-
+    // println(lastTimeCheck);
     }
+
+    // if (eegDataSource == DATASOURCE_SYNTHETIC){
+    // timerDetikMili();
+    //   // widgetTemplateButton.setString("Hore");
+    //   if(ulang < 3){
+    //   if(milidetik == waktuDetik) kotakPutih();
+    //   if(milidetik >= 3.0 && milidetik < 8.0){
+    //     kotakMerah();
+    //   } 
+    //   if(milidetik >= 8.0 && milidetik < 11.0) kotakPutih();
+    //   if(milidetik >= 11.0 && milidetik < 16.0) kotakBiru();
+    //   if(milidetik == 16.0) {milidetik = waktuDetik; ulang += 1;}
+    //   // widgetTemplateButton.setString("3 detik");
+    //   } else sudahSelesaiButton.draw(); 
+    //   //else openBCI.stopDataTransfer();
+    // // println(lastTimeCheck);
+    // }
 
     if (isRunning == false){
       // widgetTemplateButton.setString("DULL");
       detik = waktuDetik;
+      // milidetik = waktuDetik; 
       widgetTemplateButton.draw();
       ulang = 0;
     }
