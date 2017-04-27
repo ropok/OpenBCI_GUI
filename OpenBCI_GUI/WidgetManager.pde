@@ -22,9 +22,15 @@ W_template w_template1;
 W_emg w_emg;
 W_openBionics w_openbionics;
 W_ambilData w_ambildata;
+W_ambilDataKe2 w_ambildatake2;
 
 //ADD YOUR WIDGET TO WIDGETS OF WIDGETMANAGER
 void setupWidgets(PApplet _this, ArrayList<Widget> w){
+
+
+  w_ambildatake2 = new W_ambilDataKe2(_this);
+  w_ambildatake2.setTitle("Widget Ambil Data Ke-2");
+  addWidget(w_ambildatake2, w);
 
   w_ambildata = new W_ambilData(_this);
   w_ambildata.setTitle("Widget Ambil Data");
