@@ -280,7 +280,13 @@ class Widget{
 
   void mouseReleased(){
 
+  }  
+
+  void keyPressed(){
+    
   }
+
+
 
   void setTitle(String _widgetTitle){
     widgetTitle = _widgetTitle;
@@ -384,6 +390,11 @@ class NavBarDropdown{
   void mouseReleased(){
 
   }
+
+  void keyPressed(){
+    
+  }
+
 
   String returnDefaultAsString(){
     String _defaultItem = items.get(defaultItem);

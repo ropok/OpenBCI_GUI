@@ -38,8 +38,8 @@ class W_ambilDataKe2 extends Widget {
 
   W_ambilDataKe2(PApplet _parent){
     super(_parent); //calls the parent CONSTRUCTOR method of Widget (DON'T REMOVE)
-
-    widgetTemplateButton = new Button (x + w/2, y + h/2, 200, navHeight, "Tekan Spasi Untuk Memulai Widget Ke-2", 12);
+    // noLoop();
+    widgetTemplateButton = new Button (x + w/2, y + h/2, 400, navHeight, "Tekan Spasi Untuk Memulai Widget Ke-2", 12);
     widgetTemplateButton.setFont(p4, 14);
 
 
@@ -95,12 +95,21 @@ class W_ambilDataKe2 extends Widget {
   void update(){
     super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
     //put your code here...
+    
+    if(key == 'A' || key == 'a' || keyCode == LEFT) widgetTemplateButton.setString("Tombol Kiri tertekan");
+    if(key == 'D' || /*key == 'd' ||*/ keyCode == RIGHT) widgetTemplateButton.setString("Tombol Kanan tertekan");
+    // println("Key code pressed: " + keyCode);
   }
 
   void draw(){
     super.draw(); //calls the parent draw() method of Widget (DON'T REMOVE)
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
+    //   void keyPressed(){
+    // super.keyPressed();
+    // if(keyCode == LEFT || key == 'a') println("mochi");
+      // widgetTemplateButton.setString("Tombol Kiri tertekan");
+  // }
     pushStyle();
     /*
     Aturan Training Data
@@ -122,6 +131,14 @@ class W_ambilDataKe2 extends Widget {
     }
     popStyle();
   }
+
+  // void keyPressed(){
+  //   super.keyPressed();
+  //   if(keyCode == LEFT || key == 'a') println("mochi");
+  //   redraw();
+  //     // widgetTemplateButton.setString("Tombol Kiri tertekan");
+  // }
+
 
   void screenResized(){
     super.screenResized(); //calls the parent screenResized() method of Widget (DON'T REMOVE)
