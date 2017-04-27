@@ -31,7 +31,8 @@ class W_ambilData extends Widget {
   //Variabel Kedip
   boolean bMerah = true;
   boolean bBlinkMerah;
-  int time = 0;
+  int time11 = 0;
+  int time12 = 0;
   int timeDelay11 = 45;
   int timeDelay12 = 40;
 
@@ -105,8 +106,8 @@ class W_ambilData extends Widget {
     // }
 
     // if(bMerah){
-      if(millis() - time >= timeDelay11){
-        time = millis();
+      if(millis() - time11 >= timeDelay11){
+        time11 = millis();
         //bBlinkMerah = true;
         kotakPutih();
       }
@@ -118,8 +119,8 @@ class W_ambilData extends Widget {
   }
 
   void kotakBiruKedip(){
-      if(millis() - time >= timeDelay12){
-        time = millis();
+      if(millis() - time12 >= timeDelay12){
+        time12 = millis();
         kotakPutih();
       }
 
@@ -180,7 +181,7 @@ class W_ambilData extends Widget {
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
     pushStyle();
-    //kotakMerahKedip();
+    // kotakMerahKedip();
     // kotakBiruKedip();
     //kotakBiruTest();
     // kotakBiru();
