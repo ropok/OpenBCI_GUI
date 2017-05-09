@@ -1409,6 +1409,11 @@ String logFileName;
 long thisTime;
 long thatTime;
 
+
+public class arah{
+  public final static String kananAtauKiri = "A"; 
+} 
+
 public void convertSDFile() {
   println("");
   try {
@@ -1472,6 +1477,9 @@ public void convertSDFile() {
         }
       }
       //println();
+
+    if(key == 'A' || key == 'a' || keyCode == LEFT) dataWriter.print("arah.kananAtauKiri");
+      //dataWriter.print(arah.kananAtauKiri);
       dataWriter.println();
     }
   }
