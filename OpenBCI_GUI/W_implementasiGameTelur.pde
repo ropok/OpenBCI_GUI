@@ -10,8 +10,7 @@
 //
 ///////////////////////////////////////////////////,
 
-// W_ambilDataKe2 jupukKe2;
-class W_ambilDataKe3 extends Widget {
+class W_implementasiGameTelur extends Widget {
 
   //Start Running
   //timer
@@ -19,7 +18,6 @@ class W_ambilDataKe3 extends Widget {
   float timeInterval;
   int timeIntervalMili;
   public int detik;
-  public int nomorWidget = 1;
   float milidetik;
   int waktuDetik = -1;
   int ulang = 0;
@@ -29,30 +27,35 @@ class W_ambilDataKe3 extends Widget {
   boolean bBlinkMerah;
   int time11 = 0;
   int time12 = 0;
-  int timeDelay11 = 45;
+  int timeDelay11 = 45;   
   int timeDelay12 = 40;
+
+  // Keranjang Telur
+  // PShape keranjang;
 
   //to see all core variables/methods of the Widget class, refer to Widget.pde
   //put your custom variables here...
   Button widgetTemplateButton;
   Button sudahSelesaiButton;
 
-  W_ambilDataKe3(PApplet _parent){
+  W_implementasiGameTelur(PApplet _parent){
     super(_parent); //calls the parent CONSTRUCTOR method of Widget (DON'T REMOVE)
     // noLoop();
-    widgetTemplateButton = new Button (x + w/2, y + h/2, 400, navHeight, "Tekan Spasi Untuk Memulai Ambil Data ke-1", 12);
+    widgetTemplateButton = new Button (x + w/2, y + h/2, 400, navHeight, "Tekan Spasi Untuk Mulai Bermain", 12);
     widgetTemplateButton.setFont(p4, 14);
 
 
     sudahSelesaiButton = new Button (x + w/2, y + h/2, 200, navHeight, "Sudah Selesai", 12);
     sudahSelesaiButton.setFont(p4, 14);
 
-
-
     //timer
     detik = waktuDetik;
     lastTimeCheck = millis();
     timeInterval = 1000;
+
+    //keranjang telur
+    // keranjang = createShape(ARC, 0, 0, 80, 80, 0, PI, CHORD);
+
   }
 
   void timerDetik(){
@@ -96,21 +99,25 @@ class W_ambilDataKe3 extends Widget {
       rect(w-(w/4),y+400,w/4,h);
   }
 
-  void pindahWidget(){
+  // void keranjangTelur(){
 
-    if(key == '1') {isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
-    if(key == '2') {isRunning = false; nomorWidget = 2; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-2");}
+  //     fill(255,3,3);
+  //   translate(mouseX, mouseY);
+  //   shape(keranjang);
+  // }
+
+  void keranjangTelur(){
+    fill(255,3,3);
+    stroke(0);
+    arc(mouseX, mouseY, 160, 160, 0, PI, CHORD); 
   }
-
   
   void update(){
     super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
     //put your code here...
-
-    pindahWidget();
     
-    // if(key == 'A' || key == 'a' || keyCode == LEFT) nomorWidget = 1;
-    // if(key == 'D' || /*key == 'd' ||*/ keyCode == RIGHT) nomorWidget = 2;
+    // if(key == 'A' || key == 'a' || keyCode == LEFT) widgetTemplateButton.setString("Tombol Kiri tertekan");
+    // if(key == 'D' || /*key == 'd' ||*/ keyCode == RIGHT) widgetTemplateButton.setString("Tombol Kanan tertekan");
     // println("Key code pressed: " + keyCode);
   }
 
@@ -123,34 +130,9 @@ class W_ambilDataKe3 extends Widget {
     // if(keyCode == LEFT || key == 'a') println("mochi");
       // widgetTemplateButton.setString("Tombol Kiri tertekan");
   // }
-
-    if(nomorWidget == 1){
+    // keranjangTelur();
     pushStyle();
-    if (isRunning)
-    if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
-    timerDetik();
-      // widgetTemplateButton.setString("Hore");
-      if(ulang < 3){
-      if(detik == waktuDetik) kotakPutih();
-      if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); popStyle();}
-      if(detik >= 8 && detik < 11) kotakPutih();
-      if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); popStyle();}
-      if(detik == 16) {detik = waktuDetik; ulang += 1;}
-      // widgetTemplateButton.setString("3 detik");
-      } else sudahSelesaiButton.draw();
-    }
 
-    if (isRunning == false){
-      detik = waktuDetik; 
-      widgetTemplateButton.draw();
-      ulang = 0;
-      pindahWidget();
-    }
-    popStyle();
-    }
-
-    if(nomorWidget == 2){
-    pushStyle();
     /*
     Aturan Training Data
     Kotak Biru = pilih dengan left
@@ -168,19 +150,18 @@ class W_ambilDataKe3 extends Widget {
     pushStyle();
     kotakBiruKedip();
     popStyle();
+
+    pushStyle();
+    keranjangTelur();
+    popStyle();
     }
 
     if (isRunning == false){
       detik = waktuDetik; 
       widgetTemplateButton.draw();
       ulang = 0;
-      pindahWidget();
     }
     popStyle();
-
-    }
-
-
   }
 
   // void keyPressed(){
