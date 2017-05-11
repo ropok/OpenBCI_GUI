@@ -1478,7 +1478,8 @@ public void convertSDFile() {
       }
       //println();
 
-    if(key == 'A' || key == 'a' || keyCode == LEFT) dataWriter.print("arah.kananAtauKiri");
+    if(key == 'A' || key == 'a' || keyCode == LEFT) dataWriter.print("L");
+    if(key == 'D' || key == 'd' || keyCode == RIGHT) dataWriter.print("R");
       //dataWriter.print(arah.kananAtauKiri);
       dataWriter.println();
     }
