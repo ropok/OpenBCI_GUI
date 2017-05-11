@@ -101,7 +101,7 @@ class W_Jalerse extends Widget {
     stroke(0);
     arc(mouseX, mouseY, 160, 160, 0, PI, CHORD); 
   }
-  
+
   void pindahWidget(){
 
     if(key == '1') {isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
@@ -113,119 +113,126 @@ class W_Jalerse extends Widget {
   void update(){
     super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
     //put your code here...
-
-    pindahWidget();
-    
-    // if(key == 'A' || key == 'a' || keyCode == LEFT) nomorWidget = 1;
-    // if(key == 'D' || /*key == 'd' ||*/ keyCode == RIGHT) nomorWidget = 2;
-    // println("Key code pressed: " + keyCode);
+    pindahWidget(); //Agar tombol ganti widget senantiasa aktif
   }
 
   void draw(){
     super.draw(); //calls the parent draw() method of Widget (DON'T REMOVE)
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
-    //   void keyPressed(){
-    // super.keyPressed();
-    // if(keyCode == LEFT || key == 'a') println("mochi");
-      // widgetTemplateButton.setString("Tombol Kiri tertekan");
-  // }
 
+    ////////////////////////////////////////////////////
+    //
+    //    Mode Widget Pertama - Ambil Data 1
+    //  1. Kotak Putih (blank) muncul selama 3 detik
+    //  2. Kotak Merah (di kiri) muncul selama 5 detik
+    //  3. Kotak Putih (blank) muncul selama 3 detik
+    //  4. Kotak Biru  (di kanan) muncul selama 5 detik
+    //  5. 1-4 diulangi sebanyak 2 kali (total 3 kali dengan yang pertama)
+    //
+    ///////////////////////////////////////////////////,
     if(nomorWidget == 1){
-    pushStyle();
-    if (isRunning)
-    if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
-    timerDetik();
-      // widgetTemplateButton.setString("Hore");
-      if(ulang < 3){
-      if(detik == waktuDetik) kotakPutih();
-      if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); popStyle();}
-      if(detik >= 8 && detik < 11) kotakPutih();
-      if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); popStyle();}
-      if(detik == 16) {detik = waktuDetik; ulang += 1;}
-      // widgetTemplateButton.setString("3 detik");
-      } else sudahSelesaiButton.draw();
+      pushStyle();
+      if (isRunning)
+        if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          timerDetik();
+          if(ulang < 3){
+            if(detik == waktuDetik) kotakPutih();
+            if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); popStyle();}
+            if(detik >= 8 && detik < 11) kotakPutih();
+            if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); popStyle();}
+            if(detik == 16) {detik = waktuDetik; ulang += 1;}
+          } else sudahSelesaiButton.draw();
+        }
+      if (isRunning == false){
+        detik = waktuDetik; 
+        widgetTemplateButton.draw();
+        ulang = 0;
+        pindahWidget();
+      }
+      popStyle();
     }
 
-    if (isRunning == false){
-      detik = waktuDetik; 
-      widgetTemplateButton.draw();
-      ulang = 0;
-      pindahWidget();
-    }
-    popStyle();
-    }
 
+    ////////////////////////////////////////////////////
+    //
+    //    Mode Widget Kedua - Ambil Data 2
+    // 1. Dua Kotak warna biru dan merah muncul secara bersamaan
+    // 2. Sampel diminta untuk fokus pada salah satu kotak
+    // 3. Jika akan fokus ke kotak Merah, terlebih dahulu sampel menekan Tombol Keyboard Arah Kiri/Left Directional Button (<-)
+    // 4. Jika akan fokus ke kotak Biru, terlebih dahulu sampel menekan Tombol Keyboard Arah Kanan/Right Directional Button (->)
+    // 5. Tiap penekanan tombol keyboard arah akan dicatat didalam DataLogging
+    //
+    ///////////////////////////////////////////////////,
     if(nomorWidget == 2){
-    pushStyle();
-    /*
-    Aturan Training Data
-    Kotak Biru = pilih dengan left
-    Kotak Merah = pilih dengan right
-    Tiap pemilihan dicatat di ambilData
-    */
-    if (isRunning)
-    if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
-    timerDetik();
+      pushStyle();
+      if (isRunning)
+        if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          timerDetik();
 
-    pushStyle();
-    kotakMerahKedip();
-    popStyle();
+          pushStyle();
+          kotakMerahKedip();
+          popStyle();
 
-    pushStyle();
-    kotakBiruKedip();
-    popStyle();
+          pushStyle();
+          kotakBiruKedip();
+          popStyle();
+        } 
+      if (isRunning == false){
+        detik = waktuDetik; 
+        widgetTemplateButton.draw();
+        ulang = 0;
+        pindahWidget();
+     }
+      popStyle();
     }
 
-    if (isRunning == false){
-      detik = waktuDetik; 
-      widgetTemplateButton.draw();
-      ulang = 0;
-      pindahWidget();
-    }
-    popStyle();
 
-    }
-
+    ////////////////////////////////////////////////////
+    //
+    //    Mode Widget Ketiga - Implementasi Game Keranjang Telur
+    // 1. Dua Kotak warna biru dan merah muncul secara bersamaan
+    // 2. Terdapat keranjang telur di tengah, akan ada telur jatuh secara random dari atas ke bawah
+    // 3. Sampel diminta untuk menangkap telur dengan keranjang dengan cara fokus pada salah satu kotak (merah dan biru)
+    // 4. Fokus Kotak Merah (di kiri) untuk menggerakkan keranjang ke kiri
+    // 5. Fokus Kotak Biru (di kanan) untuk menggerakkan keranjang ke kanan
+    // 6. Jika Berhasil menangkap telur, skor tangkap bertambah 1
+    // 7. Jika Gagal menangkap telur (telur jatuh sampai bawah keranjang), skor pecah bertambah 1
+    // 8. Skor digunakan untuk mengukur akurasi pada implementasi ini dengan membagi skor tangkap dengan jumalh skor tangkap dan skor pecah
+    //    ( Akurasi = skorTangkap/(skorTangkap+skorPecah) )
+    // 2. Sampel diminta untuk fokus pada salah satu kotak
+    // 3. Jika akan fokus ke kotak Merah, terlebih dahulu sampel menekan Tombol Keyboard Arah Kiri/Left Directional Button (<-)
+    // 4. Jika akan fokus ke kotak Biru, terlebih dahulu sampel menekan Tombol Keyboard Arah Kanan/Right Directional Button (->)
+    // 5. Tiap penekanan tombol keyboard arah akan dicatat didalam DataLogging
+    //
+    ///////////////////////////////////////////////////,
     if(nomorWidget == 3){
+      pushStyle();
+      if (isRunning)
+        if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          timerDetik(); 
 
-    pushStyle();
-    if (isRunning)
-    if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
-    timerDetik();
+          pushStyle();
+          kotakMerahKedip();
+          popStyle();
 
-    pushStyle();
-    kotakMerahKedip();
-    popStyle();
+          pushStyle();
+          kotakBiruKedip();
+          popStyle();
 
-    pushStyle();
-    kotakBiruKedip();
-    popStyle();
-
-    pushStyle();
-    keranjangTelur();
-    popStyle();
+          pushStyle();
+          keranjangTelur();
+          popStyle();
+        }
+      if (isRunning == false){
+        detik = waktuDetik; 
+        widgetTemplateButton.draw();
+        ulang = 0;
+        pindahWidget();
+      }
+      popStyle();
     }
-
-    if (isRunning == false){
-      detik = waktuDetik; 
-      widgetTemplateButton.draw();
-      ulang = 0;
-      pindahWidget();
-    }
-    popStyle();
-    }
-
-
   }
-
-  // void keyPressed(){
-  //   super.keyPressed();
-  //   if(keyCode == LEFT || key == 'a') println("mochi");
-  //   redraw();
-  //     // widgetTemplateButton.setString("Tombol Kiri tertekan");
-  // }
-
 
   void screenResized(){
     super.screenResized(); //calls the parent screenResized() method of Widget (DON'T REMOVE)
