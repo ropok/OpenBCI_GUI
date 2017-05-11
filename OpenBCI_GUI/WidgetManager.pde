@@ -25,9 +25,14 @@ W_ambilData w_ambildata;
 W_ambilDataKe2 w_ambildatake2;
 W_ambilDataKe3 w_ambildatake3;
 W_implementasiGameTelur w_implementasigametelur;
+W_Jalerse w_jalerse;
 
 //ADD YOUR WIDGET TO WIDGETS OF WIDGETMANAGER
 void setupWidgets(PApplet _this, ArrayList<Widget> w){
+
+  w_jalerse = new W_Jalerse(_this);
+  w_jalerse.setTitle("Widgetnya jalerse");
+  addWidget(w_jalerse, w);
 
   w_ambildatake3 = new W_ambilDataKe3(_this);
   w_ambildatake3.setTitle("Widget Ambil Data Ke-3");
