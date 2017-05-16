@@ -16,6 +16,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.io.OutputStream;
 
+  void update(){
+    // super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
+    //put your code here...
+
+    if(keyPressed){
+      if (key == LEFT) print("LEFT");
+  }
+  }
 
 DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 //------------------------------------------------------------------------
@@ -246,11 +254,14 @@ public class OutputFile_rawtxt {
     //get current date time with Date()
     Date date = new Date();
 
+     // String fokus = "R";
+
     if (output != null) {
       output.print(Integer.toString(data.sampleIndex));
       writeValues(data.values,scale_to_uV);
       writeAccValues(data.auxValues,scale_for_aux);
       output.print( ", " + dateFormat.format(date));
+      keyPressed();
       output.println(); rowsWritten++;
       //output.flush();
     }
@@ -271,6 +282,13 @@ public class OutputFile_rawtxt {
       output.print(String.format(Locale.US, "%.3f", scale_fac * float(values[Ival])));
     }
   }
+
+  private void keyPressed(){
+    // if(keyPressed){
+    //   if (key == LEFT) { output.print(", "); output.print("L"); }
+  // }
+    output.print(", "); output.print(jalerse.fokus);
+}
 
   public void closeFile() {
     output.flush();
@@ -1475,11 +1493,13 @@ public void convertSDFile() {
           //print "," separator
           dataWriter.print(",");
         }
+        dataWriter.print("T"); 
       }
       //println();
 
-    if(key == 'A' || key == 'a' || keyCode == LEFT) dataWriter.print("L");
-    if(key == 'D' || key == 'd' || keyCode == RIGHT) dataWriter.print("R");
+      // if(key == 'A' || key == 'a' || keyCode == LEFT) dataWriter.print("L");
+      // if(key == 'D' || key == 'd' || keyCode == RIGHT) dataWriter.print("R");
+
       //dataWriter.print(arah.kananAtauKiri);
       dataWriter.println();
     }

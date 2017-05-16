@@ -10,6 +10,7 @@
 //
 ///////////////////////////////////////////////////,
 
+W_Jalerse jalerse;
 // W_ambilDataKe2 jupukKe2;
 class W_Jalerse extends Widget {
 
@@ -24,13 +25,21 @@ class W_Jalerse extends Widget {
   int waktuDetik = -1;
   int ulang = 0;
 
-  //Variabel Kedip
+  public int fokus = 7;
+
+  //Variabel Kedip, time in ms
   boolean bMerah = true;
   boolean bBlinkMerah;
   int time11 = 0;
   int time12 = 0;
+  int timeTelur = 0;
   int timeDelay11 = 45;
   int timeDelay12 = 40;
+
+  //telur
+  float jatuh;
+  float ypos = 0;
+  float yspeed = 10;
 
   //to see all core variables/methods of the Widget class, refer to Widget.pde
   //put your custom variables here...
@@ -97,16 +106,36 @@ class W_Jalerse extends Widget {
   }
 
   void keranjangTelur(){
-    fill(255,3,3);
+    fill(142,142,147);
     stroke(0);
-    arc(mouseX, mouseY, 160, 160, 0, PI, CHORD); 
+    arc(mouseX, y+300, 160, 160, 0, PI, CHORD); 
+  }
+
+  void telur(){
+    jatuh = random (x,h);
+    stroke(0);
+    fill(255);
+    ellipse(jatuh, ypos, 70, 110);
+    ypos = ypos + yspeed;
+
+  }
+
+  void jatuhTelur(){
+      if(millis() - timeTelur >= random(200, 1000)){
+        timeTelur = millis();
+        telur(); 
+      }
+
   }
 
   void pindahWidget(){
-
-    if(key == '1') {isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
-    if(key == '2') {isRunning = false; nomorWidget = 2; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-2");}
-    if(key == '3') {isRunning = false; nomorWidget = 3; widgetTemplateButton.setString("Tekan Spasi Untuk Mulai Bermain");}
+    if(key == '1') {fokus = 7; isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
+    if(key == '2') {fokus = 7; isRunning = false; nomorWidget = 2; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-2");}
+    if(key == '3') {fokus = 7; isRunning = false; nomorWidget = 3; widgetTemplateButton.setString("Tekan Spasi Untuk Mulai Bermain");}
+    if(keyCode == LEFT) fokus = 1;
+    if(keyCode == RIGHT) fokus = 0;
+    if(keyCode == UP) fokus = 5;
+    // println (fokus);
   }
 
   
@@ -120,7 +149,7 @@ class W_Jalerse extends Widget {
     super.draw(); //calls the parent draw() method of Widget (DON'T REMOVE)
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
-
+    jatuhTelur();
     ////////////////////////////////////////////////////
     //
     //    Mode Widget Pertama - Ambil Data 1
