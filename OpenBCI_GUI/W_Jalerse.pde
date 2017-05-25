@@ -46,6 +46,12 @@ class W_Jalerse extends Widget {
   Button widgetTemplateButton;
   Button sudahSelesaiButton;
 
+  //.txt Focus
+  String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
+  PrintWriter outputText;
+  int counterText;
+  String focus = "UP";
+
   W_Jalerse(PApplet _parent){
     super(_parent); //calls the parent CONSTRUCTOR method of Widget (DON'T REMOVE)
     // noLoop();
@@ -56,12 +62,16 @@ class W_Jalerse extends Widget {
     sudahSelesaiButton = new Button (x + w/2, y + h/2, 200, navHeight, "Sudah Selesai", 12);
     sudahSelesaiButton.setFont(p4, 14);
 
-
-
     //timer
     detik = waktuDetik;
     lastTimeCheck = millis();
     timeInterval = 1000;
+
+
+    //.txt Focus
+    counterText = 0;
+    outputText = createWriter(outputName);
+    outputText.println("No." + "\t" + "Fokus" + "\t\t" + "Waktu");
   }
 
   void timerDetik(){
@@ -132,10 +142,19 @@ class W_Jalerse extends Widget {
     if(key == '1') {fokus = 7; isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
     if(key == '2') {fokus = 7; isRunning = false; nomorWidget = 2; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-2");}
     if(key == '3') {fokus = 7; isRunning = false; nomorWidget = 3; widgetTemplateButton.setString("Tekan Spasi Untuk Mulai Bermain");}
-    if(keyCode == LEFT) fokus = 1;
-    if(keyCode == RIGHT) fokus = 0;
-    if(keyCode == UP) fokus = 5;
+    // if(keyCode == LEFT) fokus = 1;
+    // if(keyCode == RIGHT) fokus = 0;
+    // if(keyCode == UP) fokus = 5;
     // println (fokus);
+  }
+
+  void tekanFokus(){
+    // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
+    // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
+    // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
+    if(keyCode == LEFT) focus = "LEFT";
+    if(keyCode == RIGHT) focus = "RIGHT";
+    if(keyCode == UP) focus = "UP";
   }
 
   
@@ -143,13 +162,14 @@ class W_Jalerse extends Widget {
     super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
     //put your code here...
     pindahWidget(); //Agar tombol ganti widget senantiasa aktif
+    tekanFokus();
   }
 
   void draw(){
     super.draw(); //calls the parent draw() method of Widget (DON'T REMOVE)
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
-    jatuhTelur();
+    // jatuhTelur();
     ////////////////////////////////////////////////////
     //
     //    Mode Widget Pertama - Ambil Data 1
@@ -188,15 +208,20 @@ class W_Jalerse extends Widget {
     //    Mode Widget Kedua - Ambil Data 2
     // 1. Dua Kotak warna biru dan merah muncul secara bersamaan
     // 2. Sampel diminta untuk fokus pada salah satu kotak
-    // 3. Jika akan fokus ke kotak Merah, terlebih dahulu sampel menekan Tombol Keyboard Arah Kiri/Left Directional Button (<-)
-    // 4. Jika akan fokus ke kotak Biru, terlebih dahulu sampel menekan Tombol Keyboard Arah Kanan/Right Directional Button (->)
-    // 5. Tiap penekanan tombol keyboard arah akan dicatat didalam DataLogging
+    // 3. Jika akan fokus ke kotak Merah, terlebih dahulu sampel menekan Tombol Keyboard Arah Kiri/Left Directional Button (←)
+    // 4. Jika akan fokus ke kotak Biru, terlebih dahulu sampel menekan Tombol Keyboard Arah Kanan/Right Directional Button (→)
+    // 5. Jika akan fokus ke warna Putih (Relax), terlebih dahulu sampel menekan Tombol Keyboard Arah Atas/Up Directional Button (↑)
+    // 6. Tiap penekanan tombol keyboard arah akan dicatat didalam DataLogging
     //
     ///////////////////////////////////////////////////,
     if(nomorWidget == 2){
       pushStyle();
       if (isRunning)
         if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          tekanFokus(); 
+          outputText.println(counterText + "," + "\t" + focus + "\t\t" + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          outputText.flush();
+          counterText++;
           timerDetik();
 
           pushStyle();
