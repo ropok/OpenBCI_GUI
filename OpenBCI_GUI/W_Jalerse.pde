@@ -219,7 +219,8 @@ class W_Jalerse extends Widget {
       if (isRunning)
         if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
           tekanFokus(); 
-          outputText.println(counterText + "," + "\t" + focus + "\t\t" + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println(counterText + "," + "\t" + focus + "\t\t" + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
           outputText.flush();
           counterText++;
           timerDetik();

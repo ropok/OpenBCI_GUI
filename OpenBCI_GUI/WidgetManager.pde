@@ -144,7 +144,7 @@ class WidgetManager{
     setupWidgetSelectorDropdowns();
 
     if(nchan == 4 && eegDataSource == DATASOURCE_GANGLION){
-      currentContainerLayout = 1;
+      currentContainerLayout = 0;
       setNewContainerLayout(currentContainerLayout); //sets and fills layout with widgets in order of widget index, to reorganize widget index, reorder the creation in setupWidgets()
     } else {
       currentContainerLayout = 0; //default layout ... tall container left and 2 shorter containers stacked on the right
