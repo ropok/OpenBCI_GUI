@@ -230,12 +230,13 @@ public class OutputFile_rawtxt {
   }
 
   public void writeHeader(float fs_Hz) {
-    output.println("%OpenBCI Raw EEG Data");
-    output.println("%");
-    output.println("%Sample Rate = " + fs_Hz + " Hz");
-    output.println("%First Column = SampleIndex");
-    output.println("%Last Column = Timestamp ");
-    output.println("%Other Columns = EEG data in microvolts followed by Accel Data (in G) interleaved with Aux Data");
+    // output.println("%OpenBCI Raw EEG Data");
+    // output.println("%");
+    // output.println("%Sample Rate = " + fs_Hz + " Hz");
+    // output.println("%First Column = SampleIndex");
+    // output.println("%Last Column = Timestamp ");
+    // output.println("%Other Columns = EEG data in microvolts followed by Accel Data (in G) interleaved with Aux Data");
+    output.println("%No., " + "CH1, "  + "CH2, " + "CH3, " + "CH4, " + "Accel X, " + "Accel Y, " + "Accel Z, " + getDateString());
     output.flush();
   }
 

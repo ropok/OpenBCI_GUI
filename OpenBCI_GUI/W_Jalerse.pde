@@ -52,6 +52,8 @@ class W_Jalerse extends Widget {
   int counterText;
   String focus = "UP";
 
+  public boolean nulisData = false;
+
   W_Jalerse(PApplet _parent){
     super(_parent); //calls the parent CONSTRUCTOR method of Widget (DON'T REMOVE)
     // noLoop();
@@ -157,12 +159,24 @@ class W_Jalerse extends Widget {
     if(keyCode == UP) focus = "UP";
   }
 
+  void tulisData(){
+          outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          outputText.flush();
+          counterText++;
+  }
+
   
   void update(){
     super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
     //put your code here...
     pindahWidget(); //Agar tombol ganti widget senantiasa aktif
-    tekanFokus();
+    // tekanFokus();
+
+      if (isRunning)
+        if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          tulisData();
+        }
+    // if(nulisData == true) tulisData();
   }
 
   void draw(){
@@ -185,13 +199,14 @@ class W_Jalerse extends Widget {
       if (isRunning)
         if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
           timerDetik();
+          // tulisData();
           if(ulang < 3){
-            if(detik == waktuDetik) kotakPutih();
-            if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); popStyle();}
-            if(detik >= 8 && detik < 11) kotakPutih();
-            if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); popStyle();}
+            if(detik == waktuDetik) {kotakPutih(); focus = "UP"; /*tulisData();*/}
+            if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); focus = "LEFT"; /*tulisData();*/ popStyle();}
+            if(detik >= 8 && detik < 11) {kotakPutih(); focus = "UP"; /*tulisData();*/}
+            if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); focus = "RIGHT"; /*tulisData();*/ popStyle();}
             if(detik == 16) {detik = waktuDetik; ulang += 1;}
-          } else sudahSelesaiButton.draw();
+          } else {sudahSelesaiButton.draw(); isRunning = false;}
         }
       if (isRunning == false){
         detik = waktuDetik; 
@@ -220,9 +235,7 @@ class W_Jalerse extends Widget {
         if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
           tekanFokus(); 
           // outputText.println(counterText + "," + "\t" + focus + "\t\t" + hour() + ":" + minute() + ":" + second() + ";" + millis());
-          outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-          outputText.flush();
-          counterText++;
+          // tulisData();
           timerDetik();
 
           pushStyle();

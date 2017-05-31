@@ -2,7 +2,7 @@ import pandas as pd
 import glob
 import numpy as np
 
-file1 = 'OpenBCI-RAW-A2.txt'
+file1 = 'OpenBCI-RAW-Z6.txt'
 
 a = pd.read_csv(file1)
 ##b = pd.read_csv('Feature_Kelas_2.csv')

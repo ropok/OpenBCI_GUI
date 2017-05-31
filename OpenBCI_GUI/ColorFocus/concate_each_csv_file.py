@@ -2,7 +2,7 @@ import pandas as pd
 import glob
 import numpy as np
 
-file1 = 'Z1_colorFocus.csv'
+file1 = 'Z6_colorFocus.txt'
 
 a = pd.read_csv(file1)
 ##b = pd.read_csv('Feature_Kelas_2.csv')
