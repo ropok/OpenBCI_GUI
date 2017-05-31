@@ -10,6 +10,11 @@
 //
 ///////////////////////////////////////////////////,
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+DateFormat tanggalFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+
 W_Jalerse jalerse;
 // W_ambilDataKe2 jupukKe2;
 class W_Jalerse extends Widget {
@@ -50,7 +55,7 @@ class W_Jalerse extends Widget {
   String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
   PrintWriter outputText;
   int counterText;
-  String focus = "UP";
+  String focus = "N";
 
   public boolean nulisData = false;
 
@@ -154,13 +159,26 @@ class W_Jalerse extends Widget {
     // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
     // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
     // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
+    if(keyPressed){
     if(keyCode == LEFT) focus = "LEFT";
     if(keyCode == RIGHT) focus = "RIGHT";
-    if(keyCode == UP) focus = "UP";
+    // if(keyCode == UP) focus = "UP";
+    }
+    else focus = "N";
   }
 
   void tulisData(){
-          outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+
+    Date tanggal = new Date();
+
+          outputText.println(counterText + ", " + focus + ", " + tanggalFormat.format(tanggal));
+
+          // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // if(counterText%10 == 0 || counterText%7 == 0 ) outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println((counterText+1) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println((counterText+2) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
           outputText.flush();
           counterText++;
   }
@@ -201,9 +219,9 @@ class W_Jalerse extends Widget {
           timerDetik();
           // tulisData();
           if(ulang < 3){
-            if(detik == waktuDetik) {kotakPutih(); focus = "UP"; /*tulisData();*/}
+            if(detik == waktuDetik) {kotakPutih(); focus = "N"; /*tulisData();*/}
             if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); focus = "LEFT"; /*tulisData();*/ popStyle();}
-            if(detik >= 8 && detik < 11) {kotakPutih(); focus = "UP"; /*tulisData();*/}
+            if(detik >= 8 && detik < 11) {kotakPutih(); focus = "N"; /*tulisData();*/}
             if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); focus = "RIGHT"; /*tulisData();*/ popStyle();}
             if(detik == 16) {detik = waktuDetik; ulang += 1;}
           } else {sudahSelesaiButton.draw(); isRunning = false;}

@@ -230,12 +230,13 @@ public class OutputFile_rawtxt {
   }
 
   public void writeHeader(float fs_Hz) {
-    output.println("%OpenBCI Raw EEG Data");
-    output.println("%");
-    output.println("%Sample Rate = " + fs_Hz + " Hz");
-    output.println("%First Column = SampleIndex");
-    output.println("%Last Column = Timestamp ");
-    output.println("%Other Columns = EEG data in microvolts followed by Accel Data (in G) interleaved with Aux Data");
+    // output.println("%OpenBCI Raw EEG Data");
+    // output.println("%");
+    // output.println("%Sample Rate = " + fs_Hz + " Hz");
+    // output.println("%First Column = SampleIndex");
+    // output.println("%Last Column = Timestamp ");
+    // output.println("%Other Columns = EEG data in microvolts followed by Accel Data (in G) interleaved with Aux Data");
+    output.println("%No., " + "CH1, "  + "CH2, " + "CH3, " + "CH4, " + "Accel X, " + "Accel Y, " + "Accel Z, " + getDateString());
     output.flush();
   }
 
@@ -1409,11 +1410,6 @@ String logFileName;
 long thisTime;
 long thatTime;
 
-
-public class arah{
-  public final static String kananAtauKiri = "A"; 
-} 
-
 public void convertSDFile() {
   println("");
   try {
@@ -1477,10 +1473,6 @@ public void convertSDFile() {
         }
       }
       //println();
-
-    if(key == 'A' || key == 'a' || keyCode == LEFT) dataWriter.print("L");
-    if(key == 'D' || key == 'd' || keyCode == RIGHT) dataWriter.print("R");
-      //dataWriter.print(arah.kananAtauKiri);
       dataWriter.println();
     }
   }

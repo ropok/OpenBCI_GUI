@@ -10,6 +10,12 @@
 //
 ///////////////////////////////////////////////////,
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+DateFormat tanggalFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+
+W_Jalerse jalerse;
 // W_ambilDataKe2 jupukKe2;
 class W_Jalerse extends Widget {
 
@@ -23,6 +29,8 @@ class W_Jalerse extends Widget {
   float milidetik;
   int waktuDetik = -1;
   int ulang = 0;
+
+  public int fokus = 7;
 
   //Variabel Kedip, time in ms
   boolean bMerah = true;
@@ -43,6 +51,14 @@ class W_Jalerse extends Widget {
   Button widgetTemplateButton;
   Button sudahSelesaiButton;
 
+  //.txt Focus
+  String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
+  PrintWriter outputText;
+  int counterText;
+  String focus = "N";
+
+  public boolean nulisData = false;
+
   W_Jalerse(PApplet _parent){
     super(_parent); //calls the parent CONSTRUCTOR method of Widget (DON'T REMOVE)
     // noLoop();
@@ -53,12 +69,16 @@ class W_Jalerse extends Widget {
     sudahSelesaiButton = new Button (x + w/2, y + h/2, 200, navHeight, "Sudah Selesai", 12);
     sudahSelesaiButton.setFont(p4, 14);
 
-
-
     //timer
     detik = waktuDetik;
     lastTimeCheck = millis();
     timeInterval = 1000;
+
+
+    //.txt Focus
+    counterText = 0;
+    outputText = createWriter(outputName);
+    outputText.println("No." + "\t" + "Fokus" + "\t\t" + "Waktu");
   }
 
   void timerDetik(){
@@ -103,7 +123,7 @@ class W_Jalerse extends Widget {
   }
 
   void keranjangTelur(){
-    fill(255,3,3);
+    fill(142,142,147);
     stroke(0);
     arc(mouseX, y+300, 160, 160, 0, PI, CHORD); 
   }
@@ -120,16 +140,47 @@ class W_Jalerse extends Widget {
   void jatuhTelur(){
       if(millis() - timeTelur >= random(200, 1000)){
         timeTelur = millis();
-        telur();
+        telur(); 
       }
 
   }
 
   void pindahWidget(){
+    if(key == '1') {fokus = 7; isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
+    if(key == '2') {fokus = 7; isRunning = false; nomorWidget = 2; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-2");}
+    if(key == '3') {fokus = 7; isRunning = false; nomorWidget = 3; widgetTemplateButton.setString("Tekan Spasi Untuk Mulai Bermain");}
+    // if(keyCode == LEFT) fokus = 1;
+    // if(keyCode == RIGHT) fokus = 0;
+    // if(keyCode == UP) fokus = 5;
+    // println (fokus);
+  }
 
-    if(key == '1') {isRunning = false; nomorWidget = 1; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-1");}
-    if(key == '2') {isRunning = false; nomorWidget = 2; widgetTemplateButton.setString("Tekan Spasi Untuk Memulai Ambil Data ke-2");}
-    if(key == '3') {isRunning = false; nomorWidget = 3; widgetTemplateButton.setString("Tekan Spasi Untuk Mulai Bermain");}
+  void tekanFokus(){
+    // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
+    // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
+    // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
+    if(keyPressed){
+    if(keyCode == LEFT) focus = "LEFT";
+    if(keyCode == RIGHT) focus = "RIGHT";
+    // if(keyCode == UP) focus = "UP";
+    }
+    else focus = "N";
+  }
+
+  void tulisData(){
+
+    Date tanggal = new Date();
+
+          outputText.println(counterText + ", " + focus + ", " + tanggalFormat.format(tanggal));
+
+          // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // if(counterText%10 == 0 || counterText%7 == 0 ) outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println((counterText+1) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // outputText.println((counterText+2) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          outputText.flush();
+          counterText++;
   }
 
   
@@ -137,13 +188,20 @@ class W_Jalerse extends Widget {
     super.update(); //calls the parent update() method of Widget (DON'T REMOVE)
     //put your code here...
     pindahWidget(); //Agar tombol ganti widget senantiasa aktif
+    // tekanFokus();
+
+      if (isRunning)
+        if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          tulisData();
+        }
+    // if(nulisData == true) tulisData();
   }
 
   void draw(){
     super.draw(); //calls the parent draw() method of Widget (DON'T REMOVE)
 
     //put your code here... //remember to refer to x,y,w,h which are the positioning variables of the Widget class
-    jatuhTelur();
+    // jatuhTelur();
     ////////////////////////////////////////////////////
     //
     //    Mode Widget Pertama - Ambil Data 1
@@ -159,13 +217,14 @@ class W_Jalerse extends Widget {
       if (isRunning)
         if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
           timerDetik();
+          // tulisData();
           if(ulang < 3){
-            if(detik == waktuDetik) kotakPutih();
-            if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); popStyle();}
-            if(detik >= 8 && detik < 11) kotakPutih();
-            if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); popStyle();}
+            if(detik == waktuDetik) {kotakPutih(); focus = "N"; /*tulisData();*/}
+            if(detik >= 3 && detik < 8) {pushStyle(); kotakMerahKedip(); focus = "LEFT"; /*tulisData();*/ popStyle();}
+            if(detik >= 8 && detik < 11) {kotakPutih(); focus = "N"; /*tulisData();*/}
+            if(detik >= 11 && detik < 16) {pushStyle(); kotakBiruKedip(); focus = "RIGHT"; /*tulisData();*/ popStyle();}
             if(detik == 16) {detik = waktuDetik; ulang += 1;}
-          } else sudahSelesaiButton.draw();
+          } else {sudahSelesaiButton.draw(); isRunning = false;}
         }
       if (isRunning == false){
         detik = waktuDetik; 
@@ -182,15 +241,19 @@ class W_Jalerse extends Widget {
     //    Mode Widget Kedua - Ambil Data 2
     // 1. Dua Kotak warna biru dan merah muncul secara bersamaan
     // 2. Sampel diminta untuk fokus pada salah satu kotak
-    // 3. Jika akan fokus ke kotak Merah, terlebih dahulu sampel menekan Tombol Keyboard Arah Kiri/Left Directional Button (<-)
-    // 4. Jika akan fokus ke kotak Biru, terlebih dahulu sampel menekan Tombol Keyboard Arah Kanan/Right Directional Button (->)
-    // 5. Tiap penekanan tombol keyboard arah akan dicatat didalam DataLogging
+    // 3. Jika akan fokus ke kotak Merah, terlebih dahulu sampel menekan Tombol Keyboard Arah Kiri/Left Directional Button (←)
+    // 4. Jika akan fokus ke kotak Biru, terlebih dahulu sampel menekan Tombol Keyboard Arah Kanan/Right Directional Button (→)
+    // 5. Jika akan fokus ke warna Putih (Relax), terlebih dahulu sampel menekan Tombol Keyboard Arah Atas/Up Directional Button (↑)
+    // 6. Tiap penekanan tombol keyboard arah akan dicatat didalam DataLogging
     //
     ///////////////////////////////////////////////////,
     if(nomorWidget == 2){
       pushStyle();
       if (isRunning)
         if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION){
+          tekanFokus(); 
+          // outputText.println(counterText + "," + "\t" + focus + "\t\t" + hour() + ":" + minute() + ":" + second() + ";" + millis());
+          // tulisData();
           timerDetik();
 
           pushStyle();

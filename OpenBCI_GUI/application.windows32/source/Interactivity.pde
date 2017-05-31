@@ -32,6 +32,15 @@ void keyPressed() {
   if(key==27){
     key=0; //disable 'esc' quitting program
   }
+
+  if(keyCode == LEFT){
+    println("I pressed LEFT");
+    // topNav.fokus = "L";
+    // topNav.fokus = 1;
+  }
+  if(keyCode == RIGHT){
+    println("I pressed RIGHT");
+  }
 }
 
 void parseKey(char val) {
