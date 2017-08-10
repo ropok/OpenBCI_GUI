@@ -37,20 +37,20 @@ void activateChannel(int Ichan) {
   }
 }
 void deactivateChannel(int Ichan) {
-  println("OpenBCI_GUI: deactivating channel " + (Ichan+1));
-  if (eegDataSource == DATASOURCE_NORMAL_W_AUX) {
-    if (openBCI.isSerialPortOpen()) {
-      verbosePrint("**");
-      openBCI.changeChannelState(Ichan, false); //de-activate
-    }
-  } else if (eegDataSource == DATASOURCE_GANGLION) {
-    // println("deactivating channel on ganglion");
-    ganglion.changeChannelState(Ichan, false);
-  }
-  if (Ichan < nchan) {
-    channelSettingValues[Ichan][0] = '1';
-    // gui.cc.update();
-  }
+  // println("OpenBCI_GUI: deactivating channel " + (Ichan+1));
+  // if (eegDataSource == DATASOURCE_NORMAL_W_AUX) {
+  //   if (openBCI.isSerialPortOpen()) {
+  //     verbosePrint("**");
+  //     openBCI.changeChannelState(Ichan, false); //de-activate
+  //   }
+  // } else if (eegDataSource == DATASOURCE_GANGLION) {
+  //   // println("deactivating channel on ganglion");
+  //   ganglion.changeChannelState(Ichan, false);
+  // }
+  // if (Ichan < nchan) {
+  //   channelSettingValues[Ichan][0] = '1';
+  //   // gui.cc.update();
+  // }
 }
 
 //Ichan is zero referenced (not one referenced)
@@ -346,16 +346,16 @@ class HardwareSettingsController{
   }
 
   public void powerDownChannel(int _numChannel) {
-    verbosePrint("Powering down channel " + str(int(_numChannel) + int(1)));
-    //save SRB2 and BIAS settings in 2D history array (to turn back on when channel is reactivated)
-    previousBIAS[_numChannel] = channelSettingValues[_numChannel][3];
-    previousSRB2[_numChannel] = channelSettingValues[_numChannel][4];
-    channelSettingValues[_numChannel][3] = '0'; //make sure to disconnect from BIAS
-    channelSettingValues[_numChannel][4] = '0'; //make sure to disconnect from SRB2
+    // verbosePrint("Powering down channel " + str(int(_numChannel) + int(1)));
+    // //save SRB2 and BIAS settings in 2D history array (to turn back on when channel is reactivated)
+    // previousBIAS[_numChannel] = channelSettingValues[_numChannel][3];
+    // previousSRB2[_numChannel] = channelSettingValues[_numChannel][4];
+    // channelSettingValues[_numChannel][3] = '0'; //make sure to disconnect from BIAS
+    // channelSettingValues[_numChannel][4] = '0'; //make sure to disconnect from SRB2
 
-    channelSettingValues[_numChannel][0] = '1'; //update powerUp/powerDown value of 2D array
-    verbosePrint("Command: " + command_deactivate_channel[_numChannel]);
-    openBCI.deactivateChannel(_numChannel);  //assumes numChannel counts from zero (not one)...handles regular and daisy channels
+    // channelSettingValues[_numChannel][0] = '1'; //update powerUp/powerDown value of 2D array
+    // verbosePrint("Command: " + command_deactivate_channel[_numChannel]);
+    // openBCI.deactivateChannel(_numChannel);  //assumes numChannel counts from zero (not one)...handles regular and daisy channels
   }
 
   public void powerUpChannel(int _numChannel) {

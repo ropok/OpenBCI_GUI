@@ -353,8 +353,8 @@ class DataProcessing {
   FilterConstants[] filtCoeff_bp = new FilterConstants[N_FILT_CONFIGS];
   final int N_NOTCH_CONFIGS = 3;
   FilterConstants[] filtCoeff_notch = new FilterConstants[N_NOTCH_CONFIGS];
-  private int currentFilt_ind = 3;
-  private int currentNotch_ind = 0;  // set to 0 to default to 60Hz, set to 1 to default to 50Hz
+  private int currentFilt_ind = 0; // BP-Filter #jalerse
+  private int currentNotch_ind = 0;  // set to 0 to default to 50Hz, set to 1 to default to 60Hz #jalerse
   float data_std_uV[];
   float polarity[];
 

@@ -4008,7 +4008,7 @@ public class OutputFile_rawtxt {
     // output.println("%First Column = SampleIndex");
     // output.println("%Last Column = Timestamp ");
     // output.println("%Other Columns = EEG data in microvolts followed by Accel Data (in G) interleaved with Aux Data");
-    output.println("%No., " + "CH1, "  + "CH2, " + "CH3, " + "CH4, " + "Accel X, " + "Accel Y, " + "Accel Z, " + getDateString());
+    output.println("No, " + "CH1, "  + "CH2, " + "CH3, " + "CH4, " + "Accel X, " + "Accel Y, " + "Accel Z, " + getDateString());
     output.flush();
   }
 
@@ -5604,8 +5604,8 @@ class DataProcessing {
   FilterConstants[] filtCoeff_bp = new FilterConstants[N_FILT_CONFIGS];
   final int N_NOTCH_CONFIGS = 3;
   FilterConstants[] filtCoeff_notch = new FilterConstants[N_NOTCH_CONFIGS];
-  private int currentFilt_ind = 3;
-  private int currentNotch_ind = 0;  // set to 0 to default to 60Hz, set to 1 to default to 50Hz
+  private int currentFilt_ind = 0; // BP-Filter #jalerse
+  private int currentNotch_ind = 0;  // set to 0 to default to 50Hz, set to 1 to default to 60Hz #jalerse
   float data_std_uV[];
   float polarity[];
 
@@ -9027,20 +9027,20 @@ public void activateChannel(int Ichan) {
   }
 }
 public void deactivateChannel(int Ichan) {
-  println("OpenBCI_GUI: deactivating channel " + (Ichan+1));
-  if (eegDataSource == DATASOURCE_NORMAL_W_AUX) {
-    if (openBCI.isSerialPortOpen()) {
-      verbosePrint("**");
-      openBCI.changeChannelState(Ichan, false); //de-activate
-    }
-  } else if (eegDataSource == DATASOURCE_GANGLION) {
-    // println("deactivating channel on ganglion");
-    ganglion.changeChannelState(Ichan, false);
-  }
-  if (Ichan < nchan) {
-    channelSettingValues[Ichan][0] = '1';
-    // gui.cc.update();
-  }
+  // println("OpenBCI_GUI: deactivating channel " + (Ichan+1));
+  // if (eegDataSource == DATASOURCE_NORMAL_W_AUX) {
+  //   if (openBCI.isSerialPortOpen()) {
+  //     verbosePrint("**");
+  //     openBCI.changeChannelState(Ichan, false); //de-activate
+  //   }
+  // } else if (eegDataSource == DATASOURCE_GANGLION) {
+  //   // println("deactivating channel on ganglion");
+  //   ganglion.changeChannelState(Ichan, false);
+  // }
+  // if (Ichan < nchan) {
+  //   channelSettingValues[Ichan][0] = '1';
+  //   // gui.cc.update();
+  // }
 }
 
 //Ichan is zero referenced (not one referenced)
@@ -9336,16 +9336,16 @@ class HardwareSettingsController{
   }
 
   public void powerDownChannel(int _numChannel) {
-    verbosePrint("Powering down channel " + str(PApplet.parseInt(_numChannel) + PApplet.parseInt(1)));
-    //save SRB2 and BIAS settings in 2D history array (to turn back on when channel is reactivated)
-    previousBIAS[_numChannel] = channelSettingValues[_numChannel][3];
-    previousSRB2[_numChannel] = channelSettingValues[_numChannel][4];
-    channelSettingValues[_numChannel][3] = '0'; //make sure to disconnect from BIAS
-    channelSettingValues[_numChannel][4] = '0'; //make sure to disconnect from SRB2
+    // verbosePrint("Powering down channel " + str(int(_numChannel) + int(1)));
+    // //save SRB2 and BIAS settings in 2D history array (to turn back on when channel is reactivated)
+    // previousBIAS[_numChannel] = channelSettingValues[_numChannel][3];
+    // previousSRB2[_numChannel] = channelSettingValues[_numChannel][4];
+    // channelSettingValues[_numChannel][3] = '0'; //make sure to disconnect from BIAS
+    // channelSettingValues[_numChannel][4] = '0'; //make sure to disconnect from SRB2
 
-    channelSettingValues[_numChannel][0] = '1'; //update powerUp/powerDown value of 2D array
-    verbosePrint("Command: " + command_deactivate_channel[_numChannel]);
-    openBCI.deactivateChannel(_numChannel);  //assumes numChannel counts from zero (not one)...handles regular and daisy channels
+    // channelSettingValues[_numChannel][0] = '1'; //update powerUp/powerDown value of 2D array
+    // verbosePrint("Command: " + command_deactivate_channel[_numChannel]);
+    // openBCI.deactivateChannel(_numChannel);  //assumes numChannel counts from zero (not one)...handles regular and daisy channels
   }
 
   public void powerUpChannel(int _numChannel) {
