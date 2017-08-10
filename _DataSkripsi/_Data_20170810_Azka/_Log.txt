@@ -1,0 +1,7 @@
+11 : Data Percobaan Sesi Pertama
+12 : Pengambilan Sesi pertama, ulangan pertama
+13 : Pengambilan Sesi pertama, ulangan kedua
+
+21 : Data Percobaan Sesi Kedua
+22 : Pengambilan Sesi Kedua, ulangan pertama
+23 : Pengambilan Sesi Kedua, ulangan kedua

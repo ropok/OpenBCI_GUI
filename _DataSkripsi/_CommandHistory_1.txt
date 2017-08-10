@@ -1,0 +1,16 @@
+%-- 07/06/2017 11:33 AM --%
+doc load
+plot(VarName2(2:end))
+A = VarName2(2:end)
+B = A'
+B(2) = VarName3(2:end)'
+B(1,2) = VarName3(2:end)'
+VarName3 = VarName3'
+B(2) = VarName3(2:end)
+C = VarName3(2:end)
+B(2) = C
+B(1) = C
+B(1:length(VarName3),2) = VarName3
+B = A'
+B(2,1:length(C)) = C
+%-- 13/07/2017 09:29 PM --%
