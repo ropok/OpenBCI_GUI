@@ -46,25 +46,52 @@ data_notch_N = dataset(N_1, N_2, N_3, N_4);
 data_notch_L = dataset(L_1, L_2, L_3, L_4);
 data_notch_R = dataset(R_1, R_2, R_3, R_4);
 
-% % Check pembagian grafik Warna:Channel dengan plot (notch)
-for j=1:3
-	figure(j);
-	if (j == 1)
-		for k=1:4
-			subplot(4,1,k); plot(data_notch_N(:,k)); title(strcat('Neutral Channel ', num2str(k)));
-		end
-	end
-	if (j == 2)
-		for k=1:4
-			subplot(4,1,k); plot(data_notch_L(:,k)); title(strcat('Left Channel ', num2str(k)));
-		end
-	end
-	if (j == 3)
-		for k=1:4
-			subplot(4,1,k); plot(data_notch_R(:,k)); title(strcat('Right Channel ', num2str(k)));
-		end
-	end
-end
+% % % Check pembagian grafik Warna:Channel dengan plot (notch)
+% for j=1:3
+% 	figure(j);
+% 	if (j == 1)
+% 		for k=1:4
+% 			subplot(4,1,k); plot(data_notch_N(:,k)); title(strcat('Neutral Channel ', num2str(k)));
+% 		end
+% 	end
+% 	if (j == 2)
+% 		for k=1:4
+% 			subplot(4,1,k); plot(data_notch_L(:,k)); title(strcat('Left Channel ', num2str(k)));
+% 		end
+% 	end
+% 	if (j == 3)
+% 		for k=1:4
+% 			subplot(4,1,k); plot(data_notch_R(:,k)); title(strcat('Right Channel ', num2str(k)));
+% 		end
+% 	end
+% end
+
+% Step 4. FFT
+% figure(1)
+% Ak = abs(fft(N_1))/length(N_1);
+% k = 0:1:length(N_1)-1;
+% f = k*fs/length(N_1);
+% plot(f,Ak);
+
+% figure(2)
+% plot(N_1);
+
+% figure(3)
+% plot(J25)
+
+datatemp = R_3;
+
+Ak = abs(fft(datatemp))/length(datatemp);
+k = 0:1:length(datatemp)-1;
+f = k*fs/length(datatemp);
+Ak(1,1) = 0;
+% if Ak(1,1) >= 4000
+%     Ak(1,1) = 0;
+% end
+
+
+figure(1)
+plot(f,Ak);
 
 % step 4. proses FFT
 % for j=1:3

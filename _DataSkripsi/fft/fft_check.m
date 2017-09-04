@@ -16,9 +16,9 @@ clear;
 
 %% Load data
 
-load raw3.txt;
-x=raw3;         % ambil data
-x=x(:,2:5)';    % pemotongan data
+load J15.txt;
+x=J15;         % ambil data
+% x=x(:,2:5);    % pemotongan data
 fs=200;         % frekuensi sampling
  
 %save('namafile.mat','variabel');

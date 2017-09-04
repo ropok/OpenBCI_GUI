@@ -5,3 +5,11 @@
 21 : Data Percobaan Sesi Kedua
 22 : Pengambilan Sesi Kedua, ulangan pertama
 23 : Pengambilan Sesi Kedua, ulangan kedua
+
+
+Raw-12_Azka
+N		L
+1:610		611:1617
+1618:2224	4054:5063
+3244:4053
+5064:5671
