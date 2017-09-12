@@ -1,0 +1,7 @@
+<SeriData>_<Warna>_<kode>
+
+<SeriData> = J25
+<Warna>    = Red - White - Blue
+<kode>     = 0 : FFT tanpa notch tanpa Ak(0,0)
+	     1 : FFT tanpa notch
+	     2 : FFT dengan notch

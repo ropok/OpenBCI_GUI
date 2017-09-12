@@ -4,7 +4,7 @@
 %       by : Muhammad Fajri Azka     &
 %         ELINS - UGM - 2013         &
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+1
 % Source Code For Data EMG Analisys
 % Using FFT 
 % Checking Frequency from Data Active 
@@ -16,9 +16,9 @@ clear;
 
 %% Load data
 
-load J15.txt;
-x=J15;         % ambil data
-% x=x(:,2:5);    % pemotongan data
+load raw3.txt;
+x=raw3;         % ambil data
+x=x(:,2:5)';    % pemotongan data
 fs=200;         % frekuensi sampling
  
 %save('namafile.mat','variabel');

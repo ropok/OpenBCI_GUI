@@ -17,12 +17,11 @@ data_raw = J25;
 
 for i=1:4
 	data_raw(:,i)=filter(b,a,data_raw(:,i));
-	% data_raw=filter(b,a,data_raw);
 end
 
 % step 3. Pembagian sesuai warna berisi channel 1-4
 for i=1:4
-	N{i} = [data_raw(1:134,i);data_raw(626:1222,i);data_raw(1964:2032,i);data_raw(2853:2884,i);...
+	N{i} = [data_raw(626:1222,i);data_raw(1964:2032,i);data_raw(2853:2884,i);...
     data_raw(3257:3296,i);data_raw(3608:3632,i);data_raw(4059:4072,i);data_raw(4322:4354,i)];
 	L{i} = [data_raw(135:625,i);data_raw(2033:2852,i);data_raw(3633:4058,i)];
 	R{i} = [data_raw(1223:1963,i);data_raw(2885:3256,i);data_raw(3297:3607,i);data_raw(4073:4321,i)];
@@ -38,7 +37,7 @@ for i=1:3
 			Ak = abs(fft(datatemp))/length(datatemp);
 			k = 0:1:length(datatemp)-1;
 			f = k*fs/length(datatemp);
-			Ak(1,1) = 0;
+			Ak(1,1) = 0;0o
 			subplot(4,1,j); plot(f,Ak);
 			title(sprintf('White : CH-%d',j));
 		end

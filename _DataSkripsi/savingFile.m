@@ -1,3 +1,3 @@
-filename = 'J25.txt'
-CH = [CH1 CH2 CH3 CH4];
+filename = 'R22.txt'
+CH = [VarName2 VarName3 VarName4 VarName5];
 save(filename,'CH','-ascii')
