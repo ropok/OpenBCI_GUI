@@ -37,7 +37,7 @@ for i=1:3
 			Ak = abs(fft(datatemp))/length(datatemp);
 			k = 0:1:length(datatemp)-1;
 			f = k*fs/length(datatemp);
-			Ak(1,1) = 0;0o
+			Ak(1,1) = 0;
 			subplot(4,1,j); plot(f,Ak);
 			title(sprintf('White : CH-%d',j));
 		end
