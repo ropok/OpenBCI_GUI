@@ -10,12 +10,12 @@ fs = 200;	% sesuai ganglion pakai 200Hz
 % ambil data dan buang N pertama (pemanasan)
 
 %% R11
-load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\R11.txt');
-data_raw = R11;
+% load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\R11.txt');
+% data_raw = R11;
 
 %% R12
-% load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\R12.txt');
-% data_raw = R12;
+load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\R12.txt');
+data_raw = R12;
 
 % step 2. Notch 50Hz
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');
@@ -29,16 +29,16 @@ end
 
 for i=1:4
     %% R11
-	N{i} = [{data_raw(1616:2222,i)};{data_raw(3238:4053,i)};{data_raw(5065:5673,i)};...
-        {data_raw(6691:7492,i)};{data_raw(8504:9106,i)}];
-	L{i} = [{data_raw(607:1615,i)};{data_raw(4054:5064,i)};{data_raw(7493:8503,i)}];
-	R{i} = [{data_raw(2223:3237,i)};{data_raw(5674:6690,i)};{data_raw(9107:10123,i)}];
+% 	N{i} = [{data_raw(1616:2222,i)};{data_raw(3238:4053,i)};{data_raw(5065:5673,i)};...
+%         {data_raw(6691:7492,i)};{data_raw(8504:9106,i)}];
+% 	L{i} = [{data_raw(607:1615,i)};{data_raw(4054:5064,i)};{data_raw(7493:8503,i)}];
+% 	R{i} = [{data_raw(2223:3237,i)};{data_raw(5674:6690,i)};{data_raw(9107:10123,i)}];
 
     %% R12
-%     N{i} = [{data_raw(1616:2224,i)};{data_raw(3242:4045,i)};{data_raw(5059:5665,i)};...
-%         {data_raw(6679:7482,i)};{data_raw(8498:9102,i)}];
-%     L{i} = [{data_raw(607:1621,i)};{data_raw(4046:5058,i)};{data_raw(7483:8497,i)}];
-%     R{i} = [{data_raw(2225:3241,i)};{data_raw(5666:6678,i)};{data_raw(9103:10113,i)}];
+    N{i} = [{data_raw(1616:2224,i)};{data_raw(3242:4045,i)};{data_raw(5059:5665,i)};...
+        {data_raw(6679:7482,i)};{data_raw(8498:9102,i)}];
+    L{i} = [{data_raw(607:1621,i)};{data_raw(4046:5058,i)};{data_raw(7483:8497,i)}];
+    R{i} = [{data_raw(2225:3241,i)};{data_raw(5666:6678,i)};{data_raw(9103:10113,i)}];
 
 end
 
@@ -95,7 +95,7 @@ for i=1:4
 end
 lw = 1.5;
 	figure(1);
-    title('Focus Putih - R11');
+    title('Focus Putih - R12');
 	hold on
 	plot(n_mean{1},'color',[1, 0.364, 0.337],'linewidth',lw);
 	plot(n_mean{2},'color',[1, 0.776, 0.254],'linewidth',lw);
@@ -106,10 +106,10 @@ lw = 1.5;
 %     saveas(gcf,'FP-R11','png');
 %     set (gcf, 'paperpositionmode', 'manual','paperposition',[0 0 30 20])
     set(gcf,'PaperUnits','inches','PaperPosition',[0 0 13.66 7.20])
-    print('FocusPutih-R11','-dpng','-r300')
+    print('FocusPutih-R12','-dpng','-r300')
 
 	figure(2);
-    title('Focus Merah - R11');
+    title('Focus Merah - R12');
 	hold on
 	plot(l_mean{1},'color',[1, 0.364, 0.337],'linewidth',lw);
 	plot(l_mean{2},'color',[1, 0.776, 0.254],'linewidth',lw);
@@ -119,10 +119,10 @@ lw = 1.5;
     legend('CH1','CH2','CH3','CH4')
     
     set(gcf,'PaperUnits','inches','PaperPosition',[0 0 13.66 7.20])
-    print('FocusMerah-R11','-dpng','-r300')
+    print('FocusMerah-R12','-dpng','-r300')
     
 	figure(3);
-    title('Focus Biru - R11');
+    title('Focus Biru - R12');
 	hold on
 	plot(r_mean{1},'color',[1, 0.364, 0.337],'linewidth',lw);
 	plot(r_mean{2},'color',[1, 0.776, 0.254],'linewidth',lw);
@@ -132,5 +132,5 @@ lw = 1.5;
     legend('CH1','CH2','CH3','CH4')
     
     set(gcf,'PaperUnits','inches','PaperPosition',[0 0 13.66 7.20])
-    print('FocusBiru-R11','-dpng','-r300')
+    print('FocusBiru-R12','-dpng','-r300')
 %     snapnow

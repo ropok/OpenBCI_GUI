@@ -106,7 +106,7 @@ lw = 1.5;
 %     saveas(gcf,'FP-R11','png');
 %     set (gcf, 'paperpositionmode', 'manual','paperposition',[0 0 30 20])
     set(gcf,'PaperUnits','inches','PaperPosition',[0 0 13.66 7.20])
-    print('FocusPutih-R11','-dpng','-r300')
+    print('test','-dpng','-r300')
 
 	figure(2);
     title('Focus Merah - R11');
@@ -118,9 +118,6 @@ lw = 1.5;
 	hold off
     legend('CH1','CH2','CH3','CH4')
     
-    set(gcf,'PaperUnits','inches','PaperPosition',[0 0 13.66 7.20])
-    print('FocusMerah-R11','-dpng','-r300')
-    
 	figure(3);
     title('Focus Biru - R11');
 	hold on
@@ -131,6 +128,4 @@ lw = 1.5;
 	hold off
     legend('CH1','CH2','CH3','CH4')
     
-    set(gcf,'PaperUnits','inches','PaperPosition',[0 0 13.66 7.20])
-    print('FocusBiru-R11','-dpng','-r300')
-%     snapnow
+    snapnow
