@@ -41,18 +41,18 @@ for i=1:4
     R{i} = [{data_raw(2225:3241,i)};{data_raw(5666:6678,i)};{data_raw(9103:10113,i)}];
 
 end
-% cek panjang waktu (3 sekon)
-durasiWaktu = 3;
-data_netral = [8 16 24 32 40];
-data_left = [3 4 5 19 20 21 35 36 37];
-data_right = [11 12 13 27 28 29 43 44 45];
-
-for i=1:length(data_netral)
-    for j=1:4
-        n{i,j} = N{
-    end
-    
-end
+% % cek panjang waktu (3 sekon)
+% durasiWaktu = 3;
+% data_netral = [8 16 24 32 40];
+% data_left = [3 4 5 19 20 21 35 36 37];
+% data_right = [11 12 13 27 28 29 43 44 45];
+% 
+% for i=1:length(data_netral)
+%     for j=1:4
+%         n{i,j} = N{
+%     end
+%     
+% end
 
 
 for i=1:4
