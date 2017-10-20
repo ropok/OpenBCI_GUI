@@ -1,4 +1,3 @@
-OpenBCI_GUI/SavedData/OpenBCI-RAW-*
 OpenBCI_GUI/SavedData/OpenBCI-EDF-*
 OpenBCI_GUI/build/
 .DS_Store
@@ -6,3 +5,4 @@ OpenBCI_GUI/temp.txt
 OpenBCI_GUI/t-temp.txt
 OpenBCI_GUI/build/source/*.java
 *.app
+_DataSkripsi/_Figures/
