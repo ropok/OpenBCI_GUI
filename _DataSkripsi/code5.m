@@ -1,3 +1,4 @@
+% Next tasks : rata-rata semua data untuk diliat SCPnya. Jadinya nanti satu plot satu channel empat kelas
 clc;
 clear;
 close all;
