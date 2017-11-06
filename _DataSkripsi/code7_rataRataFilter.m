@@ -19,6 +19,14 @@ load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\j_n.txt');
 load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\j_l.txt');
 load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\j_r.txt');
 
+% bandpass Filter
+[d,c] = butter(2,[9 15]/(fs/2), 'bandpass');
+for i=1:4
+	j_n(:,i)=filter(d,c,j_n(:,i));
+	j_l(:,i)=filter(d,c,j_l(:,i));
+	j_r(:,i)=filter(d,c,j_r(:,i));
+end
+
 detikLR = 5;
 detikN = 3;
 
@@ -118,24 +126,28 @@ tlr = [0:999]/fs;
 % plot(tn, mean_j_n1, tlr, mean_j_l1, tlr, mean_j_r1);
 % legend('putih','merah','biru');
 % title('CH1-Fp1');
+% xlabel('\fontsize{8}detik (s)');	
 % print('CH1-Fp1', '-dpng');
 
 % figure(2)
 % plot(tn, mean_j_n2, tlr, mean_j_l2, tlr, mean_j_r2);
 % legend('putih','merah','biru');
 % title('CH2-Fp2');
+% xlabel('\fontsize{8}detik (s)');
 % print('CH2-Fp2', '-dpng');
 
 % figure(3)
 % plot(tn, mean_j_n3, tlr, mean_j_l3, tlr, mean_j_r3);
 % legend('putih','merah','biru');
 % title('CH3-C3');
+% xlabel('\fontsize{8}detik (s)');
 % print('CH3-C3', '-dpng');
 
 % figure(4)
 % plot(tn, mean_j_n4, tlr, mean_j_l4, tlr, mean_j_r4);
 % legend('putih','merah','biru');
 % title('CH4-C4');
+% xlabel('\fontsize{8}detik (s)');
 % print('CH4-C4', '-dpng');
 
 % %% Per Kelas
@@ -179,6 +191,7 @@ for i=1:4
 			xlabel('\fontsize{8}Hz');
 			ylabel('\fontsize{8}dB');
 			title(['\fontsize{12}' dataDiFFT_title{j} '\fontsize{9} (CH1-Fp1)']);
+			xlim([7 15]);
 			o=o+1;
 		end
 		print('FFT CH1-Fp1', '-dpng');
@@ -192,6 +205,7 @@ for i=1:4
 			xlabel('\fontsize{8}Hz');
 			ylabel('\fontsize{8}dB');
 			title(['\fontsize{12}' dataDiFFT_title{j-3} '\fontsize{9} (CH2-Fp2)']);
+			xlim([7 15]);
 			o=o+1;
 		end
 		print('FFT CH2-Fp2', '-dpng');
@@ -205,6 +219,7 @@ for i=1:4
 			xlabel('\fontsize{8}Hz');
 			ylabel('\fontsize{8}dB');
 			title(['\fontsize{12}' dataDiFFT_title{j-6} '\fontsize{9} (CH3-C3)']);
+			xlim([7 15]);
 			o=o+1;
 		end
 		print('FFT CH3-C3', '-dpng');
@@ -218,6 +233,7 @@ for i=1:4
 			xlabel('\fontsize{8}Hz');
 			ylabel('\fontsize{8}dB');
 			title(['\fontsize{12}' dataDiFFT_title{j-9} '\fontsize{9} (CH4-C4)']);
+			xlim([7 15]);
 			o=o+1;
 		end
 		print('FFT CH4-C4', '-dpng');
