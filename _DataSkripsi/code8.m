@@ -35,6 +35,13 @@ tempP = [];
 tempM = [];
 tempB = [];
 
+
+% Untuk Plotting
+tP = [0:(fs*durasi_P)-1]/fs; 
+tMB = [0:(fs*durasi_MB)-1]/fs;
+CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
+KelasList = {'Putih' 'Merah' 'Biru'};
+
 %% Ambil data dari folder, filter dan simpan dalam bentuk .mat
 % csvread('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\jalerse11.txt');
 % load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\jalerse11.txt');
@@ -58,8 +65,8 @@ for h=1:5
 			temp = ans(awal:akhir,j);
 			tempP = vertcat(tempP,temp);
 		end
-			putih(:,j) = tempP;	
-			tempP = [];
+		putih(:,j) = tempP;	
+		tempP = [];
 	end
 	for j=1:4
 		for i=1:length(detik_M)
@@ -68,8 +75,8 @@ for h=1:5
 			temp = ans(awal:akhir,j);
 			tempM = vertcat(tempM,temp);
 		end
-			merah(:,j) = tempM;
-			tempM = [];
+		merah(:,j) = tempM;
+		tempM = [];
 	end
 	for j=1:4
 		for i=1:length(detik_B)
@@ -78,10 +85,67 @@ for h=1:5
 			temp = ans(awal:akhir,j);
 			tempB = vertcat(tempB,temp);
 		end
-			biru(:,j) = tempB;
-			tempB = [];
+		biru(:,j) = tempB;
+		tempB = [];
 	end
 save([folder sprintf('%s%d_p.mat',Kode,h)],'putih');
 save([folder sprintf('%s%d_m.mat',Kode,h)],'merah');
 save([folder sprintf('%s%d_b.mat',Kode,h)],'biru');
+end
+
+for j=1:4
+	tempP = [];
+	tempB = [];
+	tempM = [];
+	for i=0:(length(putih)/(fs*durasi_P))-1
+		awal = (durasi_P*fs*i)+1;
+		akhir = (durasi_P*fs*i)+(durasi_P*fs);
+		tempP = horzcat(putih(awal:akhir,j));
+		mean(tempP,2);
+		save([folder sprintf('MeanP_CH%d.mat',j)],'ans');
+	end
+
+	for i=0:(length(merah)/(fs*durasi_MB))-1
+		awal = (durasi_MB*fs*i)+1;
+		akhir = (durasi_MB*fs*i)+(durasi_MB*fs);
+		tempM = horzcat(merah(awal:akhir,j));
+		mean(tempM,2);
+		save([folder sprintf('MeanM_CH%d.mat',j)],'ans');
+		tempB = horzcat(biru(awal:akhir,j));
+		mean(tempB,2);
+		save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
+	end
+end
+
+%% Load Data Mean
+for i=1:4
+	dataMean{1,i} = load([folder sprintf('MeanP_CH%d.mat',i)]);
+	dataMean{2,i} = load([folder sprintf('MeanM_CH%d.mat',i)]);
+	dataMean{3,i} = load([folder sprintf('MeanB_CH%d.mat',i)]);
+end
+
+%% Plotting Per Kanal Frekuensi vs Waktu
+for i=1:4
+	figure(i);
+	plot(tP, dataMean{1,i}.ans, tMB, dataMean{2,i}.ans, tMB, dataMean{3,i}.ans);
+	legend('Putih','Merah','Biru'); 
+	title(CHlist{i});
+	xlabel('\fontsize{8}detik (s)');	
+	print([folder CHlist{i}],'-dpng');
+end
+
+%% FFT Per Kanal
+for i=1:4 % kanal
+	figure(i+4) % Biar bisa Barengan sama Plot
+	for j=1:3 % kelas
+		Ak = abs(fft(dataMean{j,i}.ans))/length(dataMean{j,i}.ans);
+		k = 0:1:length(dataMean{j,i}.ans)-1;
+		f = k*fs/length(dataMean{j,i}.ans);
+		subplot(3,1,j); plot(f,Ak);
+		xlabel('\fontsize{8}Hz');
+		ylabel('\fontsize{8}dB');
+		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+		xlim([BP1 BP2]);
+	end
+	print([folder 'FFT ' CHlist{i}],'-dpng');
 end
