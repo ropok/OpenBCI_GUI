@@ -11,13 +11,22 @@ fs = 200;		% Sesuai ganglion pakai 200Hz
 t = [0:399]/fs;
 % Manajemen Folder
 folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\';
+folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_Frekuensi\';
+folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_FFT\';
 files = dir([folder '*.txt']);
 Kode = 'jalerse_1';
 
 %% Filter
 % BandPass Filter = BP1 - BP2;
-BP1 = 9;
+BP1 = 5;
 BP2 = 15;
+%limit untuk pengamatan
+BP1lim = 5;
+BP2lim = 15;
+%Limit untuk dB
+dBlim1 = -2;
+dBlim2 = 2;
+
 % Notch Filter 50 Hz
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');
 % BandPass Filter
@@ -131,7 +140,7 @@ for i=1:4
 	legend('Putih','Merah','Biru'); 
 	title(CHlist{i});
 	xlabel('\fontsize{8}detik (s)');	
-	print([folder CHlist{i}],'-dpng');
+	print([folder1 sprintf('%s_%d-%d',CHlist{i},BP1,BP2)],'-dpng');
 end
 
 %% FFT Per Kanal
@@ -146,6 +155,7 @@ for i=1:4 % kanal
 		ylabel('\fontsize{8}dB');
 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
 		xlim([BP1 BP2]);
+		ylim([dBlim1 dBlim2]);
 	end
-	print([folder 'FFT ' CHlist{i}],'-dpng');
+	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BP1,BP2)],'-dpng');
 end
