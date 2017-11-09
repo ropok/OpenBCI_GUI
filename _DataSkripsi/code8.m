@@ -18,14 +18,17 @@ Kode = 'jalerse_1';
 
 %% Filter
 % BandPass Filter = BP1 - BP2;
-BP1 = 5;
+BP1 = 9;
 BP2 = 15;
-%limit untuk pengamatan
-BP1lim = 5;
-BP2lim = 15;
+%limit untuk Frekuensi (Hz)
+BPlim1 = 13;
+BPlim2 = 15;
 %Limit untuk dB
-dBlim1 = -2;
-dBlim2 = 2;
+dBlim1 = 0;
+dBlim2 = 1.5;
+%Limit untuk sekon
+slim1 = 1.5;
+slim2 = 3.5;
 
 % Notch Filter 50 Hz
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');
@@ -140,22 +143,70 @@ for i=1:4
 	legend('Putih','Merah','Biru'); 
 	title(CHlist{i});
 	xlabel('\fontsize{8}detik (s)');	
+	xlim([slim1 slim2]);
 	print([folder1 sprintf('%s_%d-%d',CHlist{i},BP1,BP2)],'-dpng');
 end
 
-%% FFT Per Kanal
-for i=1:4 % kanal
-	figure(i+4) % Biar bisa Barengan sama Plot
-	for j=1:3 % kelas
+% %% FFT Per Kanal
+% for i=1:4 % kanal
+% 	figure(i+4) % Biar bisa Barengan sama Plot
+% 	for j=1:3 % kelas
+% 		Ak = abs(fft(dataMean{j,i}.ans))/length(dataMean{j,i}.ans);
+% 		k = 0:1:length(dataMean{j,i}.ans)-1;
+% 		f = k*fs/length(dataMean{j,i}.ans);
+% 		subplot(3,1,j); plot(f,Ak);
+% 		xlabel('\fontsize{8}Hz');
+% 		ylabel('\fontsize{8}dB');
+% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+% 		xlim([BPlim1 BPlim2]);
+% 		% ylim([dBlim1 dBlim2]);
+% 	end
+% 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+% end
+
+% %% FFT Per Kanal  (Tanpa Putih)
+% for i=1:4 % kanal
+% 	figure(i+4) % Biar bisa Barengan sama Plot
+% 	for j=2:3 % kelas
+% 		Ak = abs(fft(dataMean{j,i}.ans))/length(dataMean{j,i}.ans);
+% 		k = 0:1:length(dataMean{j,i}.ans)-1;
+% 		f = k*fs/length(dataMean{j,i}.ans);
+% 		subplot(2,1,j-1); plot(f,Ak);
+% 		xlabel('\fontsize{8}Hz');
+% 		ylabel('\fontsize{8}dB');
+% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+% 		xlim([BPlim1 BPlim2]);
+% 		ylim([dBlim1 dBlim2]);
+% 	end
+% 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+% end
+
+%% FFT Per Kelas
+for j=1:3
+	figure(j+4)
+	for i=1:4
 		Ak = abs(fft(dataMean{j,i}.ans))/length(dataMean{j,i}.ans);
 		k = 0:1:length(dataMean{j,i}.ans)-1;
 		f = k*fs/length(dataMean{j,i}.ans);
-		subplot(3,1,j); plot(f,Ak);
+		subplot(4,1,i); plot(f,Ak);
 		xlabel('\fontsize{8}Hz');
 		ylabel('\fontsize{8}dB');
 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
-		xlim([BP1 BP2]);
+		xlim([BPlim1 BPlim2]);
 		ylim([dBlim1 dBlim2]);
 	end
-	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BP1,BP2)],'-dpng');
+	print([folder2 sprintf('FFT_Warna %s_%d-%d',KelasList{j},BPlim1,BPlim2)],'-dpng');
 end
+
+% %% FFT Campur 
+% 	for i=1:4
+% 		Ak = abs(fft(dataMean{j,i}.ans))/length(dataMean{j,i}.ans);
+% 		k = 0:1:length(dataMean{j,i}.ans)-1;
+% 		f = k*fs/length(dataMean{j,i}.ans);
+% 		subplot(4,1,i); plot(f,Ak);
+% 		xlabel('\fontsize{8}Hz');
+% 		ylabel('\fontsize{8}dB');
+% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+% 		xlim([BPlim1 BPlim2]);
+% 		ylim([dBlim1 dBlim2]);
+% 	end
