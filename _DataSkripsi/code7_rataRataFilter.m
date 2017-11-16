@@ -121,34 +121,34 @@ tlr = [0:999]/fs;
 % 	plot(tn, sprintf('mean_j_n%s',i), tlr, sprintf('mean_j_l%s',i), tlr, sprintf('mean_j_r%s',i));
 % end
 
-% % Per Kanal
-% figure(1)
-% plot(tn, mean_j_n1, tlr, mean_j_l1, tlr, mean_j_r1);
-% legend('putih','merah','biru');
-% title('CH1-Fp1');
-% xlabel('\fontsize{8}detik (s)');	
-% print('CH1-Fp1', '-dpng');
+% Per Kanal
+figure(1)
+plot(tn, mean_j_n1, tlr, mean_j_l1, tlr, mean_j_r1);
+legend('putih','merah','biru');
+title('CH1-Fp1');
+xlabel('\fontsize{8}detik (s)');	
+print('CH1-Fp1', '-dpng');
 
-% figure(2)
-% plot(tn, mean_j_n2, tlr, mean_j_l2, tlr, mean_j_r2);
-% legend('putih','merah','biru');
-% title('CH2-Fp2');
-% xlabel('\fontsize{8}detik (s)');
-% print('CH2-Fp2', '-dpng');
+figure(2)
+plot(tn, mean_j_n2, tlr, mean_j_l2, tlr, mean_j_r2);
+legend('putih','merah','biru');
+title('CH2-Fp2');
+xlabel('\fontsize{8}detik (s)');
+print('CH2-Fp2', '-dpng');
 
-% figure(3)
-% plot(tn, mean_j_n3, tlr, mean_j_l3, tlr, mean_j_r3);
-% legend('putih','merah','biru');
-% title('CH3-C3');
-% xlabel('\fontsize{8}detik (s)');
-% print('CH3-C3', '-dpng');
+figure(3)
+plot(tn, mean_j_n3, tlr, mean_j_l3, tlr, mean_j_r3);
+legend('putih','merah','biru');
+title('CH3-C3');
+xlabel('\fontsize{8}detik (s)');
+print('CH3-C3', '-dpng');
 
-% figure(4)
-% plot(tn, mean_j_n4, tlr, mean_j_l4, tlr, mean_j_r4);
-% legend('putih','merah','biru');
-% title('CH4-C4');
-% xlabel('\fontsize{8}detik (s)');
-% print('CH4-C4', '-dpng');
+figure(4)
+plot(tn, mean_j_n4, tlr, mean_j_l4, tlr, mean_j_r4);
+legend('putih','merah','biru');
+title('CH4-C4');
+xlabel('\fontsize{8}detik (s)');
+print('CH4-C4', '-dpng');
 
 % %% Per Kelas
 % % Kelas Putih
@@ -178,64 +178,64 @@ dataDiFFT_title = {'Putih' 'Merah' 'Biru'};
 % k = 0:1:length(dataDiFFT{1})-1;
 % f = k*fs/length(dataDiFFT{1});
 % plot(f,Ak);
-
-for i=1:4
-	figure(i)
-	o=1;
-	if i == 1
-		for j=1:3
-			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
-			k = 0:1:length(dataDiFFT{j})-1;
-			f = k*fs/length(dataDiFFT{j});
-			subplot(3,1,o); plot(f,Ak);
-			xlabel('\fontsize{8}Hz');
-			ylabel('\fontsize{8}dB');
-			title(['\fontsize{12}' dataDiFFT_title{j} '\fontsize{9} (CH1-Fp1)']);
-			xlim([7 15]);
-			o=o+1;
-		end
-		print('FFT CH1-Fp1', '-dpng');
-	end
-	if i == 2
-		for j=4:6
-			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
-			k = 0:1:length(dataDiFFT{j})-1;
-			f = k*fs/length(dataDiFFT{j});
-			subplot(3,1,o); plot(f,Ak);
-			xlabel('\fontsize{8}Hz');
-			ylabel('\fontsize{8}dB');
-			title(['\fontsize{12}' dataDiFFT_title{j-3} '\fontsize{9} (CH2-Fp2)']);
-			xlim([7 15]);
-			o=o+1;
-		end
-		print('FFT CH2-Fp2', '-dpng');
-	end
-	if i == 3
-		for j=7:9
-			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
-			k = 0:1:length(dataDiFFT{j})-1;
-			f = k*fs/length(dataDiFFT{j});
-			subplot(3,1,o); plot(f,Ak);
-			xlabel('\fontsize{8}Hz');
-			ylabel('\fontsize{8}dB');
-			title(['\fontsize{12}' dataDiFFT_title{j-6} '\fontsize{9} (CH3-C3)']);
-			xlim([7 15]);
-			o=o+1;
-		end
-		print('FFT CH3-C3', '-dpng');
-	end
-	if i == 4
-		for j=10:12
-			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
-			k = 0:1:length(dataDiFFT{j})-1;
-			f = k*fs/length(dataDiFFT{j});
-			subplot(3,1,o); plot(f,Ak);
-			xlabel('\fontsize{8}Hz');
-			ylabel('\fontsize{8}dB');
-			title(['\fontsize{12}' dataDiFFT_title{j-9} '\fontsize{9} (CH4-C4)']);
-			xlim([7 15]);
-			o=o+1;
-		end
-		print('FFT CH4-C4', '-dpng');
-	end
-end
+% 
+% for i=1:4
+% 	figure(i)
+% 	o=1;
+% 	if i == 1
+% 		for j=1:3
+% 			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
+% 			k = 0:1:length(dataDiFFT{j})-1;
+% 			f = k*fs/length(dataDiFFT{j});
+% 			subplot(3,1,o); plot(f,Ak);
+% 			xlabel('\fontsize{8}Hz');
+% 			ylabel('\fontsize{8}dB');
+% 			title(['\fontsize{12}' dataDiFFT_title{j} '\fontsize{9} (CH1-Fp1)']);
+% 			xlim([7 15]);
+% 			o=o+1;
+% 		end
+% 		print('FFT CH1-Fp1', '-dpng');
+% 	end
+% 	if i == 2
+% 		for j=4:6
+% 			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
+% 			k = 0:1:length(dataDiFFT{j})-1;
+% 			f = k*fs/length(dataDiFFT{j});
+% 			subplot(3,1,o); plot(f,Ak);
+% 			xlabel('\fontsize{8}Hz');
+% 			ylabel('\fontsize{8}dB');
+% 			title(['\fontsize{12}' dataDiFFT_title{j-3} '\fontsize{9} (CH2-Fp2)']);
+% 			xlim([7 15]);
+% 			o=o+1;
+% 		end
+% 		print('FFT CH2-Fp2', '-dpng');
+% 	end
+% 	if i == 3
+% 		for j=7:9
+% 			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
+% 			k = 0:1:length(dataDiFFT{j})-1;
+% 			f = k*fs/length(dataDiFFT{j});
+% 			subplot(3,1,o); plot(f,Ak);
+% 			xlabel('\fontsize{8}Hz');
+% 			ylabel('\fontsize{8}dB');
+% 			title(['\fontsize{12}' dataDiFFT_title{j-6} '\fontsize{9} (CH3-C3)']);
+% 			xlim([7 15]);
+% 			o=o+1;
+% 		end
+% 		print('FFT CH3-C3', '-dpng');
+% 	end
+% 	if i == 4
+% 		for j=10:12
+% 			Ak = abs(fft(dataDiFFT{j}))/length(dataDiFFT{j});
+% 			k = 0:1:length(dataDiFFT{j})-1;
+% 			f = k*fs/length(dataDiFFT{j});
+% 			subplot(3,1,o); plot(f,Ak);
+% 			xlabel('\fontsize{8}Hz');
+% 			ylabel('\fontsize{8}dB');
+% 			title(['\fontsize{12}' dataDiFFT_title{j-9} '\fontsize{9} (CH4-C4)']);
+% 			xlim([7 15]);
+% 			o=o+1;
+% 		end
+% 		print('FFT CH4-C4', '-dpng');
+% 	end
+% end
