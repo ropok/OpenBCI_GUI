@@ -147,16 +147,24 @@ for j=1:3
 end
 save([folder 'dataNorm.mat'], 'dataNorm');
 
-% %% Plotting Per Kanal Frekuensi vs Waktu
-% for i=1:4
-% 	figure(i);
-% 	plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i});
-% 	legend('Putih','Merah','Biru'); 
-% 	title(CHlist{i});
-% 	xlabel('\fontsize{8}detik (s)');	
-% 	xlim([slim1 slim2]);
-% 	print([folder1 sprintf('%s_9-15_Cut1',CHlist{i})],'-dpng');
-% end
+% Smoothing Session (Moving Average)
+for i=1:4
+	dataNormMA{1,i} = smooth(tP, dataNorm{1,i}, 0.1, 'rloess');
+	dataNormMA{2,i} = smooth(tMB, dataNorm{2,i}, 0.1, 'rloess');
+	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, 0.1, 'rloess');
+end
+
+%% Plotting Per Kanal Frekuensi vs Waktu
+for i=1:4
+	figure(i);
+	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
+	plot(tP, dataNormMA{1,i}, tMB, dataNormMA{2,i}, tMB, dataNormMA{3,i});
+	legend('Putih','Merah','Biru'); 
+	title(CHlist{i});
+	xlabel('\fontsize{8}detik (s)');	
+	% xlim([slim1 slim2]);
+	print([folder1 sprintf('%s_9-15_MA',CHlist{i})],'-dpng');
+end
 
 % %% FFT Per Kanal
 % for i=1:4 % kanal
@@ -176,22 +184,22 @@ save([folder 'dataNorm.mat'], 'dataNorm');
 % end
 
 
-%% FFT Per Kelas
-for j=1:3
-	figure(j+4)
-	for i=1:4
-		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
-		k = 0:1:length(dataNorm{j,i})-1;
-		f = k*fs/length(dataNorm{j,i});
-		subplot(4,1,i); plot(f,Ak);
-		xlabel('\fontsize{8}Hz');
-		ylabel('\fontsize{8}dB');
-		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
-		xlim([BPlim1 BPlim2]);
-		ylim([dBlim1 dBlim2]);
-	end
-	print([folder2 sprintf('FFT_Warna %s_%d-%d',KelasList{j},BPlim1,BPlim2)],'-dpng');
-end
+% %% FFT Per Kelas
+% for j=1:3
+% 	figure(j+4)
+% 	for i=1:4
+% 		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
+% 		k = 0:1:length(dataNorm{j,i})-1;
+% 		f = k*fs/length(dataNorm{j,i});
+% 		subplot(4,1,i); plot(f,Ak);
+% 		xlabel('\fontsize{8}Hz');
+% 		ylabel('\fontsize{8}dB');
+% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+% 		xlim([BPlim1 BPlim2]);
+% 		ylim([dBlim1 dBlim2]);
+% 	end
+% 	print([folder2 sprintf('FFT_Warna %s_%d-%d',KelasList{j},BPlim1,BPlim2)],'-dpng');
+% end
 
 % %% FFT Campur 
 % 	for i=1:4
