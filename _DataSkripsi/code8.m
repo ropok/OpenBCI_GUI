@@ -15,7 +15,9 @@ folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_Frekuensi\';
 folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_FFT\';
 files = dir([folder '*.txt']);
 Kode = 'jalerse_1';
-
+warna_putih = [0.9290 0.6940 0.1250];
+warna_merah = [0.6350 0.0780 0.1840];
+warna_biru =  [0.3010 0.7450 0.9330];
 %% Filter
 % % BandPass Filter = BP1 - BP2;
 % BP1 = 9;
@@ -26,9 +28,12 @@ BPlim2 = 14;
 %Limit untuk dB
 dBlim1 = 0;
 dBlim2 = 0.02;
-%Limit untuk sekon
-slim1 = 1.5;
-slim2 = 3.5;
+%Limit untuk x di time-domain
+% slim1 = 0.5;
+% slim2 = 4.5;
+%Limit untuk y di time-domain
+ylim1 = 0;
+ylim2 = 0.6;
 
 % Notch Filter 50 Hz
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');
@@ -53,6 +58,11 @@ tP = [0:((fs*durasi_P)-1)]/fs;
 tMB = [0:((fs*durasi_MB)-1)]/fs;
 CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
 KelasList = {'Putih' 'Merah' 'Biru'};
+
+% Smoothing - Moving Average
+span = 0.9;
+span2 = 0.1;
+sMethod = 'moving';
 
 %% Ambil data dari folder, filter dan simpan dalam bentuk .mat
 % csvread('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\jalerse11.txt');
@@ -149,20 +159,26 @@ save([folder 'dataNorm.mat'], 'dataNorm');
 
 % Smoothing Session (Moving Average)
 for i=1:4
-	dataNormMA{1,i} = smooth(tP, dataNorm{1,i}, 0.1, 'rloess');
-	dataNormMA{2,i} = smooth(tMB, dataNorm{2,i}, 0.1, 'rloess');
-	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, 0.1, 'rloess');
+	dataNormMA{1,i} = smooth(tP, dataNorm{1,i}, span, sMethod);
+	dataNormMA{2,i} = smooth(tMB, dataNorm{2,i}, span, sMethod);
+	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, span, sMethod);
 end
 
 %% Plotting Per Kanal Frekuensi vs Waktu
 for i=1:4
 	figure(i);
-	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
-	plot(tP, dataNormMA{1,i}, tMB, dataNormMA{2,i}, tMB, dataNormMA{3,i});
-	legend('Putih','Merah','Biru'); 
+	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
+	% plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
+	subplot(2,1,1);
+	plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
 	title(CHlist{i});
+	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
+	subplot(2,1,2);
+	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
 	xlabel('\fontsize{8}detik (s)');	
 	% xlim([slim1 slim2]);
+	% ylim([ylim1 ylim2]);
+	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
 	print([folder1 sprintf('%s_9-15_MA',CHlist{i})],'-dpng');
 end
 
