@@ -1,0 +1,5 @@
+Code1-5 : Lanjutan
+Code6,7 : Lanjutan
+Code8 : RAW Data - Filter - Mean - Normalize - Plot
+Code9 : Normalize
+Code10 : Lanjutan Code8

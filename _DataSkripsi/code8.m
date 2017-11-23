@@ -116,6 +116,7 @@ save([folder sprintf('%s%d_m.mat',Kode,h)],'merah');
 save([folder sprintf('%s%d_b.mat',Kode,h)],'biru');
 end
 
+% Mean - Rerata
 for j=1:4
 	tempP = [];
 	tempB = [];
@@ -148,6 +149,7 @@ for i=1:4
 end
 
 
+%% Normalisasi
 for j=1:3
 	for i=1:4
 		dataMean{j,i}.ans - min(dataMean{j,i}.ans);
