@@ -5,8 +5,8 @@ close all;
 
 %%Variabel
 % N = Netral 	: Putih
-% L = Left		: Merah
-% R = Right 	: Biru
+% L = Left		: Merah (11 Hz)
+% R = Right 	: Biru (13 Hz)
 fs = 200;		% Sesuai ganglion pakai 200Hz
 t = [0:399]/fs;
 % Manajemen Folder
@@ -15,16 +15,16 @@ folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_Frekuensi\';
 folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_FFT\';
 files = dir([folder '*.txt']);
 Kode = 'jalerse_1';
-warna_putih = [0.9290 0.6940 0.1250];
-warna_merah = [0.6350 0.0780 0.1840];
-warna_biru =  [0.3010 0.7450 0.9330];
+% warna_putih = [0.9290 0.6940 0.1250];
+% warna_merah = [0.6350 0.0780 0.1840];
+% warna_biru =  [0.3010 0.7450 0.9330];
 %% Filter
 % % BandPass Filter = BP1 - BP2;
 % BP1 = 9;
 % BP2 = 15;
 %limit untuk Frekuensi (Hz)
-BPlim1 = 12;
-BPlim2 = 14;
+BPlim1 = 9;
+BPlim2 = 15;
 %Limit untuk dB
 dBlim1 = 0;
 dBlim2 = 0.02;
@@ -58,6 +58,7 @@ tP = [0:((fs*durasi_P)-1)]/fs;
 tMB = [0:((fs*durasi_MB)-1)]/fs;
 CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
 KelasList = {'Putih' 'Merah' 'Biru'};
+warnaPlotList = {'k' 'r' 'b'};
 
 % Smoothing - Moving Average
 span = 0.9;
@@ -164,40 +165,61 @@ for i=1:4
 	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, span, sMethod);
 end
 
-%% Plotting Per Kanal Frekuensi vs Waktu
-for i=1:4
-	figure(i);
-	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
-	% plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
-	subplot(2,1,1);
-	plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
-	title(CHlist{i});
-	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
-	subplot(2,1,2);
-	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
-	xlabel('\fontsize{8}detik (s)');	
-	% xlim([slim1 slim2]);
-	% ylim([ylim1 ylim2]);
-	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
-	print([folder1 sprintf('%s_9-15_MA',CHlist{i})],'-dpng');
-end
+% %% Plotting Per Kanal (Time Domain)
+% for i=1:4
+% 	figure(i);
+% 	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
+% 	% plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
+% 	subplot(2,1,1);
+% 	plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
+% 	title(CHlist{i});
+% 	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
+% 	subplot(2,1,2);
+% 	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
+% 	xlabel('\fontsize{8}detik (s)');	
+% 	% xlim([slim1 slim2]);
+% 	% ylim([ylim1 ylim2]);
+% 	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
+% 	print([folder1 sprintf('%s_9-15_MA',CHlist{i})],'-dpng');
+% end
 
-% %% FFT Per Kanal
+% %% FFT Per Kanal (Frequency Domain - Gabung satu kotak plot)
 % for i=1:4 % kanal
 % 	figure(i+4) % Biar bisa Barengan sama Plot
 % 	for j=1:3 % kelas
 % 		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
 % 		k = 0:1:length(dataNorm{j,i})-1;
 % 		f = k*fs/length(dataNorm{j,i});
-% 		subplot(3,1,j); plot(f,Ak);
-% 		xlabel('\fontsize{8}Hz');
-% 		ylabel('\fontsize{8}dB');
-% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
-% 		xlim([BPlim1 BPlim2]);
-% 		ylim([dBlim1 dBlim2]);
+% 		hold on; 
+% 		plot(f,Ak,warnaPlotList{j});
+% 		% set(gca, 'ytick', 0:1e5:18e-3);
 % 	end
+% 	hold off;	
+% 	xlabel('\fontsize{8}Hz');
+% 	ylabel('\fontsize{8}dB');
+% 	title(['\fontsize{9}' CHlist{i}]);
+% 	xlim([BPlim1 BPlim2]);
+% 	% ylim([dBlim1 dBlim2]);
+% 	legend('Merah','Biru' , 'Location','northeast' , 'Orientation','horizontal');
 % 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
 % end
+
+%% FFT Per Kanal (Frequency Domain)
+for i=1:4 % kanal
+	figure(i+4) % Biar bisa Barengan sama Plot
+	for j=1:3 % kelas
+		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
+		k = 0:1:length(dataNorm{j,i})-1;
+		f = k*fs/length(dataNorm{j,i});
+		subplot(3,1,j); plot(f,Ak);
+		xlabel('\fontsize{8}Hz');
+		ylabel('\fontsize{8}dB');
+		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+		xlim([BPlim1 BPlim2]);
+		% ylim([dBlim1 dBlim2]);
+	end
+	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+end
 
 
 % %% FFT Per Kelas
