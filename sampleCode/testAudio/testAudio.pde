@@ -1,0 +1,29 @@
+import processing.sound.*;
+SoundFile[] file = new SoundFile[6];
+
+void setup(){
+  size(640, 360);
+  background(255);
+  
+  // Load
+  file[0] = new SoundFile(this, "sound_white.mp3");
+  file[0].play(0.65);
+  delay(1000);
+  file[1] = new SoundFile(this, "sound_red.mp3");
+  file[1].play(0.65);
+  delay(1000);
+  file[2] = new SoundFile(this, "sound_white.mp3");
+  file[2].play(0.65);
+  delay(1000);
+  file[3] = new SoundFile(this, "sound_blue.mp3");
+  file[3].play(0.65);
+  delay(1000);
+  file[4] = new SoundFile(this, "sound_white.mp3");
+  file[4].play(0.65);
+  delay(1000);
+  file[5] = new SoundFile(this, "sound_stop.mp3");
+  file[5].play(0.65);
+}
+
+void draw(){
+}
