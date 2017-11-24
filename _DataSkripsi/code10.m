@@ -60,8 +60,8 @@ ylim2 = 0.6;
 [d,c] = butter(2,[9 15]/(fs/2), 'bandpass');
 
 %% Ambil sesuai kelas
-durasi_P = 3 ; % Durasi dari Putih
-durasi_MB = 5 ; % Durasi dari Merah juga Biru
+durasi_P = 2 ; % Durasi dari Putih
+durasi_MB = 2 ; % Durasi dari Merah juga Biru
 detik_P = [8 16 24 32 40] ;
 detik_M = [3 19 35];
 detik_B = [11 27 43];
@@ -345,9 +345,88 @@ sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 % for i=1:6
 %     figure(i);
 %     hold on
-%    scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
 %    scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
 %    scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
+%    scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
+%     hold off
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
+%    % legend( 'Merah', 'Location', 'northeastoutside');
+%    % legend( 'Biru', 'Location', 'northeastoutside');
+%    % legend( 'Putih', 'Location', 'northeastoutside');
+%    judulFile = sprintf('CH%d vs CH%d 2s', sc1(i), sc2(i));
+%    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+%    title(judulFile);
+%    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+% 	print([folder3 'Scattering ' judulFile],'-dpng');
+% end
+
+% %% 8. Scattering Merah-Biru dan Putih
+% for i=4:5
+%     figure(i);
+%    subplot(1,2,1); hold on
+%    scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+
+%    % subplot(1,3,2); 
+%    scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend('Merah','Biru', 'Location','northoutside', 'Orientation', 'horizontal');
+%    legend('boxoff');
+
+%    hold off
+%    subplot(1,2,2); scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Putih', 'Location','northoutside', 'Orientation', 'horizontal');
+%    legend('boxoff');
+
+%    judulFile = sprintf('CH%d vs CH%d 2s', sc1(i), sc2(i));
+%    suptitle(judulFile);
+% 	print([folder3 'Scattering MB-P ' judulFile],'-dpng');
+% end
+
+%% 8. Scattering Merah-Biru-Putih (Pisah 3 Warna)
+for i=4:5
+    figure(i);
+   subplot(1,3,1); scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
+   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   legend( 'Merah', 'Location','northoutside', 'Orientation', 'horizontal');
+   legend('boxoff');
+
+   subplot(1,3,2); scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
+   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   legend( 'Biru', 'Location','northoutside', 'Orientation', 'horizontal');
+   legend('boxoff');
+
+   subplot(1,3,3); scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
+   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   legend( 'Putih', 'Location','northoutside', 'Orientation', 'horizontal');
+   legend('boxoff');
+
+   judulFile = sprintf('CH%d vs CH%d 2s', sc1(i), sc2(i));
+   suptitle(judulFile);
+	print([folder3 'Scattering M-B-P ' judulFile],'-dpng');
+end
+
+% %% 8. Scattering dataNorm (Mean)
+% %%% %%%
+% % dataNorm{1,:} = putih
+% % dataNorm{2,:} = merah
+% % dataNorm{3,:} = biru
+% %%% %%%
+% for i=1:6
+%     figure(i);
+%     hold on
+%    scatter(dataNorm{1,sc1(i)},dataNorm{1,sc2(i)},'xk');
+%    scatter(dataNorm{2,sc1(i)},dataNorm{2,sc2(i)},'or');
+%    scatter(dataNorm{3,sc1(i)},dataNorm{3,sc2(i)},'*b');
 %     hold off
 %    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
 %    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
@@ -356,28 +435,5 @@ sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 %    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
 %    title(judulFile);
 %    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
-% 	print([folder3 'Scattering ' judulFile],'-dpng');
+% 	print([folder3 'Scattering Mean ' judulFile],'-dpng');
 % end
-
-%% 8. Scattering dataNorm (Mean)
-%%% %%%
-% dataNorm{1,:} = putih
-% dataNorm{2,:} = merah
-% dataNorm{3,:} = biru
-%%% %%%
-for i=1:6
-    figure(i);
-    hold on
-   scatter(dataNorm{1,sc1(i)},dataNorm{1,sc2(i)},'xk');
-   scatter(dataNorm{2,sc1(i)},dataNorm{2,sc2(i)},'or');
-   scatter(dataNorm{3,sc1(i)},dataNorm{3,sc2(i)},'*b');
-    hold off
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-   legend('Putih', 'Merah', 'Biru', 'Location', 'northeastoutside');
-   judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
-   % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
-   title(judulFile);
-   % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
-	print([folder3 'Scattering Mean ' judulFile],'-dpng');
-end
