@@ -21,12 +21,12 @@ clc;
 clear;
 close all;
 
-%%Variabel
+%%%%%%%%%%%%%%%%%%%%% VARIABEL %%%%%%%%%%%%%%%%%%%%%
 % N = Netral 	: Putih
 % L = Left		: Merah (11 Hz)
 % R = Right 	: Biru (13 Hz)
 fs = 200;		% Sesuai ganglion pakai 200Hz
-t = [0:399]/fs;
+% t = [0:399]/fs;
 % Manajemen Folder
 folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\';
 folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_Frekuensi\';
@@ -83,6 +83,15 @@ warnaPlotList = {'k' 'r' 'b'};
 span = 0.9;
 span2 = 0.1;
 sMethod = 'moving';
+
+% Scattering - Variable
+sc1 = [1 1 1 2 2 3];
+sc2 = [2 3 4 3 4 4];
+sc1_name = {'Fp1' 'Fp1' 'Fp1' 'Fp2' 'Fp2' 'C3'};
+sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
+
+%%%%%%%%%%%%%%%%%%%%% VARIABEL %%%%%%%%%%%%%%%%%%%%%
+
 
 %% 0. Load File
 %% 1. Filter Data
@@ -248,22 +257,22 @@ end
 % 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
 % end
 
-% %% FFT Per Kanal (Frequency Domain)
-% for i=1:4 % kanal
-% 	figure(i+4) % Biar bisa Barengan sama Plot
-% 	for j=1:3 % kelas
-% 		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
-% 		k = 0:1:length(dataNorm{j,i})-1;
-% 		f = k*fs/length(dataNorm{j,i});
-% 		subplot(3,1,j); plot(f,Ak);
-% 		xlabel('\fontsize{8}Hz');
-% 		ylabel('\fontsize{8}dB');
-% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
-% 		xlim([BPlim1 BPlim2]);
-% 		% ylim([dBlim1 dBlim2]);
-% 	end
-% 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
-% end
+%% 7. FFT Per Kanal (Frequency Domain)
+for i=1:4 % kanal
+	figure(i)
+	for j=1:3 % kelas
+		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
+		k = 0:1:length(dataNorm{j,i})-1;
+		f = k*fs/length(dataNorm{j,i});
+		subplot(3,1,j); plot(f,Ak);
+		xlabel('\fontsize{8}Hz');
+		ylabel('\fontsize{8}dB');
+		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+		xlim([BPlim1 BPlim2]);
+		% ylim([dBlim1 dBlim2]);
+	end
+	print([folder2 sprintf('FFT 2s %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+end
 
 
 % %% FFT Per Kelas
@@ -316,8 +325,8 @@ end
 %% 8. Scattering
 % Variabel bernama : putih merah biru
 %CH1 vs CH2
-sctrx = 1;
-sctry = 2;
+% sctrx = 1;
+% sctry = 2;
 % figure(1);
 % hold on
 % % scatter(putih(:,sctrx),putih(:,sctry),'k');
@@ -337,11 +346,6 @@ sctry = 2;
 % hold off
 
 %% 8. Scattering Semuanya
-sc1 = [1 1 1 2 2 3];
-sc2 = [2 3 4 3 4 4];
-sc1_name = {'Fp1' 'Fp1' 'Fp1' 'Fp2' 'Fp2' 'C3'};
-sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
-
 % for i=1:6
 %     figure(i);
 %     hold on
@@ -389,31 +393,31 @@ sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 % 	print([folder3 'Scattering MB-P ' judulFile],'-dpng');
 % end
 
-%% 8. Scattering Merah-Biru-Putih (Pisah 3 Warna)
-for i=4:5
-    figure(i);
-   subplot(1,3,1); scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-   legend( 'Merah', 'Location','northoutside', 'Orientation', 'horizontal');
-   legend('boxoff');
+% %% 8. Scattering Merah-Biru-Putih (Pisah 3 Warna)
+% for i=4:5
+%     figure(i);
+%    subplot(1,3,1); scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Merah', 'Location','northoutside', 'Orientation', 'horizontal');
+%    legend('boxoff');
 
-   subplot(1,3,2); scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-   legend( 'Biru', 'Location','northoutside', 'Orientation', 'horizontal');
-   legend('boxoff');
+%    subplot(1,3,2); scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Biru', 'Location','northoutside', 'Orientation', 'horizontal');
+%    legend('boxoff');
 
-   subplot(1,3,3); scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-   legend( 'Putih', 'Location','northoutside', 'Orientation', 'horizontal');
-   legend('boxoff');
+%    subplot(1,3,3); scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Putih', 'Location','northoutside', 'Orientation', 'horizontal');
+%    legend('boxoff');
 
-   judulFile = sprintf('CH%d vs CH%d 2s', sc1(i), sc2(i));
-   suptitle(judulFile);
-	print([folder3 'Scattering M-B-P ' judulFile],'-dpng');
-end
+%    judulFile = sprintf('CH%d vs CH%d 2s', sc1(i), sc2(i));
+%    suptitle(judulFile);
+% 	print([folder3 'Scattering M-B-P ' judulFile],'-dpng');
+% end
 
 % %% 8. Scattering dataNorm (Mean)
 % %%% %%%
