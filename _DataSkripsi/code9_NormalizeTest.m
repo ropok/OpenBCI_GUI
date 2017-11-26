@@ -20,4 +20,4 @@ for j=1:3
 	end
 end
 
-save([folder 'dataNorm.mat'], 'dataNorm');		
+save([folder 'dataNorm.mat'], 'dataNorm');

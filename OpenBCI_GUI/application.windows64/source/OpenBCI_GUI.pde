@@ -244,6 +244,11 @@ int hubPid = 0;
 String nodeHubName = "GanglionHub";
 Robot rob3115;
 
+//Minim-SoundPlay
+
+Minim minim;
+public AudioPlayer[] soundFile =  new AudioPlayer[4];
+
 //-----------------------------------------1-------------------------------
 //                       Global Functions
 //------------------------------------------------------------------------
@@ -268,7 +273,7 @@ void setup() {
   println("Last update: 12/20/2016"); //Welcome line.
   println("For more information about how to work with this code base, please visit: http://docs.openbci.com/OpenBCI%20Software/");
   //open window
-  size(1024, 768, P2D);
+  size(1366, 768, P2D);
   frameRate(60); //refresh rate ... this will slow automatically, if your processor can't handle the specified rate
   smooth(); //turn this off if it's too slow
 
@@ -324,6 +329,13 @@ void setup() {
   //The effect of "Start System" is that initSystem() gets called, which starts up the conneciton to the OpenBCI
   //hardware (via the "updateSyncState()" process) as well as initializing the rest of the GUI elements.
   //Once the hardware is synchronized, the main GUI is drawn and the user switches over to the main GUI.
+
+  minim = new Minim(this);
+    soundFile[0] = minim.loadFile("sound_white.mp3");
+    soundFile[1] = minim.loadFile("sound_red.mp3");
+    soundFile[2] = minim.loadFile("sound_blue.mp3");
+    soundFile[3] = minim.loadFile("sound_stop.mp3");
+    // soundFile[0].play();
 
   logo_blue = loadImage("logo_blue.png");
   logo_white = loadImage("logo_white.png");

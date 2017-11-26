@@ -67,8 +67,8 @@ public class JSMinim implements MinimServiceProvider
 {
 	private boolean debug;
 	private Object  fileLoader;
-	private Method  sketchPath;
-	private Method  createInput;
+	public Method  sketchPath;
+	public Method  createInput;
 	private Mixer   inputMixer;
 	private Mixer   outputMixer;
 
