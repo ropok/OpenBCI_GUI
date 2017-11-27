@@ -7,7 +7,7 @@
 23 : Pengambilan Sesi Kedua, ulangan kedua
 
 
-Raw-12_Azka
+Raw-12_Subjek2
 N		L
 1:610		611:1617
 1618:2224	4054:5063

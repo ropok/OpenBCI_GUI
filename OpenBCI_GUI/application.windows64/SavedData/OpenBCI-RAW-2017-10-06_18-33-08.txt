@@ -1,1 +1,0 @@
-No, CH1, CH2, CH3, CH4, Accel X, Accel Y, Accel Z, 2017-10-06_18-33-37
