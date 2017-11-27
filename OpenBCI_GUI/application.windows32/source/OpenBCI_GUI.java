@@ -48,7 +48,7 @@ import java.io.IOException;
 
 public class OpenBCI_GUI extends PApplet {
 
-//<>// //<>//
+//<>// //<>// //<>//
 ///////////////////////////////////////////////////////////////////////////////
 //
 //   GUI for controlling the ADS1299-based OpenBCI
@@ -569,7 +569,7 @@ public boolean killRunningprocessWin() {
 public int getProcessIdFromLineMac(String line) {
   line = trim(line);
   String[] components = line.split(" ");
-  return Integer.parseInt(components[0]); //<>// //<>//
+  return Integer.parseInt(components[0]); //<>// //<>// //<>//
 }
 
 public void endProcess(int pid) {
@@ -4020,7 +4020,7 @@ public class OutputFile_rawtxt {
     // output.println("%First Column = SampleIndex");
     // output.println("%Last Column = Timestamp ");
     // output.println("%Other Columns = EEG data in microvolts followed by Accel Data (in G) interleaved with Aux Data");
-    output.println("No, " + "CH1, "  + "CH2, " + "CH3, " + "CH4, " + "Accel X, " + "Accel Y, " + "Accel Z, " + getDateString());
+    // output.println("No, " + "CH1, "  + "CH2, " + "CH3, " + "CH4, " + "Accel X, " + "Accel Y, " + "Accel Z, " + getDateString());
     output.flush();
   }
 
@@ -8327,7 +8327,7 @@ public void clientEvent(Client someClient) {
       // Reset the buffer position
       ganglion.tcpBufferPositon = 0;
     }
-  }
+  } //<>//
 }
 
 class OpenBCI_Ganglion {
@@ -8336,7 +8336,7 @@ class OpenBCI_Ganglion {
   final static String TCP_CMD_COMMAND = "k";
   final static String TCP_CMD_DISCONNECT = "d";
   final static String TCP_CMD_DATA= "t";
-  final static String TCP_CMD_ERROR = "e";
+  final static String TCP_CMD_ERROR = "e"; //<>//
   final static String TCP_CMD_IMPEDANCE = "i";
   final static String TCP_CMD_LOG = "l";
   final static String TCP_CMD_SCAN = "s";
@@ -8590,8 +8590,8 @@ class OpenBCI_Ganglion {
   private void processData(String msg) {
     String[] list = split(msg, ',');
     int code = Integer.parseInt(list[1]);
-    if (eegDataSource == DATASOURCE_GANGLION && systemMode == 10 && isRunning) {
-      if (Integer.parseInt(list[1]) == RESP_SUCCESS_DATA_SAMPLE) {
+    if (eegDataSource == DATASOURCE_GANGLION && systemMode == 10 && isRunning) { //<>//
+      if (Integer.parseInt(list[1]) == RESP_SUCCESS_DATA_SAMPLE) { //<>//
         // Sample number stuff
         dataPacket.sampleIndex = PApplet.parseInt(Integer.parseInt(list[2]));
         if ((dataPacket.sampleIndex - prevSampleIndex) != 1) {
@@ -8622,7 +8622,7 @@ class OpenBCI_Ganglion {
           }
         }
         getRawValues(dataPacket);
-        // println(binary(dataPacket.values[0], 24) + '\n' + binary(dataPacket.rawValues[0][0], 8) + binary(dataPacket.rawValues[0][1], 8) + binary(dataPacket.rawValues[0][2], 8) + '\n');
+        // println(binary(dataPacket.values[0], 24) + '\n' + binary(dataPacket.rawValues[0][0], 8) + binary(dataPacket.rawValues[0][1], 8) + binary(dataPacket.rawValues[0][2], 8) + '\n'); //<>//
         curDataPacketInd = (curDataPacketInd+1) % dataPacketBuff.length; // This is also used to let the rest of the code that it may be time to do something
 
         ganglion.copyDataPacketTo(dataPacketBuff[curDataPacketInd]);  // Resets isNewDataPacketAvailable to false
@@ -8688,7 +8688,7 @@ class OpenBCI_Ganglion {
     String[] list = split(msg, ',');
     if (Integer.parseInt(list[1]) == RESP_SUCCESS_DATA_IMPEDANCE) {
       int channel = Integer.parseInt(list[2]);
-      if (channel < 5) {
+      if (channel < 5) { //<>//
         int value = Integer.parseInt(list[3]);
         impedanceArray[channel] = value;
         if (channel == 0) {
@@ -8906,7 +8906,7 @@ class OpenBCI_Ganglion {
       return false;
     }
     // return false;
-    // if (nodeProcessHandshakeComplete) {
+    // if (nodeProcessHandshakeComplete) { //<>//
     //   try {
     //     tcpClient.write(out);
     //     return true;
@@ -15577,11 +15577,11 @@ class W_Jalerse extends Widget {
   Button widgetTemplateButton;
   Button sudahSelesaiButton;
 
-  //.txt Focus
-  String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
-  PrintWriter outputText;
-  int counterText;
-  String focus = "N";
+  // //.txt Focus
+  // String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
+  // PrintWriter outputText;
+  // int counterText;
+  // String focus = "N";
 
   public boolean nulisData = false;
 
@@ -15608,10 +15608,10 @@ class W_Jalerse extends Widget {
     // soundFile[3] = minim.loadFile("sound_stop.mp3");
 
 
-    //.txt Focus
-    counterText = 0;
-    outputText = createWriter(outputName);
-    outputText.println("No." + "\t" + "Fokus" + "\t\t" + "Waktu");
+    // //.txt Focus
+    // counterText = 0;
+    // outputText = createWriter(outputName);
+    // outputText.println("No." + "\t" + "Fokus" + "\t\t" + "Waktu");
   }
 
   public void timerDetik() {
@@ -15699,32 +15699,32 @@ class W_Jalerse extends Widget {
     // println (fokus);
   }
 
-  public void tekanFokus() {
-    // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
-    // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
-    // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
-    if (keyPressed) {
-      if (keyCode == LEFT) focus = "LEFT";
-      if (keyCode == RIGHT) focus = "RIGHT";
-      // if(keyCode == UP) focus = "UP";
-    } else focus = "N";
-  }
+  // void tekanFokus() {
+  //   // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
+  //   // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
+  //   // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
+  //   if (keyPressed) {
+  //     if (keyCode == LEFT) focus = "LEFT";
+  //     if (keyCode == RIGHT) focus = "RIGHT";
+  //     // if(keyCode == UP) focus = "UP";
+  //   } else focus = "N";
+  // }
 
-  public void tulisData() {
+  // void tulisData() {
 
-    Date tanggal = new Date();
+  //   Date tanggal = new Date();
 
-    outputText.println(counterText + ", " + focus + ", " + tanggalFormat.format(tanggal));
+  //   outputText.println(counterText + ", " + focus + ", " + tanggalFormat.format(tanggal));
 
-    // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // if(counterText%10 == 0 || counterText%7 == 0 ) outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println((counterText+1) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println((counterText+2) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    outputText.flush();
-    counterText++;
-  }
+  //   // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // if(counterText%10 == 0 || counterText%7 == 0 ) outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println((counterText+1) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println((counterText+2) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   outputText.flush();
+  //   counterText++;
+  // }
 
 
   public void update() {
@@ -15733,10 +15733,10 @@ class W_Jalerse extends Widget {
     pindahWidget(); //Agar tombol ganti widget senantiasa aktif
     // tekanFokus();
 
-    if (isRunning)
-      if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION) {
-        tulisData();
-      }
+    // if (isRunning)
+    //   if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION) {
+    //     tulisData();
+    //   }
     // if(nulisData == true) tulisData();
   }
 
@@ -15763,23 +15763,19 @@ class W_Jalerse extends Widget {
           // tulisData();
           if (ulang < 3) {
             if (detik == waktuDetik) {
-              kotakPutih(); 
-              focus = "N"; /*tulisData();*/
+              kotakPutih();
             }
             if (detik >= 3 && detik < 8) {
-              pushStyle(); 
+              pushStyle();
               kotakMerahKedip(); 
-              focus = "LEFT"; /*tulisData();*/
               popStyle();
             }
             if (detik >= 8 && detik < 11) {
-              kotakPutih(); 
-              focus = "N"; /*tulisData();*/
+              kotakPutih();
             }
             if (detik >= 11 && detik < 16) {
               pushStyle(); 
               kotakBiruKedip(); 
-              focus = "RIGHT"; /*tulisData();*/
               popStyle();
             }
             if (detik == 16) {
@@ -15873,13 +15869,32 @@ class W_Jalerse extends Widget {
           kotakBiruKedip();
           popStyle();
 
-          if(ulang < 3){
-            if(detik == waktuDetik) {soundFile[0].play();if(!soundFile[2].isPlaying())soundFile[2].rewind();}
-            if(detik >= 3 && detik < 8) {soundFile[1].play();if(!soundFile[0].isPlaying())soundFile[0].rewind();}
-            if(detik >= 8 && detik < 11) {soundFile[0].play();if(!soundFile[1].isPlaying())soundFile[1].rewind();}
-            if(detik >= 11 && detik < 16) {soundFile[2].play();if(!soundFile[0].isPlaying())soundFile[0].rewind();}
-            if(detik >= 16) {detik = waktuDetik; ulang += 1;}
-          } else {soundFile[3].play(); sudahSelesaiButton.draw(); isRunning = false;}
+          if (ulang < 3) {
+            if (detik == waktuDetik) {
+              soundFile[0].play();
+              if (!soundFile[2].isPlaying())soundFile[2].rewind();
+            }
+            if (detik >= 3 && detik < 8) {
+              soundFile[1].play();
+              if (!soundFile[0].isPlaying())soundFile[0].rewind();
+            }
+            if (detik >= 8 && detik < 11) {
+              soundFile[0].play();
+              if (!soundFile[1].isPlaying())soundFile[1].rewind();
+            }
+            if (detik >= 11 && detik < 16) {
+              soundFile[2].play();
+              if (!soundFile[0].isPlaying())soundFile[0].rewind();
+            }
+            if (detik >= 16) {
+              detik = waktuDetik; 
+              ulang += 1;
+            }
+          } else {
+            soundFile[3].play(); 
+            sudahSelesaiButton.draw(); 
+            isRunning = false;
+          }
         } 
       if (isRunning == false) {
         detik = waktuDetik; 

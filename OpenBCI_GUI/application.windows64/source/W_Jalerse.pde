@@ -54,11 +54,11 @@ class W_Jalerse extends Widget {
   Button widgetTemplateButton;
   Button sudahSelesaiButton;
 
-  //.txt Focus
-  String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
-  PrintWriter outputText;
-  int counterText;
-  String focus = "N";
+  // //.txt Focus
+  // String outputName = "ColorFocus/" + fileName + "_colorFocus.txt";
+  // PrintWriter outputText;
+  // int counterText;
+  // String focus = "N";
 
   public boolean nulisData = false;
 
@@ -85,10 +85,10 @@ class W_Jalerse extends Widget {
     // soundFile[3] = minim.loadFile("sound_stop.mp3");
 
 
-    //.txt Focus
-    counterText = 0;
-    outputText = createWriter(outputName);
-    outputText.println("No." + "\t" + "Fokus" + "\t\t" + "Waktu");
+    // //.txt Focus
+    // counterText = 0;
+    // outputText = createWriter(outputName);
+    // outputText.println("No." + "\t" + "Fokus" + "\t\t" + "Waktu");
   }
 
   void timerDetik() {
@@ -176,32 +176,32 @@ class W_Jalerse extends Widget {
     // println (fokus);
   }
 
-  void tekanFokus() {
-    // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
-    // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
-    // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
-    if (keyPressed) {
-      if (keyCode == LEFT) focus = "LEFT";
-      if (keyCode == RIGHT) focus = "RIGHT";
-      // if(keyCode == UP) focus = "UP";
-    } else focus = "N";
-  }
+  // void tekanFokus() {
+  //   // if(key == 'A' || key == 'a' || keyCode == LEFT) focus = "LEFT";
+  //   // if(key == 'D' || key == 'd' || keyCode == RIGHT) focus = "RIGHT";
+  //   // if(key == 'S' || key == 's' || keyCode == UP) focus = "MIDDLE";
+  //   if (keyPressed) {
+  //     if (keyCode == LEFT) focus = "LEFT";
+  //     if (keyCode == RIGHT) focus = "RIGHT";
+  //     // if(keyCode == UP) focus = "UP";
+  //   } else focus = "N";
+  // }
 
-  void tulisData() {
+  // void tulisData() {
 
-    Date tanggal = new Date();
+  //   Date tanggal = new Date();
 
-    outputText.println(counterText + ", " + focus + ", " + tanggalFormat.format(tanggal));
+  //   outputText.println(counterText + ", " + focus + ", " + tanggalFormat.format(tanggal));
 
-    // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // if(counterText%10 == 0 || counterText%7 == 0 ) outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println((counterText+1) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    // outputText.println((counterText+2) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
-    outputText.flush();
-    counterText++;
-  }
+  //   // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // if(counterText%10 == 0 || counterText%7 == 0 ) outputText.println(counterText + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println((counterText+1) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   // outputText.println((counterText+2) + ", " + focus + ", " + hour() + ":" + minute() + ":" + second() + ";" + millis());
+  //   outputText.flush();
+  //   counterText++;
+  // }
 
 
   void update() {
@@ -210,10 +210,10 @@ class W_Jalerse extends Widget {
     pindahWidget(); //Agar tombol ganti widget senantiasa aktif
     // tekanFokus();
 
-    if (isRunning)
-      if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION) {
-        tulisData();
-      }
+    // if (isRunning)
+    //   if (eegDataSource == DATASOURCE_SYNTHETIC || eegDataSource == DATASOURCE_GANGLION) {
+    //     tulisData();
+    //   }
     // if(nulisData == true) tulisData();
   }
 
@@ -240,23 +240,19 @@ class W_Jalerse extends Widget {
           // tulisData();
           if (ulang < 3) {
             if (detik == waktuDetik) {
-              kotakPutih(); 
-              focus = "N"; /*tulisData();*/
+              kotakPutih();
             }
             if (detik >= 3 && detik < 8) {
-              pushStyle(); 
+              pushStyle();
               kotakMerahKedip(); 
-              focus = "LEFT"; /*tulisData();*/
               popStyle();
             }
             if (detik >= 8 && detik < 11) {
-              kotakPutih(); 
-              focus = "N"; /*tulisData();*/
+              kotakPutih();
             }
             if (detik >= 11 && detik < 16) {
               pushStyle(); 
               kotakBiruKedip(); 
-              focus = "RIGHT"; /*tulisData();*/
               popStyle();
             }
             if (detik == 16) {
@@ -350,13 +346,32 @@ class W_Jalerse extends Widget {
           kotakBiruKedip();
           popStyle();
 
-          if(ulang < 3){
-            if(detik == waktuDetik) {soundFile[0].play();if(!soundFile[2].isPlaying())soundFile[2].rewind();}
-            if(detik >= 3 && detik < 8) {soundFile[1].play();if(!soundFile[0].isPlaying())soundFile[0].rewind();}
-            if(detik >= 8 && detik < 11) {soundFile[0].play();if(!soundFile[1].isPlaying())soundFile[1].rewind();}
-            if(detik >= 11 && detik < 16) {soundFile[2].play();if(!soundFile[0].isPlaying())soundFile[0].rewind();}
-            if(detik >= 16) {detik = waktuDetik; ulang += 1;}
-          } else {soundFile[3].play(); sudahSelesaiButton.draw(); isRunning = false;}
+          if (ulang < 3) {
+            if (detik == waktuDetik) {
+              soundFile[0].play();
+              if (!soundFile[2].isPlaying())soundFile[2].rewind();
+            }
+            if (detik >= 3 && detik < 8) {
+              soundFile[1].play();
+              if (!soundFile[0].isPlaying())soundFile[0].rewind();
+            }
+            if (detik >= 8 && detik < 11) {
+              soundFile[0].play();
+              if (!soundFile[1].isPlaying())soundFile[1].rewind();
+            }
+            if (detik >= 11 && detik < 16) {
+              soundFile[2].play();
+              if (!soundFile[0].isPlaying())soundFile[0].rewind();
+            }
+            if (detik >= 16) {
+              detik = waktuDetik; 
+              ulang += 1;
+            }
+          } else {
+            soundFile[3].play(); 
+            sudahSelesaiButton.draw(); 
+            isRunning = false;
+          }
         } 
       if (isRunning == false) {
         detik = waktuDetik; 
