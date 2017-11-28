@@ -17,9 +17,9 @@
 % dataNorm{3,:} = biru
 %%% %%%
 
-clc;
-clear;
 close all;
+clear;
+clc;
 
 %%%%%%%%%%%%%%%%%%%%% VARIABEL %%%%%%%%%%%%%%%%%%%%%
 % N = Netral 	: Putih
@@ -28,12 +28,12 @@ close all;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\';
-folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_Frekuensi\';
-folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_FFT\';
-folder3 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\_Scattering\';
+folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\';
+folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\_Frekuensi\';
+folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\_FFT\';
+folder3 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\_Scattering\';
 files = dir([folder '*.txt']);
-Kode = 'jalerse_1';
+Kode = 'Subjek1_1';
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
@@ -62,7 +62,7 @@ ylim2 = 0.6;
 %% Ambil sesuai kelas
 durasi_P = 2 ; % Durasi dari Putih
 durasi_MB = 2 ; % Durasi dari Merah juga Biru
-detik_P = [8 16 24 32 40] ;
+detik_P = [8 16 24 32 40];
 detik_M = [3 19 35];
 detik_B = [11 27 43];
 
@@ -96,13 +96,13 @@ sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 %% 0. Load File
 %% 1. Filter Data
 %% Ambil data dari folder, filter dan simpan dalam bentuk .mat
-% csvread('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\jalerse11.txt');
-% load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_jalerse\jalerse11.txt');
+% csvread('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\Subjek111.txt');
+% load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\Subjek111.txt');
 for i=1:length(files)
 	csvread([folder files(i).name]);
-	for i=1:4
-		ans(:,i)=filter(b,a,ans(:,i));
-		ans(:,i)=filter(d,c,ans(:,i));
+	for j=1:4
+		ans(:,j)=filter(b,a,ans(:,j));
+		ans(:,j)=filter(d,c,ans(:,j));
 	end
 	save([folder sprintf('%s%d.mat',Kode,i)],'ans');
 end

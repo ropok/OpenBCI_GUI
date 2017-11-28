@@ -346,6 +346,8 @@ class W_Jalerse extends Widget {
           kotakBiruKedip();
           popStyle();
 
+
+          // if (soundFile[2].position() == soundFile[2].length())soundFile[2].cue(0);
           if (ulang < 3) {
             if (detik == waktuDetik) {
               soundFile[0].play();
@@ -368,6 +370,7 @@ class W_Jalerse extends Widget {
               ulang += 1;
             }
           } else {
+              if (!soundFile[2].isPlaying())soundFile[2].rewind();
             soundFile[3].play(); 
             sudahSelesaiButton.draw(); 
             isRunning = false;
