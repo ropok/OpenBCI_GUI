@@ -252,7 +252,7 @@ for i=1:4
 	% xlim([slim1 slim2]);
 	% ylim([ylim1 ylim2]);
 	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
-	print([folder1 sprintf('%s_9-15_MA',CHlist{i})],'-dpng');
+	print([folder1 sprintf('NN_%s_9-15_MA',CHlist{i})],'-dpng');
 end
 
 %% 8. Frequency Domain (Plotting Per Kanal)

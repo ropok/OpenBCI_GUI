@@ -2,7 +2,9 @@
 %%%%%%%%%%%%%%%%%%%%% CONTENTS %%%%%%%%%%%%%%%%%%%%%
 %% 0. Load File
 %% 1. Filter Data
-%% 2. Potong Data
+%% 2. Potong Data + Normalisasi
+%% 3. Ekstraksi Ciri
+
 %% 3. Mean - Rata rata
 %% 4. Load Data Mean
 %% 5. Normalisasi
@@ -33,6 +35,7 @@ folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1b\';
 folder1 = [folder '_Frekuensi\'];
 folder2 = [folder '_FFT\'];
 folder3 = [folder '_Scattering\'];
+folder4 = [folder '_Ciri\'];
 files = dir([folder '*.txt']);
 Kode = 'Subjek1_';
 qData = 10;
@@ -64,6 +67,7 @@ ylim2 = 0.6;
 %% Ambil sesuai kelas
 durasi_P = 2 ; % Durasi dari Putih
 durasi_MB = 2 ; % Durasi dari Merah juga Biru
+durasi = 2; % Putih Merah Biru disetarakan
 detik_P = [8 16 24 32 40];
 detik_M = [3 19 35];
 detik_B = [11 27 43];
@@ -109,91 +113,204 @@ for i=1:length(files)
 	save([folder sprintf('%s%d.mat',Kode,i)],'ans');
 end
 
-%% 2. Potong Data
+%% 2. Potong Data + Normalisasi
 %% per kelas, jadikan cell: 1 kotak = 1x400 (2 detik data)
 for h=1:qData
 load([folder sprintf('%s%d.mat',Kode,h)]);
-% Putih
-for j=1:4
-	baris = 1 + ((h-1)*5); %agar bisa lanjut dari data-data yang lain
-	for i=1:length(detik_P)
-		awal = detik_P(i)*fs+1;
-		akhir = awal + (durasi_P*fs) - 1;
-		putih{baris,j} = ans(awal:akhir,j);
-		%Normalisasi
-		pN = putih{baris,j} - min(putih{baris,j});
-		pN = pN ./ max(pN(:));
-		putihNorm{baris,j} = pN;
-		baris = baris + 1;
-	end
-end
-
-%% 2. Potong Data
-%% Potong Data per kelas
-% Kelas Putih
-for h=1:qData
-	load([folder sprintf('%s%d.mat',Kode,h)]);
+	% Putih
 	for j=1:4
+		baris = 1 + ((h-1)*5); %agar bisa lanjut dari data-data yang lain
 		for i=1:length(detik_P)
 			awal = detik_P(i)*fs+1;
-			akhir = awal + (durasi_P*fs) - 1;
-			temp = ans(awal:akhir,j);
-			tempP = vertcat(tempP,temp);
+			akhir = awal + (durasi*fs) - 1;
+			putih{baris,j} = ans(awal:akhir,j);
+			% %Normalisasi
+			% pN = putih{baris,j} - min(putih{baris,j});
+			% pN = pN ./ max(pN(:));
+			% putih{baris,j} = pN;
+
+			baris = baris + 1;
 		end
-		putih(:,j) = tempP;	
-		tempP = [];
 	end
-% Kelas Merah
+
+	%Merah
 	for j=1:4
+		baris = 1 + ((h-1)*3); %agar bisa lanjut dari data-data yang lain
 		for i=1:length(detik_M)
 			awal = detik_M(i)*fs+1;
-			akhir = awal + (durasi_MB*fs) - 1;
-			temp = ans(awal:akhir,j);
-			tempM = vertcat(tempM,temp);
+			akhir = awal + (durasi*fs) - 1;
+			merah{baris,j} = ans(awal:akhir,j);
+			% %Normalisasi
+			% mN = merah{baris,j} - min(merah{baris,j});
+			% mN = mN ./ max(mN(:));
+			% merah{baris,j} = mN;
+
+			baris = baris + 1;
 		end
-		merah(:,j) = tempM;
-		tempM = [];
 	end
-% Kelas Biru
+
+	%Biru
 	for j=1:4
+		baris = 1 + ((h-1)*3); %agar bisa lanjut dari data-data yang lain
 		for i=1:length(detik_B)
 			awal = detik_B(i)*fs+1;
-			akhir = awal + (durasi_MB*fs) - 1;
-			temp = ans(awal:akhir,j);
-			tempB = vertcat(tempB,temp);
+			akhir = awal + (durasi*fs) - 1;
+			biru{baris,j} = ans(awal:akhir,j);
+			% %Normalisasi
+			% bN = biru{baris,j} - min(biru{baris,j});
+			% bN = bN ./ max(bN(:));
+			% biru{baris,j} = bN;
+
+			baris = baris + 1;
 		end
-		biru(:,j) = tempB;
-		tempB = [];
+	end	
+end
+save([folder sprintf('%s_pN.mat',Kode)],'putih');
+save([folder sprintf('%s_mN.mat',Kode)],'merah');
+save([folder sprintf('%s_bN.mat',Kode)],'biru');
+
+%% 3. Ekstraksi Ciri
+for j=1:4
+	%Putih
+	for i=1:length(putih)
+		mean_Putih{i,j}=mean(putih{i,j});
+		min_Putih{i,j}=min(putih{i,j});
+		max_Putih{i,j}=max(putih{i,j});
+		dif_Putih{i,j}=max(putih{i,j})-min(putih{i,j});
+		rel_Putih{i,j}=max(putih{i,j})/min(putih{i,j});
+		pc_Putih{i,j}=dif_Putih{i,j}/min_Putih{i,j};
 	end
-save([folder sprintf('%s%d_p.mat',Kode,h)],'putih');
-save([folder sprintf('%s%d_m.mat',Kode,h)],'merah');
-save([folder sprintf('%s%d_b.mat',Kode,h)],'biru');
-end
 
-%% 5. Normalisasi
-for j=1:3
-	for i=1:4
-		dataMean{j,i}.ans - min(dataMean{j,i}.ans);
-		ans = ans ./ max(ans(:));
-		% save([folder sprintf('norm%s_CH%d.mat',KelasList{j},i)], 'ans');
-		dataNorm{j,i}=ans;
+	%Merah
+	for i=1:length(merah)
+		mean_Merah{i,j}=mean(merah{i,j});
+		min_Merah{i,j}=min(merah{i,j});
+		max_Merah{i,j}=max(merah{i,j});
+		dif_Merah{i,j}=max(merah{i,j})-min(merah{i,j});
+		rel_Merah{i,j}=max(merah{i,j})/min(merah{i,j});
+		pc_Merah{i,j}=dif_Merah{i,j}/min_Merah{i,j};
 	end
-end
-save([folder 'dataNorm.mat'], 'dataNorm');
-%Normalisasi untuk Scattering
-for i=1:4
-	pN = gabPutih(:,i) - min(gabPutih(:,i));
-	pN = pN ./ max(pN(:));
-	putihNorm(:,i) = pN;
 
-	mN = gabMerah(:,i) - min(gabMerah(:,i));
-	mN = mN ./ max(mN(:));
-	merahNorm(:,i) = mN;
+	%Biru
+	for i=1:length(biru)
+		mean_Biru{i,j}=mean(biru{i,j});
+		min_Biru{i,j}=min(biru{i,j});
+		max_Biru{i,j}=max(biru{i,j});
+		dif_Biru{i,j}=max(biru{i,j})-min(biru{i,j});
+		rel_Biru{i,j}=max(biru{i,j})/min(biru{i,j});
+		pc_Biru{i,j}=dif_Biru{i,j}/min_Biru{i,j};
+	end
 
-	bN = gabBiru(:,i) - min(gabBiru(:,i));
-	bN = bN ./ max(bN(:));
-	biruNorm(:,i) = bN;
 end
+	ciri_Putih.mean = cell2mat(mean_Putih);
+	ciri_Putih.min = cell2mat(min_Putih);
+	ciri_Putih.max = cell2mat(max_Putih);
+	ciri_Putih.dif = cell2mat(dif_Putih);
+	ciri_Putih.rel = cell2mat(rel_Putih);
+	ciri_Putih.pc = cell2mat(pc_Putih);
+
+	ciri_Merah.mean = cell2mat(mean_Merah);
+	ciri_Merah.min = cell2mat(min_Merah);
+	ciri_Merah.max = cell2mat(max_Merah);
+	ciri_Merah.dif = cell2mat(dif_Merah);
+	ciri_Merah.rel = cell2mat(rel_Merah);
+	ciri_Merah.pc = cell2mat(pc_Merah);
+
+	ciri_Biru.mean = cell2mat(mean_Biru);
+	ciri_Biru.min = cell2mat(min_Biru);
+	ciri_Biru.max = cell2mat(max_Biru);
+	ciri_Biru.dif = cell2mat(dif_Biru);
+	ciri_Biru.rel = cell2mat(rel_Biru);
+	ciri_Biru.pc = cell2mat(pc_Biru);
+
+
+%% 9. Scattering Semuanya
+for i=1:6
+    figure(i);
+    hold on
+   scatter(ciri_Merah.mean(:,sc1(i)),ciri_Merah.mean(:,sc2(i)),'or');
+   scatter(ciri_Biru.mean(:,sc1(i)),ciri_Biru.mean(:,sc2(i)),'*b');
+   scatter(ciri_Putih.mean(:,sc1(i)),ciri_Putih.mean(:,sc2(i)),'xk');
+    hold off
+   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
+   % legend( 'Merah', 'Location', 'northeastoutside');
+   % legend( 'Biru', 'Location', 'northeastoutside');
+   % legend( 'Putih', 'Location', 'northeastoutside');
+   judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
+   % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+   title(judulFile);
+   % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+	print([folder4 'Scattering ' judulFile],'-dpng');
+end
+
+% %% 2. Potong Data
+% %% Potong Data per kelas
+% % Kelas Putih
+% for h=1:qData
+% 	load([folder sprintf('%s%d.mat',Kode,h)]);
+% 	for j=1:4
+% 		for i=1:length(detik_P)
+% 			awal = detik_P(i)*fs+1;
+% 			akhir = awal + (durasi_P*fs) - 1;
+% 			temp = ans(awal:akhir,j);
+% 			tempP = vertcat(tempP,temp);
+% 		end
+% 		putih(:,j) = tempP;	
+% 		tempP = [];
+% 	end
+% % Kelas Merah
+% 	for j=1:4
+% 		for i=1:length(detik_M)
+% 			awal = detik_M(i)*fs+1;
+% 			akhir = awal + (durasi_MB*fs) - 1;
+% 			temp = ans(awal:akhir,j);
+% 			tempM = vertcat(tempM,temp);
+% 		end
+% 		merah(:,j) = tempM;
+% 		tempM = [];
+% 	end
+% % Kelas Biru
+% 	for j=1:4
+% 		for i=1:length(detik_B)
+% 			awal = detik_B(i)*fs+1;
+% 			akhir = awal + (durasi_MB*fs) - 1;
+% 			temp = ans(awal:akhir,j);
+% 			tempB = vertcat(tempB,temp);
+% 		end
+% 		biru(:,j) = tempB;
+% 		tempB = [];
+% 	end
+% save([folder sprintf('%s%d_p.mat',Kode,h)],'putih');
+% save([folder sprintf('%s%d_m.mat',Kode,h)],'merah');
+% save([folder sprintf('%s%d_b.mat',Kode,h)],'biru');
+% end
+
+% %% 5. Normalisasi
+% for j=1:3
+% 	for i=1:4
+% 		dataMean{j,i}.ans - min(dataMean{j,i}.ans);
+% 		ans = ans ./ max(ans(:));
+% 		% save([folder sprintf('norm%s_CH%d.mat',KelasList{j},i)], 'ans');
+% 		dataNorm{j,i}=ans;
+% 	end
+% end
+% save([folder 'dataNorm.mat'], 'dataNorm');
+% %Normalisasi untuk Scattering
+% for i=1:4
+% 	pN = gabPutih(:,i) - min(gabPutih(:,i));
+% 	pN = pN ./ max(pN(:));
+% 	putihNorm(:,i) = pN;
+
+% 	mN = gabMerah(:,i) - min(gabMerah(:,i));
+% 	mN = mN ./ max(mN(:));
+% 	merahNorm(:,i) = mN;
+
+% 	bN = gabBiru(:,i) - min(gabBiru(:,i));
+% 	bN = bN ./ max(bN(:));
+% 	biruNorm(:,i) = bN;
+% end
 
 % %% Coba gabungkan semua
 % % Putih
