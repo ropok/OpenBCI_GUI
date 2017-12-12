@@ -96,6 +96,13 @@ sc2 = [2 3 4 3 4 4];
 sc1_name = {'Fp1' 'Fp1' 'Fp1' 'Fp2' 'Fp2' 'C3'};
 sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 
+%  Membuat dataset
+ciri_dataset = [];
+set1 = {'Putih' 'Merah' 'Biru'};
+set2 = {'mean' 'min' 'max' 'dif' 'rel' 'pc'};
+tempset1 = [];
+tempset2 = [];
+
 %%%%%%%%%%%%%%%%%%%%% VARIABEL %%%%%%%%%%%%%%%%%%%%%
 
 
@@ -224,26 +231,51 @@ end
 	ciri_Biru.pc = cell2mat(pc_Biru);
 
 
-%% 9. Scattering Semuanya
-for i=1:6
-    figure(i);
-    hold on
-   scatter(ciri_Merah.mean(:,sc1(i)),ciri_Merah.mean(:,sc2(i)),'or');
-   scatter(ciri_Biru.mean(:,sc1(i)),ciri_Biru.mean(:,sc2(i)),'*b');
-   scatter(ciri_Putih.mean(:,sc1(i)),ciri_Putih.mean(:,sc2(i)),'xk');
-    hold off
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-   legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
-   % legend( 'Merah', 'Location', 'northeastoutside');
-   % legend( 'Biru', 'Location', 'northeastoutside');
-   % legend( 'Putih', 'Location', 'northeastoutside');
-   judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
-   % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
-   title(judulFile);
-   % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
-	print([folder4 'Scattering ' judulFile],'-dpng');
+for i=1:length(set1) % Putih Merah Biru
+	for j=1:length(set2) % Ciri dan Ciri
+		for k=1:4
+			transpose(sprintf('ciri_%s.%s(:,%d)',set1{i},set2{j},k));
+			tempset1 = vertcat(tempset1,ans);
+		end
+	end
 end
+%% %% 9. Scattering Semuanya
+% for i=1:6
+%     figure(i);
+%     hold on
+%    scatter(ciri_Merah.mean(:,sc1(i)),ciri_Merah.mean(:,sc2(i)),'or');
+%    scatter(ciri_Merah.min(:,sc1(i)),ciri_Merah.min(:,sc2(i)),'or');
+%    scatter(ciri_Merah.max(:,sc1(i)),ciri_Merah.max(:,sc2(i)),'or');
+%    scatter(ciri_Merah.dif(:,sc1(i)),ciri_Merah.dif(:,sc2(i)),'or');
+%    scatter(ciri_Merah.rel(:,sc1(i)),ciri_Merah.rel(:,sc2(i)),'or');
+%    scatter(ciri_Merah.pc(:,sc1(i)),ciri_Merah.pc(:,sc2(i)),'or');
+
+%    scatter(ciri_Biru.mean(:,sc1(i)),ciri_Biru.mean(:,sc2(i)),'*b');
+%    scatter(ciri_Biru.min(:,sc1(i)),ciri_Biru.min(:,sc2(i)),'*b');
+%    scatter(ciri_Biru.max(:,sc1(i)),ciri_Biru.max(:,sc2(i)),'*b');
+%    scatter(ciri_Biru.dif(:,sc1(i)),ciri_Biru.dif(:,sc2(i)),'*b');
+%    scatter(ciri_Biru.rel(:,sc1(i)),ciri_Biru.rel(:,sc2(i)),'*b');
+%    scatter(ciri_Biru.pc(:,sc1(i)),ciri_Biru.pc(:,sc2(i)),'*b');
+
+%    scatter(ciri_Putih.mean(:,sc1(i)),ciri_Putih.mean(:,sc2(i)),'xk');
+%    scatter(ciri_Putih.min(:,sc1(i)),ciri_Putih.min(:,sc2(i)),'xk');
+%    scatter(ciri_Putih.max(:,sc1(i)),ciri_Putih.max(:,sc2(i)),'xk');
+%    scatter(ciri_Putih.dif(:,sc1(i)),ciri_Putih.dif(:,sc2(i)),'xk');
+%    scatter(ciri_Putih.rel(:,sc1(i)),ciri_Putih.rel(:,sc2(i)),'xk');
+%    scatter(ciri_Putih.pc(:,sc1(i)),ciri_Putih.pc(:,sc2(i)),'xk');
+%     hold off
+%    xlabel(sprintf('%s', sc1_name{i}));
+%    ylabel(sprintf('%s', sc2_name{i}));
+%    % legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
+%    % legend( 'Merah', 'Location', 'northeastoutside');
+%    % legend( 'Biru', 'Location', 'northeastoutside');
+%    % legend( 'Putih', 'Location', 'northeastoutside');
+%    judulFile = sprintf('%s vs %s', sc1_name{i}, sc2_name{i});
+%    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+%    title(judulFile);
+%    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+% 	print([folder4 'Scattering ' judulFile],'-dpng');
+% end
 
 % %% 2. Potong Data
 % %% Potong Data per kelas
