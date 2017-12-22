@@ -44,8 +44,8 @@ qData = 10;
 % BP1 = 9;
 % BP2 = 15;
 %limit untuk Frekuensi (Hz)
-BPlim1 = 9;
-BPlim2 = 15;
+BPlim1 = 8;
+BPlim2 = 42;
 %Limit untuk dB
 dBlim1 = 0;
 dBlim2 = 0.02;
@@ -59,7 +59,7 @@ ylim2 = 0.6;
 % Notch Filter 50 Hz
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');
 % BandPass Filter
-[d,c] = butter(2,[9 15]/(fs/2), 'bandpass');
+[d,c] = butter(2,[8 42]/(fs/2), 'bandpass');
 
 %% Ambil sesuai kelas
 durasi_P = 2 ; % Durasi dari Putih
@@ -210,7 +210,7 @@ for j=1:3
 		dataMean{j,i}.ans - min(dataMean{j,i}.ans);
 		ans = ans ./ max(ans(:));
 		% save([folder sprintf('norm%s_CH%d.mat',KelasList{j},i)], 'ans');
-		dataNorm{j,i}=ans;
+		dataNorm{j,i}=dataMean{j,i}.ans;
 	end
 end
 save([folder 'dataNorm.mat'], 'dataNorm');

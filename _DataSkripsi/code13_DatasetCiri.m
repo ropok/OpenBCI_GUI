@@ -102,6 +102,15 @@ set1 = {'Putih' 'Merah' 'Biru'};
 set2 = {'mean' 'min' 'max' 'dif' 'rel' 'pc'};
 tempset1 = [];
 tempset2 = [];
+% Tabel Labeling
+labelCiri = {};
+t_putih = [1;0;0];
+t_merah = [0;1;0];
+t_biru  = [0;0;1];
+target = [];
+tq_putih = 50;
+tq_merah = 30;
+tq_biru  = 30;
 
 %%%%%%%%%%%%%%%%%%%%% VARIABEL %%%%%%%%%%%%%%%%%%%%%
 
@@ -242,3 +251,26 @@ for i=1:length(set1) % Putih Merah Biru
 	ciri_dataset = horzcat(ciri_dataset,tempset1);
 	tempset1 = [];
 end
+save([folder sprintf('%sciriDataset.mat',Kode)],'ciri_dataset');
+
+for i=1:tq_putih
+	target = [target t_putih];
+end
+for i=1:tq_merah
+	target = [target t_merah];
+end
+for i=1:tq_biru
+	target = [target t_biru];
+end
+
+
+% Putih = ciri_dataset(:,1:50);
+% Merah = ciri_dataset(:,51:80);
+% Biru = ciri_dataset(:,81:110);
+% % Loop untuk pelabelan Baris (ciri channel 1 - 4)
+% for i=1:length(set2)
+% 	for j=1:4
+% 		labelCiri = [labelCiri, sprintf('%s-CH%d',set2{i},j)];
+% 	end
+% end
+% ciri_dataset_Table = table(Putih, Merah, Biru, 'RowNames', labelCiri);
