@@ -35,7 +35,8 @@ folder2 = [folder '_FFT\'];
 folder3 = [folder '_Scattering\'];
 files = dir([folder '*.txt']);
 Kode = 'Subjek1_';
-qData = 10;
+startqData = 6;
+endqData = 10;
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
@@ -112,7 +113,7 @@ end
 %% 2. Potong Data
 %% Potong Data per kelas
 % Kelas Putih
-for h=1:qData
+for h=1:endqData
 	load([folder sprintf('%s%d.mat',Kode,h)]);
 	for j=1:4
 		for i=1:length(detik_P)
@@ -156,7 +157,7 @@ end
 gabPutih = [];
 gabMerah = [];
 gabBiru = [];
-for i=1:qData
+for i=startqData:endqData
 	ans = load([folder sprintf('%s%d_p.mat',Kode,i)]);
 	gabPutih = vertcat(gabPutih, ans.putih);
 
@@ -167,7 +168,7 @@ for i=1:qData
 	gabBiru = vertcat(gabBiru, ans.biru);
 end
 
-%% 3. Mean - Rata rata
+%% 3a. Mean - Rata rata
 for j=1:4 % Jumlah Kanal
 	tempP = [];
 	tempB = [];
@@ -195,6 +196,34 @@ for j=1:4 % Jumlah Kanal
 		save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
 end
 
+%% 3b. Max - Ambil nilai maksimal tiap potongan n detik data - tanpa Normalisasi
+for j=1:4 % Jumlah Kanal
+	tempP = [];
+	tempM = [];
+	tempB = [];
+		% Mengumpulkan barisan data yang mau dirata-rata
+	for i=0:(length(gabPutih)/(fs*durasi_P))-1
+		awal = (durasi_P*fs*i)+1;
+		akhir = (durasi_P*fs*i)+(durasi_P*fs);
+		tempP = horzcat(tempP,gabPutih(awal:akhir,j));
+	end
+		% Rata-rata dari Putih
+		dataMaxP(:,j) = min(tempP)';
+		% save([folder sprintf('MeanP_CH%d.mat',j)],'ans');
+		% Mengumpulkan barisan data yang mau dirata-rata
+	for i=0:(length(gabMerah)/(fs*durasi_MB))-1
+		awal = (durasi_MB*fs*i)+1;
+		akhir = (durasi_MB*fs*i)+(durasi_MB*fs);
+		tempM = horzcat(tempM,gabMerah(awal:akhir,j));
+		tempB = horzcat(tempB,gabBiru(awal:akhir,j));
+	end
+		% Rata-rata dari Merah dan Biru
+		dataMaxM(:,j) = min(tempM)';
+		% save([folder sprintf('MeanM_CH%d.mat',j)],'ans');
+		dataMaxB(:,j) = min(tempB)';
+		% save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
+end
+
 
 %% 4. Load Data Mean
 for i=1:4
@@ -214,6 +243,7 @@ for j=1:3
 	end
 end
 save([folder 'dataNorm.mat'], 'dataNorm');
+
 %Normalisasi untuk Scattering
 for i=1:4
 	pN = gabPutih(:,i) - min(gabPutih(:,i));
@@ -229,6 +259,21 @@ for i=1:4
 	biruNorm(:,i) = bN;
 end
 
+%Normalisasi dataMax
+for i=1:4
+	pM = dataMaxP(:,i) - min(dataMaxP(:,i));
+	pM = pM ./ max(pM(:));
+	dataMaxPN(:,i) = pM;
+
+	mM = dataMaxM(:,i) - min(dataMaxM(:,i));
+	mM = mM ./ max(mM(:));
+	dataMaxMN(:,i) = mM;
+
+	bM = dataMaxB(:,i) - min(dataMaxB(:,i));
+	bM = bM ./ max(bM(:));
+	dataMaxBN(:,i) = bM;
+end
+
 %% 6. Smoothing (Moving Average)
 % Smoothing Session (Moving Average)
 for i=1:4
@@ -237,51 +282,71 @@ for i=1:4
 	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, span, sMethod);
 end
 
-%% 7. Time Domain (Plotting Per Kanal)
-for i=1:4
-	figure(i);
-	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
-	% plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
-	subplot(2,1,1);
-	plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
-	title(CHlist{i});
-	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
-	subplot(2,1,2);
-	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
-	xlabel('\fontsize{8}detik (s)');	
-	% xlim([slim1 slim2]);
-	% ylim([ylim1 ylim2]);
-	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
-	print([folder1 sprintf('NN_%s_9-15_MA',CHlist{i})],'-dpng');
-end
+% %% 7. Time Domain (Plotting Per Kanal)
+% for i=1:4
+% 	figure(i);
+% 	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
+% 	% plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
+% 	subplot(2,1,1);
+% 	plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
+% 	title(CHlist{i});
+% 	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
+% 	subplot(2,1,2);
+% 	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
+% 	xlabel('\fontsize{8}detik (s)');	
+% 	% xlim([slim1 slim2]);
+% 	% ylim([ylim1 ylim2]);
+% 	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
+% 	print([folder1 sprintf('NN_%s_9-15_MA',CHlist{i})],'-dpng');
+% end
 
-%% 8. Frequency Domain (Plotting Per Kanal)
-for i=1:4 % kanal
-	figure(i+4)
-	for j=1:3 % kelas
-		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
-		k = 0:1:length(dataNorm{j,i})-1;
-		f = k*fs/length(dataNorm{j,i});
-		subplot(3,1,j); plot(f,Ak);
-		xlabel('\fontsize{8}Hz');
-		ylabel('\fontsize{8}dB');
-		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
-		xlim([BPlim1 BPlim2]);
-		% ylim([dBlim1 dBlim2]);
-	end
-	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
-end
+% %% 8. Frequency Domain (Plotting Per Kanal)
+% for i=1:4 % kanal
+% 	figure(i+4)
+% 	for j=1:3 % kelas
+% 		Ak = abs(fft(dataNorm{j,i}))/length(dataNorm{j,i});
+% 		k = 0:1:length(dataNorm{j,i})-1;
+% 		f = k*fs/length(dataNorm{j,i});
+% 		subplot(3,1,j); plot(f,Ak);
+% 		xlabel('\fontsize{8}Hz');
+% 		ylabel('\fontsize{8}dB');
+% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+% 		xlim([BPlim1 BPlim2]);
+% 		% ylim([dBlim1 dBlim2]);
+% 	end
+% 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+% end
 
-%% 9. Scattering Semuanya
-for i=1:6
-    figure(i+8);
+% %% 9. Scattering Semuanya
+% for i=1:6
+%     figure(i+8);
+%     hold on
+%    scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
+%    scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
+%    scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
+%     hold off
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
+%    % legend( 'Merah', 'Location', 'northeastoutside');
+%    % legend( 'Biru', 'Location', 'northeastoutside');
+%    % legend( 'Putih', 'Location', 'northeastoutside');
+%    judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
+%    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+%    title(judulFile);
+%    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+% 	print([folder3 'Scattering ' judulFile],'-dpng');
+% end
+
+%% 9. Scattering CH1 vs CH3
+    figure(1);
     hold on
-   scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
-   scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
-   scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
+   scatter(merahNorm(:,1),merahNorm(:,3),'or');
+   scatter(biruNorm(:,1),biruNorm(:,3),'*b');
+   scatter(putihNorm(:,1),putihNorm(:,3),'xk');
     hold off
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   % xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   % ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
    legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
    % legend( 'Merah', 'Location', 'northeastoutside');
    % legend( 'Biru', 'Location', 'northeastoutside');
@@ -291,7 +356,27 @@ for i=1:6
    title(judulFile);
    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
 	print([folder3 'Scattering ' judulFile],'-dpng');
-end
+
+% %% 9. Scattering Semuanya - dataMax
+% for i=1:6
+%     figure(i+8);
+%     hold on
+%    scatter(dataMaxP(:,sc1(i)),dataMaxP(:,sc2(i)),'xk');
+%    scatter(dataMaxM(:,sc1(i)),dataMaxM(:,sc2(i)),'or');
+%    scatter(dataMaxB(:,sc1(i)),dataMaxB(:,sc2(i)),'*b');
+%     hold off
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
+%    % legend( 'Merah', 'Location', 'northeastoutside');
+%    % legend( 'Biru', 'Location', 'northeastoutside');
+%    % legend( 'Putih', 'Location', 'northeastoutside');
+%    judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
+%    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+%    title(judulFile);
+%    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+% 	print([folder3 'Scattering ' judulFile],'-dpng');
+% end
 
 
 % %% FFT Per Kanal (Frequency Domain - Gabung satu kotak plot)
