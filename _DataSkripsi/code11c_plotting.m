@@ -35,8 +35,8 @@ folder2 = [folder '_FFT\'];
 folder3 = [folder '_Scattering\'];
 files = dir([folder '*.txt']);
 Kode = 'Subjek1_';
-startqData = 6;
-endqData = 10;
+startqData = 1;
+endqData = 5;
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
@@ -63,8 +63,7 @@ ylim2 = 0.6;
 [d,c] = butter(2,[8 42]/(fs/2), 'bandpass');
 
 %% Ambil sesuai kelas
-durasi_P = 2 ; % Durasi dari Putih
-durasi_MB = 2 ; % Durasi dari Merah juga Biru
+durasi = 2 ; % Durasi dari Putih Merah Biru (Jadi satu jenis durasi saja)
 detik_P = [8 16 24 32 40];
 detik_M = [3 19 35];
 detik_B = [11 27 43];
@@ -76,8 +75,8 @@ tempB = [];
 
 
 % Untuk Plotting
-tP = [0:((fs*durasi_P)-1)]/fs; 
-tMB = [0:((fs*durasi_MB)-1)]/fs;
+tP = [0:((fs*durasi)-1)]/fs; 
+tMB = [0:((fs*durasi)-1)]/fs;
 CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
 KelasList = {'Putih' 'Merah' 'Biru'};
 warnaPlotList = {'k' 'r' 'b'};
@@ -101,24 +100,24 @@ sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 %% Ambil data dari folder, filter dan simpan dalam bentuk .mat
 % csvread('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\Subjek111.txt');
 % load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\Subjek111.txt');
-for i=1:length(files)
-	csvread([folder files(i).name]);
+for h=1:length(files)
+	csvread([folder files(h).name]);
 	for j=1:4
 		ans(:,j)=filter(b,a,ans(:,j));
 		ans(:,j)=filter(d,c,ans(:,j));
 	end
-	save([folder sprintf('%s%d.mat',Kode,i)],'ans');
+	save([folder sprintf('%s%d.mat',Kode,h)],'ans');
 end
 
 %% 2. Potong Data
 %% Potong Data per kelas
 % Kelas Putih
-for h=1:endqData
+for h=startqData:endqData
 	load([folder sprintf('%s%d.mat',Kode,h)]);
 	for j=1:4
 		for i=1:length(detik_P)
 			awal = detik_P(i)*fs+1;
-			akhir = awal + (durasi_P*fs) - 1;
+			akhir = awal + (durasi*fs) - 1;
 			temp = ans(awal:akhir,j);
 			tempP = vertcat(tempP,temp);
 		end
@@ -129,7 +128,7 @@ for h=1:endqData
 	for j=1:4
 		for i=1:length(detik_M)
 			awal = detik_M(i)*fs+1;
-			akhir = awal + (durasi_MB*fs) - 1;
+			akhir = awal + (durasi*fs) - 1;
 			temp = ans(awal:akhir,j);
 			tempM = vertcat(tempM,temp);
 		end
@@ -140,7 +139,7 @@ for h=1:endqData
 	for j=1:4
 		for i=1:length(detik_B)
 			awal = detik_B(i)*fs+1;
-			akhir = awal + (durasi_MB*fs) - 1;
+			akhir = awal + (durasi*fs) - 1;
 			temp = ans(awal:akhir,j);
 			tempB = vertcat(tempB,temp);
 		end
@@ -152,8 +151,7 @@ save([folder sprintf('%s%d_m.mat',Kode,h)],'merah');
 save([folder sprintf('%s%d_b.mat',Kode,h)],'biru');
 end
 
-%% Coba gabungkan semua
-% Putih
+%% Gabungkan semua sesuai Kelas
 gabPutih = [];
 gabMerah = [];
 gabBiru = [];
@@ -168,24 +166,39 @@ for i=startqData:endqData
 	gabBiru = vertcat(gabBiru, ans.biru);
 end
 
+% 2b. Normalisasi Data
+for i=1:4
+	pN = gabPutih(:,i) - min(gabPutih(:,i));
+	pN = pN ./ max(pN(:));
+	gabPutih(:,i) = pN;
+
+	mN = gabMerah(:,i) - min(gabMerah(:,i));
+	mN = mN ./ max(mN(:));
+	gabMerah(:,i) = mN;
+
+	bN = gabBiru(:,i) - min(gabBiru(:,i));
+	bN = bN ./ max(bN(:));
+	gabBiru(:,i) = bN;
+end
+
 %% 3a. Mean - Rata rata
 for j=1:4 % Jumlah Kanal
 	tempP = [];
 	tempB = [];
 	tempM = [];
 		% Mengumpulkan barisan data yang mau dirata-rata
-	for i=0:(length(gabPutih)/(fs*durasi_P))-1
-		awal = (durasi_P*fs*i)+1;
-		akhir = (durasi_P*fs*i)+(durasi_P*fs);
+	for i=0:(length(gabPutih)/(fs*durasi))-1
+		awal = (durasi*fs*i)+1;
+		akhir = (durasi*fs*i)+(durasi*fs);
 		tempP = horzcat(tempP,gabPutih(awal:akhir,j));
 	end
 		% Rata-rata dari Putih
 		mean(tempP,2);
 		save([folder sprintf('MeanP_CH%d.mat',j)],'ans');
 		% Mengumpulkan barisan data yang mau dirata-rata
-	for i=0:(length(gabMerah)/(fs*durasi_MB))-1
-		awal = (durasi_MB*fs*i)+1;
-		akhir = (durasi_MB*fs*i)+(durasi_MB*fs);
+	for i=0:(length(gabMerah)/(fs*durasi))-1
+		awal = (durasi*fs*i)+1;
+		akhir = (durasi*fs*i)+(durasi*fs);
 		tempM = horzcat(tempM,gabMerah(awal:akhir,j));
 		tempB = horzcat(tempB,gabBiru(awal:akhir,j));
 	end
@@ -196,33 +209,33 @@ for j=1:4 % Jumlah Kanal
 		save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
 end
 
-%% 3b. Max - Ambil nilai maksimal tiap potongan n detik data - tanpa Normalisasi
-for j=1:4 % Jumlah Kanal
-	tempP = [];
-	tempM = [];
-	tempB = [];
-		% Mengumpulkan barisan data yang mau dirata-rata
-	for i=0:(length(gabPutih)/(fs*durasi_P))-1
-		awal = (durasi_P*fs*i)+1;
-		akhir = (durasi_P*fs*i)+(durasi_P*fs);
-		tempP = horzcat(tempP,gabPutih(awal:akhir,j));
-	end
-		% Rata-rata dari Putih
-		dataMaxP(:,j) = min(tempP)';
-		% save([folder sprintf('MeanP_CH%d.mat',j)],'ans');
-		% Mengumpulkan barisan data yang mau dirata-rata
-	for i=0:(length(gabMerah)/(fs*durasi_MB))-1
-		awal = (durasi_MB*fs*i)+1;
-		akhir = (durasi_MB*fs*i)+(durasi_MB*fs);
-		tempM = horzcat(tempM,gabMerah(awal:akhir,j));
-		tempB = horzcat(tempB,gabBiru(awal:akhir,j));
-	end
-		% Rata-rata dari Merah dan Biru
-		dataMaxM(:,j) = min(tempM)';
-		% save([folder sprintf('MeanM_CH%d.mat',j)],'ans');
-		dataMaxB(:,j) = min(tempB)';
-		% save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
-end
+% %% 3b. Max - Ambil nilai maksimal tiap potongan n detik data - tanpa Normalisasi
+% for j=1:4 % Jumlah Kanal
+% 	tempP = [];
+% 	tempM = [];
+% 	tempB = [];
+% 		% Mengumpulkan barisan data yang mau dirata-rata
+% 	for i=0:(length(gabPutih)/(fs*durasi))-1
+% 		awal = (durasi*fs*i)+1;
+% 		akhir = (durasi*fs*i)+(durasi*fs);
+% 		tempP = horzcat(tempP,gabPutih(awal:akhir,j));
+% 	end
+% 		% Rata-rata dari Putih
+% 		dataMaxP(:,j) = min(tempP)';
+% 		% save([folder sprintf('MeanP_CH%d.mat',j)],'ans');
+% 		% Mengumpulkan barisan data yang mau dirata-rata
+% 	for i=0:(length(gabMerah)/(fs*durasi))-1
+% 		awal = (durasi*fs*i)+1;
+% 		akhir = (durasi*fs*i)+(durasi*fs);
+% 		tempM = horzcat(tempM,gabMerah(awal:akhir,j));
+% 		tempB = horzcat(tempB,gabBiru(awal:akhir,j));
+% 	end
+% 		% Rata-rata dari Merah dan Biru
+% 		dataMaxM(:,j) = min(tempM)';
+% 		% save([folder sprintf('MeanM_CH%d.mat',j)],'ans');
+% 		dataMaxB(:,j) = min(tempB)';
+% 		% save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
+% end
 
 
 %% 4. Load Data Mean
@@ -233,35 +246,36 @@ for i=1:4
 end
 
 
-%% 5. Normalisasi
-for j=1:3
-	for i=1:4
-		dataMean{j,i}.ans - min(dataMean{j,i}.ans);
-		ans = ans ./ max(ans(:));
-		% save([folder sprintf('norm%s_CH%d.mat',KelasList{j},i)], 'ans');
-		dataNorm{j,i}=ans;
-	end
-end
-save([folder 'dataNorm.mat'], 'dataNorm');
+% %% 5. Normalisasi
+% for j=1:3
+% 	for i=1:4
+% 		dataMean{j,i}.ans - min(dataMean{j,i}.ans);
+% 		ans = ans ./ max(ans(:));
+% 		% save([folder sprintf('norm%s_CH%d.mat',KelasList{j},i)], 'ans');
+% 		dataNorm{j,i}=ans;
+% 	end
+% end
+% save([folder 'dataNorm.mat'], 'dataNorm');
 
 % dataNorm{1,i} : Putih
 % dataNorm{2,i} : Merah
 % dataNorm{3,i} : Biru
 
-%Normalisasi untuk Scattering
-for i=1:4
-	pN = gabPutih(:,i) - min(gabPutih(:,i));
-	pN = pN ./ max(pN(:));
-	putihNorm(:,i) = pN;
+% %Normalisasi untuk Scattering
+% for i=1:4
+% 	pN = gabPutih(:,i) - min(gabPutih(:,i));
+% 	pN = pN ./ max(pN(:));
+% 	putihNorm(:,i) = pN;
 
-	mN = gabMerah(:,i) - min(gabMerah(:,i));
-	mN = mN ./ max(mN(:));
-	merahNorm(:,i) = mN;
+% 	mN = gabMerah(:,i) - min(gabMerah(:,i));
+% 	mN = mN ./ max(mN(:));
+% 	merahNorm(:,i) = mN;
 
-	bN = gabBiru(:,i) - min(gabBiru(:,i));
-	bN = bN ./ max(bN(:));
-	biruNorm(:,i) = bN;
-end
+% 	bN = gabBiru(:,i) - min(gabBiru(:,i));
+% 	bN = bN ./ max(bN(:));
+% 	biruNorm(:,i) = bN;
+% end
+
 % %Tanpa Normalisasi
 % for i=1:4
 % 	pN = gabPutih(:,i) - min(gabPutih(:,i));
@@ -277,34 +291,34 @@ end
 % 	biruNorm(:,i) = gabBiru(:,i);
 % end
 
-%Normalisasi dataMax
-for i=1:4
-	pM = dataMaxP(:,i) - min(dataMaxP(:,i));
-	pM = pM ./ max(pM(:));
-	dataMaxPN(:,i) = pM;
+% %Normalisasi dataMax
+% for i=1:4
+% 	pM = dataMaxP(:,i) - min(dataMaxP(:,i));
+% 	pM = pM ./ max(pM(:));
+% 	dataMaxPN(:,i) = pM;
 
-	mM = dataMaxM(:,i) - min(dataMaxM(:,i));
-	mM = mM ./ max(mM(:));
-	dataMaxMN(:,i) = mM;
+% 	mM = dataMaxM(:,i) - min(dataMaxM(:,i));
+% 	mM = mM ./ max(mM(:));
+% 	dataMaxMN(:,i) = mM;
 
-	bM = dataMaxB(:,i) - min(dataMaxB(:,i));
-	bM = bM ./ max(bM(:));
-	dataMaxBN(:,i) = bM;
-end
+% 	bM = dataMaxB(:,i) - min(dataMaxB(:,i));
+% 	bM = bM ./ max(bM(:));
+% 	dataMaxBN(:,i) = bM;
+% end
 
-%% 6. Smoothing (Moving Average)
-% Smoothing Session (Moving Average)
-for i=1:4
-	dataNormMA{1,i} = smooth(tP, dataNorm{1,i}, span, sMethod);
-	dataNormMA{2,i} = smooth(tMB, dataNorm{2,i}, span, sMethod);
-	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, span, sMethod);
-end
+% %% 6. Smoothing (Moving Average)
+% % Smoothing Session (Moving Average)
+% for i=1:4
+% 	dataNormMA{1,i} = smooth(tP, dataNorm{1,i}, span, sMethod);
+% 	dataNormMA{2,i} = smooth(tMB, dataNorm{2,i}, span, sMethod);
+% 	dataNormMA{3,i} = smooth(tMB, dataNorm{3,i}, span, sMethod);
+% end
 
 % %% 7. Time Domain (Plotting Per Kanal)
 % for i=1:4
 % 	figure(i);
 % 	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
-% 	% plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
+% 	% plot(tP,dataNorm{1,i},'k' ], tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
 % 	subplot(2,1,1);
 % 	plot(tP,dataNorm{1,i},'k' , tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
 % 	title(CHlist{i});
@@ -360,18 +374,9 @@ end
 for i=1:6
     figure(i+8);
     hold on
-   % scatter(merahNorm(:,sc1(i)),merahNorm(:,sc2(i)),'or');
-   % scatter(biruNorm(:,sc1(i)),biruNorm(:,sc2(i)),'*b');
-   % scatter(putihNorm(:,sc1(i)),putihNorm(:,sc2(i)),'xk');
-
-
-   scatter(dataNorm{3,sc1(i)},dataNorm{3,sc2(i)},'or'); % Biru
-   scatter(dataNorm{2,sc1(i)},dataNorm{2,sc2(i)},'*b'); % Merah
-   scatter(dataNorm{1,sc1(i)},dataNorm{1,sc2(i)},'xk'); % Putih
-
-	% dataNorm{1,i} : Putih
-	% dataNorm{2,i} : Merah
-	% dataNorm{3,i} : Biru
+   scatter(dataMean{3,sc1(i)}.ans,dataMean{3,sc2(i)}.ans,'or'); % Biru
+   scatter(dataMean{2,sc1(i)}.ans,dataMean{2,sc2(i)}.ans,'*b'); % Merah
+   scatter(dataMean{1,sc1(i)}.ans,dataMean{1,sc2(i)}.ans,'xk'); % Putih
     hold off
    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
@@ -383,7 +388,7 @@ for i=1:6
    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
    title(judulFile);
    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
-	print([folder3 'Scattering ' judulFile],'-dpng');
+	print([folder3 'Scattering Mean ' judulFile],'-dpng');
 end
 
 % %% 9. Scattering CH1 vs CH3
