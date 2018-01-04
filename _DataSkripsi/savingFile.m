@@ -1,3 +1,6 @@
-filename = 'jalerse26.txt'
-CH = [CH1 CH2 CH3 CH4];
-save(filename,'CH','-ascii')
+filename = 'subjek1c_10.txt'
+CH = [VarName2 VarName3 VarName4 VarName5];
+save(filename,'CH','-ascii');
+
+clear;
+clc;
