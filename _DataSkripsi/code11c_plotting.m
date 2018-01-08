@@ -29,14 +29,14 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1b\';
+folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1c\';
 folder1 = [folder '_Frekuensi\'];
 folder2 = [folder '_FFT\'];
 folder3 = [folder '_Scattering\'];
 files = dir([folder '*.txt']);
-Kode = 'Subjek1_';
-startqData = 6;
-endqData = 10;
+Kode = 'subjek1d_';
+startqData = 1;
+endqData = 5;
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
@@ -101,7 +101,7 @@ sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 % csvread('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\Subjek111.txt');
 % load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1\Subjek111.txt');
 for h=1:length(files)
-	csvread([folder files(h).name]);
+	csvread([folder files(h).name]);	
 	for j=1:4
 		ans(:,j)=filter(b,a,ans(:,j));
 		ans(:,j)=filter(d,c,ans(:,j));
