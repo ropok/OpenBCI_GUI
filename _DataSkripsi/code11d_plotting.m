@@ -30,15 +30,15 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-subfolder = '';
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek1d\';
+subfolder = '_Sesi2';
+folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek4a\';
 folder1 = [folder '_TimeDomain\' subfolder];
 folder2 = [folder '_FrequencyDomain\' subfolder];
 folder3 = [folder '_Scattering\' subfolder];
 files = dir([folder '*.txt']);
-Kode = 'subjek1d_';
-startqData = 6;
-endqData = 15;
+Kode = 'subjek4a_';
+startqData = 4;
+endqData = 6;
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
@@ -67,8 +67,12 @@ ylim2 = 0.6;
 %% Ambil sesuai kelas
 durasi = 2 ; % Durasi dari Putih Merah Biru (Jadi satu jenis durasi saja)
 detik_P = [8 9 16 17 24 25 32 33 40 41];
-detik_M = [3 4 5 19 20 21 35 36 37];
-detik_B = [11 12 13 27 28 29 43 44 45];
+detik_M = [3 4 5 19 20 21 35 36];
+detik_B = [11 12 13 27 28 29 43];
+
+% detik_P = [9 17 25 33 41];
+% detik_M = [4 5 20 21 36 37];
+% detik_B = [12 13 28 29 44 45];
 
 
 % detik_P = [8 9 16 17 24 25 32 33 40 41];
@@ -201,18 +205,23 @@ for j=1:4 % Jumlah Kanal
 		% Rata-rata dari Putih
 		mean(tempP,2);
 		save([folder sprintf('MeanP_CH%d.mat',j)],'ans');
-		% Mengumpulkan barisan data yang mau dirata-rata
+
 	for i=0:(length(gabMerah)/(fs*durasi))-1
 		awal = (durasi*fs*i)+1;
 		akhir = (durasi*fs*i)+(durasi*fs);
 		tempM = horzcat(tempM,gabMerah(awal:akhir,j));
-		tempB = horzcat(tempB,gabBiru(awal:akhir,j));
 	end
-		% Rata-rata dari Merah dan Biru
 		mean(tempM,2);
 		save([folder sprintf('MeanM_CH%d.mat',j)],'ans');
+
+	for i=0:(length(gabBiru)/(fs*durasi))-1
+		awal = (durasi*fs*i)+1;
+		akhir = (durasi*fs*i)+(durasi*fs);
+		tempB = horzcat(tempB,gabBiru(awal:akhir,j));
+	end
 		mean(tempB,2);
 		save([folder sprintf('MeanB_CH%d.mat',j)],'ans');
+
 end
 
 

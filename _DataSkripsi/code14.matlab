@@ -47,9 +47,6 @@ files = dir([folder '*.txt']);
 Kode = 'subjek1d_';
 startqData = 1;
 endqData = 15;
-% warna_putih = [0.9290 0.6940 0.1250];
-% warna_merah = [0.6350 0.0780 0.1840];
-% warna_biru =  [0.3010 0.7450 0.9330];
 %% Filter
 % % BandPass Filter = BP1 - BP2;
 % BP1 = 9;
