@@ -317,7 +317,7 @@ end
 %% 11. Mengelompokkan potongan data menjadi per-cell, untuk di ambil ciri dari per-potongan
 %% per kelas, jadikan cell: 1 kotak = 1x400 (2 detik data)
 
-% PUTIH
+% Putih
 for h = 1:length(gabPutih)/(fs*durasi)
 	for j=1:4
 		awal = ((h-1)*fs*durasi)+1;     % h=1 : awal=1  
@@ -356,8 +356,27 @@ for j=1:4
 		ciri.BiruMean{i,j} = mean(BIRU{i,j});
 	end
 end
+% save ([folder4])
 
-
+for i=1:6
+    figure(i+8);
+    hold on
+   scatter([ciri.PutihMean{:,sc1(i)}], [ciri.PutihMean{:,sc2(i)}], 'xk' );
+   scatter([ciri.MerahMean{:,sc1(i)}], [ciri.MerahMean{:,sc2(i)}], 'or' );
+   scatter([ciri.BiruMean{:,sc1(i)}], [ciri.BiruMean{:,sc2(i)}], '*b' );
+    hold off
+   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   legend('Putih', 'Merah', 'Biru', 'Location', 'northeastoutside');
+   % legend( 'Merah', 'Location', 'northeastoutside');
+   % legend( 'Biru', 'Location', 'northeastoutside');
+   % legend( 'Putih', 'Location', 'northeastoutside');
+   judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
+   % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+   title(judulFile);
+   % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+	print([folder3 'Scattering Mean ' judulFile],'-dpng');
+end
 
 % save([folder sprintf('%s_pN.mat',Kode)],'putih');
 % save([folder sprintf('%s_mN.mat',Kode)],'merah');
