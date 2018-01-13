@@ -30,15 +30,15 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-subfolder = '_Sesi2';
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek4a\';
+subfolder = '';
+folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek3a\';
 folder1 = [folder '_TimeDomain\' subfolder];
 folder2 = [folder '_FrequencyDomain\' subfolder];
 folder3 = [folder '_Scattering\' subfolder];
 files = dir([folder '*.txt']);
-Kode = 'subjek4a_';
-startqData = 4;
-endqData = 6;
+Kode = 'subjek3a_';
+startqData = 6;
+endqData = 10;
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
@@ -48,7 +48,7 @@ endqData = 6;
 % BP2 = 15;
 %limit untuk Frekuensi (Hz)
 BPlim1 = 8;
-BPlim2 = 42;
+BPlim2 = 29;
 %Limit untuk dB
 dBlim1 = 0;
 dBlim2 = 0.02;
@@ -66,9 +66,13 @@ ylim2 = 0.6;
 
 %% Ambil sesuai kelas
 durasi = 2 ; % Durasi dari Putih Merah Biru (Jadi satu jenis durasi saja)
-detik_P = [8 9 16 17 24 25 32 33 40 41];
-detik_M = [3 4 5 19 20 21 35 36];
-detik_B = [11 12 13 27 28 29 43];
+detik_P = [8 16 24 32 40];
+detik_M = [3 19 35];
+detik_B = [11 27 43];
+
+% detik_P = [8 9 16 17 24 25 32 33 40 41];
+% detik_M = [3 4 5 19 20 21 35 36];
+% detik_B = [11 12 13 27 28 29 43 44];
 
 % detik_P = [9 17 25 33 41];
 % detik_M = [4 5 20 21 36 37];
