@@ -6,3 +6,4 @@ OpenBCI_GUI/t-temp.txt
 OpenBCI_GUI/build/source/*.java
 *.app
 _DataSkripsi/_Figures/
+_DataSkripsi/LDA.m
