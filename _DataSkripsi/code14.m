@@ -364,25 +364,25 @@ for j=1:4
 end
 save ([folder sprintf('ciri_%s.mat',Kode)],'ciri');
 
-for i=1:6
-    figure();
-    hold on
-   scatter([ciri.PutihMean{:,sc1(i)}], [ciri.PutihMean{:,sc2(i)}], 'xk' );
-   scatter([ciri.MerahMean{:,sc1(i)}], [ciri.MerahMean{:,sc2(i)}], 'or' );
-   scatter([ciri.BiruMean{:,sc1(i)}], [ciri.BiruMean{:,sc2(i)}], '*b' );
-    hold off
-   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-   legend('Putih', 'Merah', 'Biru', 'Location', 'northeastoutside');
-   % legend( 'Merah', 'Location', 'northeastoutside');
-   % legend( 'Biru', 'Location', 'northeastoutside');
-   % legend( 'Putih', 'Location', 'northeastoutside');
-   judulFile = sprintf('Mean CH%d vs CH%d', sc1(i), sc2(i));
-   % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
-   title(judulFile);
-   % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
-	print([folder3 'Scattering Mean ' judulFile],'-dpng');
-end
+% for i=1:6
+%     figure();
+%     hold on
+%    scatter([ciri.PutihMean{:,sc1(i)}], [ciri.PutihMean{:,sc2(i)}], 'xk' );
+%    scatter([ciri.MerahMean{:,sc1(i)}], [ciri.MerahMean{:,sc2(i)}], 'or' );
+%    scatter([ciri.BiruMean{:,sc1(i)}], [ciri.BiruMean{:,sc2(i)}], '*b' );
+%     hold off
+%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%    legend('Putih', 'Merah', 'Biru', 'Location', 'northeastoutside');
+%    % legend( 'Merah', 'Location', 'northeastoutside');
+%    % legend( 'Biru', 'Location', 'northeastoutside');
+%    % legend( 'Putih', 'Location', 'northeastoutside');
+%    judulFile = sprintf('Mean CH%d vs CH%d', sc1(i), sc2(i));
+%    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+%    title(judulFile);
+%    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+% 	print([folder3 'Scattering Mean ' judulFile],'-dpng');
+% end
 
 % save([folder sprintf('%s_pN.mat',Kode)],'putih');
 % save([folder sprintf('%s_mN.mat',Kode)],'merah');

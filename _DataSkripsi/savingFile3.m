@@ -6,9 +6,9 @@ close all;
 clear;
 clc;
 
-folder = 'D:\Jaler\OpenBCI_GUI\OpenBCI_GUI\application.windows64\SavedData\subjek5a\';
-folderSave = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek5a\';
-kode = 'subjek5a_';
+folder = 'D:\Jaler\OpenBCI_GUI\OpenBCI_GUI\application.windows64\SavedData\subjek4b\';
+folderSave = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek4b\';
+kode = 'subjek4b_';
 files = dir([folder '*.txt']);
 
 %% Main %%

@@ -30,13 +30,13 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-subfolder = '';
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek3a\';
+subfolder = '_Sesi2\';
+folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek4b\';
 folder1 = [folder '_TimeDomain\' subfolder];
 folder2 = [folder '_FrequencyDomain\' subfolder];
 folder3 = [folder '_Scattering\' subfolder];
 files = dir([folder '*.txt']);
-Kode = 'subjek3a_';
+Kode = 'subjek4b_';
 startqData = 6;
 endqData = 10;
 % warna_putih = [0.9290 0.6940 0.1250];
@@ -48,7 +48,7 @@ endqData = 10;
 % BP2 = 15;
 %limit untuk Frekuensi (Hz)
 BPlim1 = 8;
-BPlim2 = 29;
+BPlim2 = 42;
 %Limit untuk dB
 dBlim1 = 0;
 dBlim2 = 0.02;
@@ -244,59 +244,59 @@ for i=1:4
 	dataNormMA{3,i} = smooth(tMB, dataMean{3,i}.ans, span, sMethod);    % Biru
 end
 
-% %% 8. Time Domain (Plotting Per Kanal) - Mean ter Normalisasi
-% for i=1:4
-% 	figure(i);
-% 	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
-% 	% plot(tP,dataNorm{1,i},'k' ], tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
-% 	subplot(2,1,1);
-% 	plot(tP,dataMean{1,i}.ans,'k' , tMB,dataMean{2,i}.ans,'r' , tMB,dataMean{3,i}.ans,'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
-% 	title(CHlist{i});
-% 	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
-% 	subplot(2,1,2);
-% 	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
-% 	xlabel('\fontsize{8}detik (s)');	
-% 	% xlim([slim1 slim2]);
-% 	% ylim([ylim1 ylim2]);
-% 	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
-% 	print([folder1 sprintf('NN_%s_9-15_MA',CHlist{i})],'-dpng');
-% end
+%% 8. Time Domain (Plotting Per Kanal) - Mean ter Normalisasi
+for i=1:4
+	figure(i);
+	% set('defaultAxesColorOrder',[warna_putih; warna_merah; warna_biru]);
+	% plot(tP,dataNorm{1,i},'k' ], tMB,dataNorm{2,i},'r' , tMB,dataNorm{3,i},'b'); % Tanpa MA
+	subplot(2,1,1);
+	plot(tP,dataMean{1,i}.ans,'k' , tMB,dataMean{2,i}.ans,'r' , tMB,dataMean{3,i}.ans,'b' , tP,dataNormMA{1,i},'k-', tMB,dataNormMA{2,i}, 'r-', tMB,dataNormMA{3,i},'b-'); % dengan MA
+	title(CHlist{i});
+	% plot(tP, dataNorm{1,i}, tMB, dataNorm{2,i}, tMB, dataNorm{3,i}, tP, dataNormMA{1,i}, 'c-', tMB, dataNormMA{2,i}, 'm-', tMB, dataNormMA{3,i}, 'y-');
+	subplot(2,1,2);
+	plot(tP, dataNormMA{1,i},'k' , tMB,dataNormMA{2,i},'r' , tMB,dataNormMA{3,i},'b'); % MA saja
+	xlabel('\fontsize{8}detik (s)');	
+	% xlim([slim1 slim2]);
+	% ylim([ylim1 ylim2]);
+	legend('Putih','Merah','Biru' , 'Location','southoutside' , 'Orientation','horizontal');
+	print([folder1 sprintf('NN_%s_9-15_MA',CHlist{i})],'-dpng');
+end
 
-% %% 9. Frequency Domain (Plotting Per Kanal) - Mean ter Normalisasi
-% for i=1:4 % kanal
-% 	figure(i+4)
-% 	for j=1:3 % kelas
-% 		dataDiFFT = dataMean{j,i}.ans;
-% 		Ak = abs(fft(dataDiFFT))/length(dataDiFFT);
-% 		k = 0:1:length(dataDiFFT)-1;
-% 		f = k*fs/length(dataDiFFT);
-% 		subplot(3,1,j); plot(f,Ak);
-% 		xlabel('\fontsize{8}Hz');
-% 		ylabel('\fontsize{8}dB');
-% 		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
-% 		xlim([BPlim1 BPlim2]);
-% 		% ylim([dBlim1 dBlim2]);
-% 	end
-% 	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
-% end
+%% 9. Frequency Domain (Plotting Per Kanal) - Mean ter Normalisasi
+for i=1:4 % kanal
+	figure(i+4)
+	for j=1:3 % kelas
+		dataDiFFT = dataMean{j,i}.ans;
+		Ak = abs(fft(dataDiFFT))/length(dataDiFFT);
+		k = 0:1:length(dataDiFFT)-1;
+		f = k*fs/length(dataDiFFT);
+		subplot(3,1,j); plot(f,Ak);
+		xlabel('\fontsize{8}Hz');
+		ylabel('\fontsize{8}dB');
+		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+		xlim([BPlim1 BPlim2]);
+		% ylim([dBlim1 dBlim2]);
+	end
+	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+end
 
-% %% 10. Scattering - Mean ter Normalisasi
-% for i=1:6
-%     figure(i+8);
-%     hold on
-%    scatter(dataMean{3,sc1(i)}.ans,dataMean{3,sc2(i)}.ans,'or'); % Biru
-%    scatter(dataMean{2,sc1(i)}.ans,dataMean{2,sc2(i)}.ans,'*b'); % Merah
-%    scatter(dataMean{1,sc1(i)}.ans,dataMean{1,sc2(i)}.ans,'xk'); % Putih
-%     hold off
-%    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-%    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-%    legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
-%    % legend( 'Merah', 'Location', 'northeastoutside');
-%    % legend( 'Biru', 'Location', 'northeastoutside');
-%    % legend( 'Putih', 'Location', 'northeastoutside');
-%    judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
-%    % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
-%    title(judulFile);
-%    % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
-% 	print([folder3 'Scattering Mean ' judulFile],'-dpng');
-% end
+%% 10. Scattering - Mean ter Normalisasi
+for i=1:6
+    figure(i+8);
+    hold on
+   scatter(dataMean{3,sc1(i)}.ans,dataMean{3,sc2(i)}.ans,'or'); % Biru
+   scatter(dataMean{2,sc1(i)}.ans,dataMean{2,sc2(i)}.ans,'*b'); % Merah
+   scatter(dataMean{1,sc1(i)}.ans,dataMean{1,sc2(i)}.ans,'xk'); % Putih
+    hold off
+   xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+   ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+   legend( 'Merah', 'Biru','Putih', 'Location', 'northeastoutside');
+   % legend( 'Merah', 'Location', 'northeastoutside');
+   % legend( 'Biru', 'Location', 'northeastoutside');
+   % legend( 'Putih', 'Location', 'northeastoutside');
+   judulFile = sprintf('CH%d vs CH%d', sc1(i), sc2(i));
+   % judulFileSave = sprintf('%s_:_CH%d_vs_CH%d_(Mean)', data_label, sc1(i), sc2(i));
+   title(judulFile);
+   % print(sprintf('%s-CH%d vs CH%d (Mean)', data_label, sc1(i), sc2(i)), '-dpng');
+	print([folder3 'Scattering Mean ' judulFile],'-dpng');
+end
