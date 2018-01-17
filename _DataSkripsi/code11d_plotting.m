@@ -30,15 +30,16 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-subfolder = '_Sesi2\';
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek4b\';
+subjek = '4b';
+subfolder = '_Sesi1+Sesi2\';
+startqData = 1;
+endqData = 10;
+folder = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek' subjek '\'];
 folder1 = [folder '_TimeDomain\' subfolder];
 folder2 = [folder '_FrequencyDomain\' subfolder];
 folder3 = [folder '_Scattering\' subfolder];
 files = dir([folder '*.txt']);
-Kode = 'subjek4b_';
-startqData = 6;
-endqData = 10;
+Kode = ['subjek' subjek '_'];
 % warna_putih = [0.9290 0.6940 0.1250];
 % warna_merah = [0.6350 0.0780 0.1840];
 % warna_biru =  [0.3010 0.7450 0.9330];
