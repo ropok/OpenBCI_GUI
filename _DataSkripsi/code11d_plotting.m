@@ -30,9 +30,9 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-subjek = '4b';
-subfolder = '_Sesi1+Sesi2\';
-startqData = 1;
+subjek = '6a';
+subfolder = '_Sesi2\';
+startqData = 6;
 endqData = 10;
 folder = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek' subjek '\'];
 folder1 = [folder '_TimeDomain\' subfolder];

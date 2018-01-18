@@ -5,7 +5,7 @@
 close all;
 clear;
 clc;
-subjek = '4b';
+subjek = '6a';
 folder = ['D:\Jaler\OpenBCI_GUI\OpenBCI_GUI\application.windows64\SavedData\subjek' subjek '\'];
 folderSave = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek' subjek '\'];
 kode = ['subjek' subjek '_'];
