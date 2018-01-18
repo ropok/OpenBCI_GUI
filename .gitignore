@@ -7,3 +7,4 @@ OpenBCI_GUI/build/source/*.java
 *.app
 _DataSkripsi/_Figures/
 _DataSkripsi/LDA.m
+_DataSkripsi/catstruct.m

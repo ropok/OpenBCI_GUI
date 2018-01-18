@@ -38,16 +38,17 @@ clc;
 fs = 200;		% Sesuai ganglion pakai 200Hz
 % t = [0:399]/fs;
 % Manajemen Folder
-Kode = 'subjek5a_';
-folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek5a\';
-subfolder = '';
-folder1 = [folder '_TimeDomain\' subfolder];
-folder2 = [folder '_FrequencyDomain\' subfolder];
-folder3 = [folder '_Scattering\' subfolder];
-folder4 = [folder '_Ciri\'];
-files = dir([folder '*.txt']);
+subjek = '9a';
+subfolder = '_Sesi2\';
 startqData = 6;
 endqData = 10;
+folder = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_Subjek' subjek '\'];
+% folder1 = [folder '_TimeDomain\' subfolder];
+% folder2 = [folder '_FrequencyDomain\' subfolder];
+% folder3 = [folder '_Scattering\' subfolder];
+folder4 = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_ciri\' subfolder];
+files = dir([folder '*.txt']);
+Kode = ['subjek' subjek '_'];
 %% Filter
 % % BandPass Filter = BP1 - BP2;
 % BP1 = 9;
@@ -348,21 +349,21 @@ end
 for j=1:4
 	for i=1:length(PUTIH)
 		ciri.PutihMean{i,j} = mean(PUTIH{i,j});
-		ciri.PutihMax{i,j} = max(PUTIH{i,j})/min(PUTIH{i,j});
+		ciri.PutihMax{i,j} = max(PUTIH{i,j});
 		ciri.PutihMin{i,j} = min(PUTIH{i,j});
 	end
 	for i=1:length(MERAH)
 		ciri.MerahMean{i,j} = mean(MERAH{i,j});
-		ciri.MerahMax{i,j} = max(MERAH{i,j})/min(MERAH{i,j});
+		ciri.MerahMax{i,j} = max(MERAH{i,j});
 		ciri.MerahMin{i,j} = min(MERAH{i,j});
 	end
 	for i=1:length(BIRU)
 		ciri.BiruMean{i,j} = mean(BIRU{i,j});
-		ciri.BiruMax{i,j} = max(BIRU{i,j})/min(BIRU{i,j});
+		ciri.BiruMax{i,j} = max(BIRU{i,j});
 		ciri.BiruMin{i,j} = min(BIRU{i,j});
 	end
 end
-save ([folder sprintf('ciri_%s.mat',Kode)],'ciri');
+save ([folder4 sprintf('ciri_%s.mat',subjek)],'ciri');
 
 % for i=1:6
 %     figure();
