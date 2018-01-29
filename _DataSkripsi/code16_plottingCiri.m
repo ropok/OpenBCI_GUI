@@ -22,7 +22,7 @@ for i=1:6
     figure();
     for j = 1:length(Ciri)
 	    hold on
-	   scatter([Ciri(j).PutihMean{:,sc1(i)}], [Ciri(j).PutihMean{:,sc2(i)}], 'xk' );
+	   % scatter([Ciri(j).PutihMean{:,sc1(i)}], [Ciri(j).PutihMean{:,sc2(i)}], 'xk' );
 	   scatter([Ciri(j).MerahMean{:,sc1(i)}], [Ciri(j).MerahMean{:,sc2(i)}], 'or' );
 	   scatter([Ciri(j).BiruMean{:,sc1(i)}], [Ciri(j).BiruMean{:,sc2(i)}], '*b' );
 	    hold off
