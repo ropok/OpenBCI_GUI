@@ -22,6 +22,7 @@ load([folder sprintf('ciri_%s.mat',sesi)]);
 % ------------------------------------------------------------------------
 %  Menggabungkan Ciri dari semua subjek
 % ------------------------------------------------------------------------
+% -- Kelas Merah --
 for i = 1:sumCH
     for j = 1:sumSubjek
         temp = vertcat(temp, cell2mat(Ciri(j).MerahMean(:,i)));
@@ -29,7 +30,7 @@ for i = 1:sumCH
     tempCiriMerah(:,i) = temp;
     temp = [];
 end
-
+% -- Kelas Biru --
 for i = 1:sumCH
     for j = 1:sumSubjek
         temp = vertcat(temp, cell2mat(Ciri(j).BiruMean(:,i)));
@@ -40,6 +41,8 @@ end
 
 ciriMean = vertcat(tempCiriMerah, tempCiriBiru);
 save ([folder sprintf('ciriMean_%s.mat',sesi)],'ciriMean');
+panjangSatuKelas = length(tempCiriBiru);
+panjangDuaKelas = length(ciriMean);
 
 % ------------------------------------------------------------------------
 %  Membuat Target
@@ -59,6 +62,11 @@ target = [zeros(length(tempCiriMerah),1); ones(length(tempCiriBiru),1)];
 % -- Calculate class probabilities --
 % P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
 
+X = [ciriMean(:,1) ciriMean(:,2)];
+Y = target;
+W = LDA(X,Y);
+L = [ones(panjangDuaKelas,1) X] * W';
+P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
 
 
 % for i=1:6
