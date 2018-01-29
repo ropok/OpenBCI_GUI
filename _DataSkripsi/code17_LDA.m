@@ -2,7 +2,7 @@ close all;
 clear;
 clc;
 
-sesi = 'Sesi1';
+sesi = 'Sesi1+Sesi2';
 subfolder = ['_' sesi '\'];
 folder = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_ciri\'];
 % files = dir([folder '*.mat']);
@@ -11,10 +11,10 @@ sumSubjek = 8;
 sumCH = 4;
 
 % % Scattering - Variable
-% sc1 = [1 1 1 2 2 3];
-% sc2 = [2 3 4 3 4 4];
-% sc1_name = {'Fp1' 'Fp1' 'Fp1' 'Fp2' 'Fp2' 'C3'};
-% sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
+sc1 = [1 1 1 2 2 3];
+sc2 = [2 3 4 3 4 4];
+sc1_name = {'Fp1' 'Fp1' 'Fp1' 'Fp2' 'Fp2' 'C3'};
+sc2_name = {'Fp2' 'C3'  'C4'  'C3'  'C4'  'C4'};
 
 load([folder sprintf('ciri_%s.mat',sesi)]);
 
@@ -68,6 +68,24 @@ W = LDA(X,Y);
 L = [ones(panjangDuaKelas,1) X] * W';
 P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
 
+for i=1:length(sc1)
+    X = [ciriMean(:,sc1(i)) ciriMean(:,sc2(i))];
+    Y = target;
+    W = LDA(X,Y);
+    L = [ones(panjangDuaKelas,1) X] * W';
+    P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
+    figure();
+    hold on
+        scatter(P(1:panjangSatuKelas,1), P(1:panjangSatuKelas,2), 'or');
+        scatter(P(panjangSatuKelas:panjangDuaKelas,1), P(panjangSatuKelas:panjangDuaKelas,2), '*b');
+    hold off
+    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+    legend('Merah', 'Biru', 'Location', 'northeastoutside');
+    judulFile = sprintf('%s CH%d vs CH%d', sesi, sc1(i), sc2(i));
+    title(judulFile);
+    print([folder 'LDA Mean ' judulFile],'-dpng');
+end
 
 % for i=1:6
 %     figure();
