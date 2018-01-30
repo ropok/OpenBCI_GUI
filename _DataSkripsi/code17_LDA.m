@@ -1,7 +1,6 @@
 close all;
 clear;
 clc;
-
 sesi = 'Sesi1+Sesi2';
 subfolder = ['_' sesi '\'];
 folder = ['D:\Jaler\OpenBCI_GUI\_DataSkripsi\data_ciri\'];
@@ -62,30 +61,50 @@ target = [zeros(length(tempCiriMerah),1); ones(length(tempCiriBiru),1)];
 % -- Calculate class probabilities --
 % P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
 
-X = [ciriMean(:,1) ciriMean(:,2)];
-Y = target;
-W = LDA(X,Y);
-L = [ones(panjangDuaKelas,1) X] * W';
-P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
+% X = [ciriMean(:,1) ciriMean(:,2)];
+% Y = target;
+% W = LDA(X,Y);
+% L = [ones(panjangDuaKelas,1) X] * W';
+% P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
 
-for i=1:length(sc1)
-    X = [ciriMean(:,sc1(i)) ciriMean(:,sc2(i))];
-    Y = target;
-    W = LDA(X,Y);
-    L = [ones(panjangDuaKelas,1) X] * W';
-    P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
-    figure();
-    hold on
-        scatter(P(1:panjangSatuKelas,1), P(1:panjangSatuKelas,2), 'or');
-        scatter(P(panjangSatuKelas:panjangDuaKelas,1), P(panjangSatuKelas:panjangDuaKelas,2), '*b');
-    hold off
-    xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
-    ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
-    legend('Merah', 'Biru', 'Location', 'northeastoutside');
-    judulFile = sprintf('%s CH%d vs CH%d', sesi, sc1(i), sc2(i));
-    title(judulFile);
-    print([folder 'LDA Mean ' judulFile],'-dpng');
-end
+% for i=1:length(sc1)
+%     X = [ciriMean(:,sc1(i)) ciriMean(:,sc2(i))];
+%     Y = target;
+%     W = LDA(X,Y);
+%     L = [ones(panjangDuaKelas,1) X] * W';
+%     P = exp(L) ./ repmat(sum(exp(L),2),[1 2]);
+%     figure();
+%     hold on
+%         scatter(P(1:panjangSatuKelas,1), P(1:panjangSatuKelas,2), 'or');
+%         scatter(P(panjangSatuKelas:panjangDuaKelas,1), P(panjangSatuKelas:panjangDuaKelas,2), '*b');
+%     hold off
+%     xlabel(sprintf('CH%d : %s', sc1(i), sc1_name{i}));
+%     ylabel(sprintf('CH%d : %s', sc2(i), sc2_name{i}));
+%     legend('Merah', 'Biru', 'Location', 'northeastoutside');
+%     judulFile = sprintf('%s CH%d vs CH%d', sesi, sc1(i), sc2(i));
+%     title(judulFile);
+%     print([folder 'LDA Mean ' judulFile],'-dpng');
+% end
+
+% ------------------------------------------------------------------------
+%  Proses LDA
+% ------------------------------------------------------------------------
+klasifikasiLDA = fitcdiscr(ciriMean,target);
+
+%mencari nilai koefis(ien linear
+[b,eval]=eig(klasifikasiLDA.BetweenSigma,klasifikasiLDA.Sigma);
+
+%mengurutkan nilai b (eigenvektor) dan eigenvalue
+eval(isnan(eval)) = 0;
+[eval, ind] = sort(diag(eval), 'descend');
+b = b(:,ind(1:min([3 size(b, 2)])));
+
+%mencari score baru hasil LDA
+z=ciriMean*b;
+
+%klasifikasi menggunakan Mahalobis Distance
+[klasifikasi,err] = classify(z,z,target,'mahalanobis');
+akurasi=(1-err)*100
 
 % for i=1:6
 %     figure();
