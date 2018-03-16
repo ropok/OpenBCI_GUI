@@ -6,12 +6,15 @@ clc;
 % static
 fs = 200;
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');           % Notch
+[h,g] = butter(2,[1 50]/(fs/2), 'bandpass');   % Filter awal 1-50 Hz
 [d,c] = butter(2,[10.5 11.5]/(fs/2), 'bandpass');   % Merah - 11 Hz
 [f,e] = butter(2,[12.5 13.5]/(fs/2), 'bandpass');   % Biru  - 13 Hz
 
 % durasi
-durasiAwal = 43;
-durasiAkhir = 47;
+durasiAwal = 27;
+durasiAkhir = 32;
+chAwal = 1;
+chAkhir = 4;
 %% [Awal Akhir,...]
 % Jeda = [0 3, 8 11, 16 19, 24 27, 32 35, 40 43]
 % Merah = [3 8, 19 24, 35 40]
@@ -21,9 +24,22 @@ durasiAkhir = 47;
 data = load('subjek2b_2.txt');
 t = [0:length(data)-1]/fs;
 
-for j=1:4
+for j=chAwal:chAkhir
     dataN(:,j)=filter(b,a,data(:,j)); % dataN = data Notched
 end
+
+% ----------------------------
+for j=chAwal:chAkhir
+    dataN(:,j)=filter(h,g,dataN(:,j)); % dataN = data Notched + BP 1 - 50 Hz
+end
+
+% for j=chAwal:chAkhir
+% 	pN = dataN(:,i) - min(dataN(:,i));
+% 	pN = pN ./ max(pN(:));
+% 	dataN(:,i) = pN;
+% end
+
+% -----------------------------
 
 figure; plot(t, dataN);
 
@@ -33,7 +49,7 @@ akhir = durasiAkhir*fs;
 dataP = dataN(awal:akhir,:); % dataP = data Potong
 tP = [0:length(dataP)-1]/fs; % tP = time Potong
 tP = tP+durasiAwal; % Menyesuaikan letak potongan data
-for j=1:4
+for j=chAwal:chAkhir
     dataM(:,j)=filter(d,c,dataP(:,j));
     dataB(:,j)=filter(f,e,dataP(:,j));
 end
@@ -58,6 +74,16 @@ kB = 0:1:length(dataB)-1;
 fB = kB*fs/length(dataB);
 
 % Figure Frequency Domain
-figure; plot(fP, AkP); xlim([8 16]);
-figure; plot(fM, AkM); xlim([10 14]);% title({'Frequency Domain';'Fokus Merah(3-8s)';'BP : 10.5-11.5 Hz'});
-figure; plot(fB, AkB); xlim([10 14]);% title({'Frequency Domain';'Fokus Merah(3-8s)';'BP : 12.5-13.5 Hz'});
+figure; plot(fP, AkP); xlim([1 50]);
+% figure; plot(fM, AkM); xlim([10 14]);% title({'Frequency Domain';'Fokus Merah(3-8s)';'BP : 10.5-11.5 Hz'});
+% figure; plot(fB, AkB); xlim([10 14]);% title({'Frequency Domain';'Fokus Merah(3-8s)';'BP : 12.5-13.5 Hz'});
+
+
+
+% % PSD - Mudin
+% %% datatemp = data
+% Pxx = abs(fft(datatemp)).^2/length(datatemp)/fs;
+% Hspd = dspdata.psd(Pxx(1:length(Pxx)/2), 'Fs',fs);
+
+% %rata-rata PSD
+% rataPSD{j,i} = avgpower(Hpsd);
