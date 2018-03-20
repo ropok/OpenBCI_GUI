@@ -21,8 +21,11 @@ chAkhir = 4;
 % Biru  = [11 16, 27 32, 43 48]
 
 
-data = load('subjek2b_2.txt');
-t = [0:length(data)-1]/fs;
+dataRaw = load('subjek2b_2.txt');
+
+for j=chAwal:chAkhir
+    data(:,j)=dataRaw(600:length(dataRaw),j); % potong data jeda di awal
+end
 
 for j=chAwal:chAkhir
     dataN(:,j)=filter(b,a,data(:,j)); % dataN = data Notched
@@ -34,13 +37,13 @@ for j=chAwal:chAkhir
 end
 
 % for j=chAwal:chAkhir
-% 	pN = dataN(:,i) - min(dataN(:,i));
+% 	pN = dataN(:,j) - min(dataN(:,j)); % Normalisasi
 % 	pN = pN ./ max(pN(:));
-% 	dataN(:,i) = pN;
+% 	dataN(:,j) = pN;
 % end
 
 % -----------------------------
-
+t = [0:length(data)-1]/fs;
 figure; plot(t, dataN);
 
 awal = durasiAwal*fs+1;
