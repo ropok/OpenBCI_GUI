@@ -7,8 +7,8 @@ clc;
 fs = 200;
 [b,a] = butter(2,[49 51]/(fs/2), 'stop');           % Notch
 [h,g] = butter(2,[0.1 50]/(fs/2), 'bandpass');   % Filter awal 1-50 Hz
-[d,c] = butter(2,[1.05 1.15]/(fs/2), 'bandpass');   % Merah - 11 Hz
-[f,e] = butter(2,[1.25 1.35]/(fs/2), 'bandpass');   % Biru  - 13 Hz
+[d,c] = butter(2,[10.5 11.5]/(fs/2), 'bandpass');   % Merah - 11 Hz
+[f,e] = butter(2,[12.5 13.5]/(fs/2), 'bandpass');   % Biru  - 13 Hz
 
 % durasi
 durasiAwal = 27;
