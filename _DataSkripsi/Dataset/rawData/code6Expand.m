@@ -5,8 +5,8 @@ folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp6\';
 
 files = dir([folder1 '*.txt']);
 
-% for h = 1:length(files)
-for h = 1:1
+for h = 1:length(files)
+% for h = 1:1
     code6(files(h,1).name, folder2);
 end
 % for h=1:length(files)
