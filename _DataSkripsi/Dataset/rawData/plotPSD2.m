@@ -11,7 +11,7 @@ max1 = []; max2 = [];
                 hline(max1,'k');
             hold off;
             xlim([10 15]); ylim([0 maxData]);
-            title({'\fontsize{10}Power Spectral Density'; sprintf('%s : %d-%d s',Warna,detik); '\fontsize{8}BP : 10.5-11.5 Hz'});
+            title({'\fontsize{10}Power Spectral Density'; ['\fontsize{8}' sprintf('%s : %d-%d s',Warna,detik)]; ['\fontsize{8}BP : 10.5-11.5 Hz' sprintf(' (max: %g)',round(max1,2) )]});
             legend('Fp_1','Fp_2','C_3', 'C_4' , 'Location','northeast' , 'Orientation','vertical');
 
         subplot(2,1,2);
@@ -23,7 +23,7 @@ max1 = []; max2 = [];
                 hline(max2,'k');
             hold off;
             xlim([10 15]); ylim([0 maxData]);
-            title('\fontsize{8}BP : 12.5-13.5 Hz');
+            title(['\fontsize{8}BP : 12.5-13.5 Hz' sprintf(' (max: %g)',round(max2,2) )]);
             legend('Fp_1','Fp_2','C_3', 'C_4' , 'Location','northeast' , 'Orientation','vertical');
 
 end

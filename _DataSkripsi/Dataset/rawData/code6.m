@@ -1,7 +1,10 @@
+
+function code6(subjek,folderPrint)
+% -- Contoh Penggunaan: code6('subjek3a_10')
 % Plotting PSD pisah per kanal
 close all;
-clear;
-clc;
+% clear;
+% clc;
 
 % static
 fs = 200;
@@ -13,7 +16,7 @@ fs = 200;
 % durasi
 chAwal = 1;
 chAkhir = 4;
-subjek = 'subjek5a_10';
+% subjek = 'subjek5a_10';
 %% [Awal Akhir,...]
 % Jeda = [0 3, 8 11, 16 19, 24 27, 32 35, 40 43]
 % Merah = [3 8, 19 24, 35 40]
@@ -26,7 +29,8 @@ subjek = 'subjek5a_10';
 % vline([8 13 24 29 40 45], 'b');
 
 % ----------------------------------- Basic PreProcessing ------Input: data------------
-data = load([subjek '.txt']);
+% data = load([subjek '.txt']);
+data = load(subjek);
 t = [0:length(data)-1]/fs;
 for j=chAwal:chAkhir
     data(:,j)=filter(b,a,data(:,j)); % Filter Notch 50 Hz
@@ -90,13 +94,14 @@ maxData = max([maxDataM maxDataB]);
 
 
 % --- Plotting PSD per kanal
-plotPSD2(M_PSD, 1, 4, maxData, 'Merah',   [3 8]); print(sprintf('PSD_%s_M1',subjek),'-dpng');
-plotPSD2(M_PSD, 2, 5, maxData, 'Merah', [19 24]); print(sprintf('PSD_%s_M2',subjek),'-dpng');
-plotPSD2(M_PSD, 3, 6, maxData, 'Merah', [35 40]); print(sprintf('PSD_%s_M3',subjek),'-dpng');
+subjek(regexp(subjek, '[.txt]'))=[];
+plotPSD2(M_PSD, 1, 4, maxData, 'Merah',   [3 8]); print([folderPrint sprintf('PSD_%s_M1',subjek)],'-dpng');
+plotPSD2(M_PSD, 2, 5, maxData, 'Merah', [19 24]); print([folderPrint sprintf('PSD_%s_M2',subjek)],'-dpng');
+plotPSD2(M_PSD, 3, 6, maxData, 'Merah', [35 40]); print([folderPrint sprintf('PSD_%s_M3',subjek)],'-dpng');
 
-plotPSD2(B_PSD, 1, 4, maxData, 'Biru', [11 16]); print(sprintf('PSD_%s_B1',subjek),'-dpng');
-plotPSD2(B_PSD, 2, 5, maxData, 'Biru', [27 32]); print(sprintf('PSD_%s_B2',subjek),'-dpng');
-plotPSD2(B_PSD, 3, 6, maxData, 'Biru', [43 48]); print(sprintf('PSD_%s_B3',subjek),'-dpng');
+plotPSD2(B_PSD, 1, 4, maxData, 'Biru', [11 16]); print([folderPrint sprintf('PSD_%s_B1',subjek)],'-dpng');
+plotPSD2(B_PSD, 2, 5, maxData, 'Biru', [27 32]); print([folderPrint sprintf('PSD_%s_B2',subjek)],'-dpng');
+plotPSD2(B_PSD, 3, 6, maxData, 'Biru', [43 48]); print([folderPrint sprintf('PSD_%s_B3',subjek)],'-dpng');
 
 
 % maxDataM = max([max(M_PSD{1,1}.data) max(M_PSD{1,2}.data) max(M_PSD{1,3}.data) ]);
@@ -159,3 +164,4 @@ plotPSD2(B_PSD, 3, 6, maxData, 'Biru', [43 48]); print(sprintf('PSD_%s_B3',subje
 
 % % ----------------------------Output: M[1 2 3] B[1 2 3] - M[4 5 6] B[4 5 6] -------
 % % ----------------------------Output: 2 plot------------------------------- -------
+end
