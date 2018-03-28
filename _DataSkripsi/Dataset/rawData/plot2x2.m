@@ -3,7 +3,7 @@ function plot2x2(dataVar, Fokus, durasi, folderPrint, subjek)
 fs=200;
 t = [0:length(dataVar{1,1})-1]/fs;
 cekFokus = strcmp(Fokus,'Merah');
-if (cekFokus)
+if (cekFokus) % True = Merah
     detik = [3 3+durasi; 19 19+durasi; 35 35+durasi];
     label = 'M';
     else
@@ -18,8 +18,8 @@ titleSub = {'Fp_1';'Fp_2';'C_3';'C_4'} ;
             minLim = min(min([dataVar{j,1} dataVar{j,2} dataVar{j,3} dataVar{j,4} dataVar{j+3,1} dataVar{j+3,2} dataVar{j+3,3} dataVar{j+3,4}]));
             subplot(2,2,i);
             hold on;
-            plot(t, dataVar{j,i});
-            plot(t, dataVar{j+3,i});
+                plot(t, dataVar{j,i},'r');
+                plot(t, dataVar{j+3,i},'b');
             hold off;
             xlabel('\fontsize{8}Waktu (s)'); ylabel('\fontsize{8}Nilai');
             ylim([minLim maxLim]);
