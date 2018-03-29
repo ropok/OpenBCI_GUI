@@ -41,8 +41,8 @@ class W_Jalerse extends Widget {
   int time11 = 0;
   int time12 = 0;
   int timeTelur = 0;
-  int timeDelay11 = 45;
-  int timeDelay12 = 40;
+  float timeDelay11 = 55; // 11Hz:45ms, 9Hz:55ms
+  float timeDelay12 = 35.7;
 
   //telur
   float jatuh;

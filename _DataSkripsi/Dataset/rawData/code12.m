@@ -1,5 +1,5 @@
 % Mencoba hilangin BandPass
-function [M_TDrms,B_TDrms] = code10(subjek)
+function [ciri_rms] = code12(subjek)
 % -- Contoh Penggunaan: code6('subjek3a_10')
 % Plotting TD pisah per kanal
 close all;
@@ -154,14 +154,25 @@ subjek(regexp(subjek, '[.txt]'))=[];
 sizeM_TD = size(M_TD);  %(1) = row, (2) = column
 sizeB_TD = size(B_TD);
 
-for i=1:sizeM_TD(1)
-    for j=1:sizeM_TD(2)
-        M_TDr(i,j) = rms(M_TD{i,j});
-        B_TDr(i,j) = rms(B_TD{i,j});
+for i=1:3
+    for j=1:4
+        % M_TDr.11(i,j) = rms(M_TD{i,j});
+        % M_TDr.13(i,j) = rms(M_TD{i+3,j});
+        % B_TDr.11(i,j) = rms(B_TD{i,j});
+        % B_TDr.13(i,j) = rms(B_TD{i+3,j});
+        ciri_max.M11(i,j) = max(M_TD{i,j});
+        ciri_max.M13(i,j) = max(M_TD{i+3,j});
+        ciri_max.B11(i,j) = max(B_TD{i,j});
+        ciri_max.B13(i,j) = max(B_TD{i+3,j});
+
+        ciri_rms.M11(i,j) = rms(M_TD{i,j});
+        ciri_rms.M13(i,j) = rms(M_TD{i+3,j});
+        ciri_rms.B11(i,j) = rms(B_TD{i,j});
+        ciri_rms.B13(i,j) = rms(B_TD{i+3,j});
     end
 end
 
-M_TDrms= M_TDr;
-B_TDrms= B_TDr;
+% M_rms= M_TDr;
+% B_rms= B_TDr;
 
 end
