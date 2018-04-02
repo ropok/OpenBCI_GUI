@@ -1,5 +1,4 @@
 % Saving File management - to RAW ready pre-processing %
-% Ayy LMAO %
 
 
 close all;

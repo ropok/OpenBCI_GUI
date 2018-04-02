@@ -1,4 +1,4 @@
-function [M,B] = potongData(dataPre, fs, durasi)
+function [M,B,durasi] = potongData(dataPre, fs, durasi)
     durasiFs = fs*durasi;
     sizeDataPre = size(dataPre);
 
