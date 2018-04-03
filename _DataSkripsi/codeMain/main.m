@@ -2,7 +2,7 @@
 
 close all; clear; clc;
 
-subjek = 'subjek2c_22.txt';
+subjek = 'subjek5a_2.txt';
 folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\';
 folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp12\';
 files = dir([folder1 '*.txt']);
@@ -17,8 +17,12 @@ M_PSD = PSDAll(M, fs);
 B_PSD = PSDAll(B, fs);
 [xlim1, xlim2, durasi, BPLabel] = labelPlot(5, 30, durasi, BP);
 subjek(regexp(subjek, '[.txt]'))=[];
-plotPSD1(M_PSD, 'Merah-9Hz', xlim1, xlim2, durasi, BPLabel); print([folder2 sprintf('M_PSD_%s',subjek)],'-dpng');
-plotPSD1(B_PSD, 'Biru-14Hz', xlim1, xlim2, durasi, BPLabel); print([folder2 sprintf('B_PSD_%s',subjek)],'-dpng');
+% plotPSD1(M_PSD, 'Merah-9Hz', xlim1, xlim2, durasi, BPLabel); print([folder2 sprintf('M_PSD_%s',subjek)],'-dpng');
+% plotPSD1(B_PSD, 'Biru-14Hz', xlim1, xlim2, durasi, BPLabel); print([folder2 sprintf('B_PSD_%s',subjek)],'-dpng');
+% plotTD1(M, 'Merah-9Hz', fs, durasi, BPLabel);
+% plotTD1(B, 'Biru-14Hz', fs, durasi, BPLabel);
+M_RMS = RMS(M)
+B_RMS = RMS(B)
 
 % data11 = filterBP(data, fs, 10.5, 11.5);
 % data13 = filterBP(data, fs, 12.5, 13.5);

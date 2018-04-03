@@ -1,34 +1,28 @@
-Selamat sore mas @zzzatm , saya sudah membuat program untuk mengolah jadi 2 subplot untuk Time Domain dan PSD dengan plot 4 kanal dalam masing-masing plot.
-Ada 6 Plot dengan 12 Subplot yang dihasilkan dari setiap perulangan pada setiap subjek.
+Selamat siang mas @zzzatm , Hari Kamis 29 Maret 2018 saya ambil data untuk subjek 2, dengan perubahan program ambil data : Merah 9 Hz dan Biru 14 Hz. Preprocessing yang dilakukan Load Raw Data →  Notch Filter → Band Pass 1-50 Hz → **Band Pass 8-26 Hz** (8 Hz adalah awalan frekuensi gelombang alpha dan 26 adalah akhiran frekuensi gelombang beta) → Power Spectral Density.
 
-###Plot PSD (Power Spectral Density):
-_SubPlot pertama merupakan BandPass 10.5-11.5 Hz_
-_SubPlot kedua merupakan BandPass 12.5-13.5Hz_
-Adapun plot yang saya lampirkan merupakan plot dari **Subjek5** Sesi Pertama Perulangan Pertama**[1]** dan Sesi Kedua Perulangan Pertama**[2]**
-Pada title ada nilai max yaitu nilai data tertinggi agar terlihat frekuensi tertinggi yang muncul.
+Hasilnya sebagai berikut :
+## Fokus Merah : 
+### Sesi Pertama
+* Perulangan Pertama [M_11](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/1848cae49d746677963e028198a0bf23/M_PSD_subjek2c_11.png) 
+* Perulangan Kedua  [M_12](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/fa0450c4dd78e99c348a0faecc566b5a/M_PSD_subjek2c_12.png)
+* Perulangan Ketiga [M_13](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/0d787aed32a5312de635091c48a501f3/M_PSD_subjek2c_13.png) 
+### Sesi Kedua
+* Perulangan Pertama [M_21](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/13a53988700a716cce6d1592d3cb3c55/M_PSD_subjek2c_21.png)
+* Perulangan Kedua [M_22](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/a1c2d7e3de507ddae562ca2ff20b64fb/M_PSD_subjek2c_22.png)
+* Perulangan Ketiga [M_23](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/7339dc18b56009ed57a895300df7d9b4/M_PSD_subjek2c_23.png) 
 
-1. M1 : Plot Merah 3-8s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/2390a8755d45198e6c2689f40cb95bb0/PSD_subjek5a_1_M1.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/c4bd0bd1eb35e9bdf5ed372cf80eaef1/PSD_subjek5a_6_M1.png)
-2. M2 : Plot Merah 19-24s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/2e77e148ea7e6c6bab87eb2fee1be746/PSD_subjek5a_1_M2.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/99414443834491a8195a4733e110c527/PSD_subjek5a_6_M2.png) 
-3. M3 : Plot Merah 35-40s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/547bc7a899ad4efde06e09726fbe2c90/PSD_subjek5a_1_M3.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/f5ac7f22e92b40c8372f0643a9e75815/PSD_subjek5a_6_M3.png)
-4. B1 : Plot Biru 11-16s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/0ce2c11814469398ab4773cdfc1eb136/PSD_subjek5a_1_B1.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/c952f9755cefb365bb5a909ae61f6062/PSD_subjek5a_6_B1.png)
-5. B2 : Plot Biru 27-32s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/4cfb50e1b4492597e26ebe0eb5f4e563/PSD_subjek5a_1_B2.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/43f0660c1a8280a1ff7f2c0236c16789/PSD_subjek5a_6_B2.png)
-6. B3 : Plot Biru 43-48s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/4a2c8dc1e5d25563c68105a2142e8afd/PSD_subjek5a_1_B3.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/ec1a392ccd1541817e74017e4959bd10/PSD_subjek5a_6_B3.png)
-
-###Plot Time Domain:
-_Setiap potongan data diambil durasi 2 detik dari awal mulai_
-Terdapat **ylim([min max])**, **min** adalah nilai terkecil dari setiap perulangan pada setiap subjek dan **max** adalah nilai terbesar, dimaksudkan agar terlihat lebih jelas untuk membandingkan plot yang satu dengan yang lainnya pada setiap perulangan dan subjek
-Adapun plot yang saya lampirkan merupakan plot dari **Subjek5** Sesi Pertama Perulangan Pertama**[1]** dan Sesi Kedua Perulangan Pertama**[2]**
-
-1. M1 : Plot Merah 3-5s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/905bb65e3b8e4a8700b6e8c5c9252a4b/TD_subjek5a_1_M1.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/73abddde746a045c9cf3f278bf1648e6/TD_subjek5a_6_M1.png) 
-2. M2 : Plot Merah 19-21s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/57d56de800ff145068b20afa9e3d051b/TD_subjek5a_1_M2.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/d70a49bff6bbe554a0aa184bb67a1f5c/TD_subjek5a_6_M2.png) 
-3. M3 : Plot Merah 35-37s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/30c2c753d43b9f2dfbb5b251460a6c11/TD_subjek5a_1_M3.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/56f6f686766ea147019a9ced7049404a/TD_subjek5a_6_M3.png) 
-4. B1 : Plot Biru 11-13s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/d2b41ec77bb8e11190763d2d0a7f191a/TD_subjek5a_1_B1.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/900e31599a6f6cc97975ed1eca84b8c2/TD_subjek5a_6_B1.png) 
-5. B2 : Plot Biru 27-29 [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/5ab79a5c1962064a4cd1dc58489c587b/TD_subjek5a_1_B2.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/fa5ed750e52c43f639228f5838116ca1/TD_subjek5a_6_B2.png) 
-6. B3 : Plot Biru 43-45s [[1]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/e827f217eddf5842390b26d7551339f4/TD_subjek5a_1_B3.png) [[2]](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/3ae8dd6e53854f7c24ae5bbfb606fd4a/TD_subjek5a_6_B3.png) 
+## Fokus Biru :
+### Sesi Pertama
+* Perulangan Pertama [B_11](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/c93458619d3bb51fb388639dfb9c283d/B_PSD_subjek2c_11.png)
+* Perulangan Kedua [B_12](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/e2b350606dc9e75359bd2056209bb5af/B_PSD_subjek2c_12.png) 
+* Perulangan Ketiga [B_13](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/4953985190a3fe6a69ad8a688e35c84b/B_PSD_subjek2c_13.png) 
+### Sesi Kedua
+* Perulangan Pertama [B_21](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/8ce574ef4d20e30186dd48a78312a347/B_PSD_subjek2c_21.png)
+* Perulangan Kedua [B_22](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/ea2f7fe7079ec315e01bb6383f14ec67/B_PSD_subjek2c_22.png) 
+* Perulangan Ketiga [B_23](https://trello-attachments.s3.amazonaws.com/5875a761fec77e8b484f5d1b/5aaf96f8f343ee30e840b4bd/870884bb0cb3b123df7c5fa2b5d2d8f2/B_PSD_subjek2c_23.png) 
 
 
-###Pembahasan
-Secara keseluruhan memang ada frekuensi yang mendominasi pada kelas Merah untuk BP 10.5-11.5 Hz, begitu juga dengan kelas Biru untuk BP 12.5-13.5 Hz.
-Namun pada perulangan maupun subjek lain ada juga frekuensi dimana kelas Merah dominan pada BP 12.5-13.5 Hz begitu juga sebaliknya dengan frekuensi pada kelas Biru.
-> Agar lebih jelasnya lagi, selanjutnya dilakukan scattering untuk RMS sehingga dapat lebih jelas mana kanal yang relevan pada pemisahan kelas merah dan kelas biru.
 
+>Secara keseluruhan, masih seperti yang dulu ada Merah yang dominan frekuensi di 9 Hz, Biru yang dominan frekuensi di 14 Hz namun tidak selalu terjadi dan dapat terjadi di kondisi sebaliknya (Merah dominan di 14 Hz begitu juga Biru).
+
+> Selanjutnya plotting untuk Time Domain, beserta ratio RMS.
