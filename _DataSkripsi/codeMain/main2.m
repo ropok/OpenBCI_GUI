@@ -1,5 +1,5 @@
 %  --- Score:Ratio RMS seluruh subjek
-function [scoreM, scoreB] = main2(subjek)
+function [scoreM, scoreB] = main2(subjek, durasiData)
     close all; 
     % clear; clc;
     % scoreAllM = [];
@@ -29,13 +29,13 @@ function [scoreM, scoreB] = main2(subjek)
     % -- Output : data13, data26, data39 --
 
     % -- Potong Data ---------------------------------
-    [M11,B11,durasi] = potongData(data11, fs, 2);
-    [M22,B22,durasi] = potongData(data22, fs, 2);
-    [M33,B33,durasi] = potongData(data33, fs, 2);
+    [M11,B11,durasi] = potongData(data11, fs, durasiData);
+    [M22,B22,durasi] = potongData(data22, fs, durasiData);
+    [M33,B33,durasi] = potongData(data33, fs, durasiData);
 
-    [M13,B13,durasi] = potongData(data13, fs, 2);
-    [M26,B26,durasi] = potongData(data26, fs, 2);
-    [M39,B39,durasi] = potongData(data39, fs, 2);
+    [M13,B13,durasi] = potongData(data13, fs, durasiData);
+    [M26,B26,durasi] = potongData(data26, fs, durasiData);
+    [M39,B39,durasi] = potongData(data39, fs, durasiData);
     % -- MB[11 22 33] MB[13 26 39] -------------------
 
     % -- RMS -----------------------------------------
