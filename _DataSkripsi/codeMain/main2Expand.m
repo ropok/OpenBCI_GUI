@@ -10,11 +10,11 @@ files = dir([folder1 '*.txt']);
 
 for h = 1:length(files)
 % for h = 1:2 % for Test purpose
-    [scoreM, scoreB] = main2(files(h,1).name, 1.5);
+    [scoreM, scoreB] = main2(files(h,1).name, 1);
 
     % -- Mengumpulkan score seluruh subjek ------
-    scoreAllM = [scoreAllM; scoreM];
-    scoreAllB = [scoreAllB; scoreB];
+    % scoreAllM = [scoreAllM; scoreM];
+    % scoreAllB = [scoreAllB; scoreB];
     % -- scoreAllM scoreAllB
 
 end

@@ -7,7 +7,7 @@ function [M,B,durasi] = potongData(dataPre, fs, durasi)
     Mpre.c11 = dataPre(7001:8000,:);
     Bpre.a11 = dataPre(2201:3200,:);
     Bpre.b11 = dataPre(5401:6400,:);
-    Bpre.c11 = dataPre(8601:length(dataPre),:);
+    Bpre.c11 = dataPre(8601:length(dataPre),:); 
 
     for j = 1:sizeDataPre(2)
         M{1,j} = Mpre.a11(1:durasiFs,j);
