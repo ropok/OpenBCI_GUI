@@ -15,9 +15,6 @@ function JST(inputs, hiddenLayerSize)
     net.divideParam.valRatio = 15/100;
     net.divideParam.testRatio = 15/100;
 
-    % net.trainParam.epochs = 1000;
-    % net.trainParam.goal = 1e-09;
-
     % Train the Network
     [net,tr] = train(net, inputs, targets);
 
