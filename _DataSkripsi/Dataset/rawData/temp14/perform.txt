@@ -1,0 +1,92 @@
+>> JST(inputs1{1,1},10)
+
+performance =
+
+    0.2648
+
+>> JST(inputs1{1,2},10)
+
+performance =
+
+    0.2775
+
+>> JST(inputs1{1,3},10)
+
+performance =
+
+    0.2986
+
+>> JST(inputs1{1,4},10)
+
+performance =
+
+    0.3201
+
+>> doc perform
+>> JST(inputs1{1,5},10)
+
+performance =
+
+    0.3294
+
+>> JST(inputs1{1,6},10)
+
+performance =
+
+    0.2928
+
+>> JST(inputs1{1,7},10)
+
+performance =
+
+    0.3097
+
+>> JST(inputs1{1,8},10)
+
+performance =
+
+    0.3078
+
+>> JST(inputs1{1,9},10)
+
+performance =
+
+    0.2949
+
+>> JST(inputs,10)
+
+performance =
+
+    0.2481
+
+>> 
+
+>> JST(inputs,10)
+
+performance =
+
+    0.2002
+
+>> JST(inputs,10)
+
+performance =
+
+    0.2170
+
+>> JST(inputs,10)
+
+performance =
+
+    0.1981
+
+>> JST(inputs,10)
+
+performance =
+
+    0.2679
+
+>> JST(inputs,10)
+
+performance =
+
+    0.1945
