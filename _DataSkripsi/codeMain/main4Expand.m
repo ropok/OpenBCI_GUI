@@ -16,6 +16,8 @@ for h = 1:length(files)
     data_rM = [data_rM; rM];
     data_rB = [data_rB; rB];
     % -- data_rM data_rB
+
+    loading('Load Data', h, length(files));
 end
 
 % -- JST
@@ -24,4 +26,5 @@ inputs = [data_rM' data_rB']; % input untuk JST
 
 for i = 1:9
     inputs1{1,i} = inputs(4*i-3:4*i,:);
+    % loading('inputs', i, 9);
 end
