@@ -1,7 +1,7 @@
 close all; clear; clc;
 
 folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\';
-folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp18\';
+folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp19\';
 
 data_rM = [];
 data_rB = [];
@@ -11,7 +11,7 @@ files = dir([folder1 '*.txt']);
 % Mengumpulkan data dari semua objek
 for h = 1:length(files)
 % for h = 1:2 % for Test purpose
-    [rM, rB] = main4(files(h,1).name, 2);
+    [rM, rB] = main5(files(h,1).name, 2);
 
     % -- Mengumpulkan rM seluruh subjek ------
     data_rM = [data_rM; rM];
@@ -41,24 +41,26 @@ end
     jMin = 1;
     jMax = 20;
 
+    iMax = 4;
+
 % -- JST -- Variasi Hidden Layer 1-10
 inputs = [data_rM' data_rB']; % input untuk JST
-% for i = 1:10
-%     if i == 10
-%         inputs1{1,i} = inputs;
-%     else
-%         inputs1{1,i} = inputs(4*i-3:4*i,:);
-%     end
-%     % Saving the confusionMatrix plot
-%     textKelompok = sprintf('KelompokCiri%d',i);
-%     for j = jMin:jMax
-%         textHiddenLayer = sprintf('HiddenLayer%d',j);
-%         [targets, outputs] = JST2(inputs1{1,i},j); % JST
-%         figure, plotconfusion(targets, outputs, [textKelompok ' ' textHiddenLayer ' ']);
-%         print([folder2 sprintf('CM_%s_%s',textKelompok,textHiddenLayer)],'-dpng');
-%         close all;
-%         clear targets outputs;
-%         loading(sprintf('Plotting Kelompok%d %d',i,j), j, jMax);
-%     end
-%     loading('Confusion Matrix Plotting', i, 10);
-% end
+for i = 1:iMax
+    if i == iMax
+        inputs1{1,i} = inputs;
+    else
+        inputs1{1,i} = inputs(4*i-3:4*i,:);
+    end
+    % Saving the confusionMatrix plot
+    textKelompok = sprintf('KelompokCiri%d',i);
+    for j = jMin:jMax
+        textHiddenLayer = sprintf('HiddenLayer%d',j);
+        [targets, outputs] = JST2(inputs1{1,i},j); % JST
+        figure, plotconfusion(targets, outputs, [textKelompok ' ' textHiddenLayer ' ']);
+        print([folder2 sprintf('CM_%s_%s',textKelompok,textHiddenLayer)],'-dpng');
+        close all;
+        clear targets outputs;
+        loading(sprintf('Plotting Kelompok%d %d',i,j), j, jMax);
+    end
+    loading('Confusion Matrix Plotting', i, 10);
+end
