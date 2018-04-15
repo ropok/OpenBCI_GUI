@@ -16,7 +16,7 @@ function [targets, outputs] = JST2(inputs, hiddenLayerSize)
     net.divideParam.testRatio = 15/100;
 
     % Train the Network
-    [net,tr] = train(net, inputs, targets);
+    [net,tr] = train(net, inputs, targets); 
     nntraintool('close'); % close the nntraintool immediately
 
     % Test the Network
