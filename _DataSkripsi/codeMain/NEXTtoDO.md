@@ -6,3 +6,5 @@ Load Raw Data - Band Pass Filter 1-30 Hz - Filter Bank (Theta, Alpha, Beta) - pl
 
 Ciri baru : dari PSD (Frequency Domain) : cari tau oke tidak dari ratio seperti kemarin.
 Atau langsung to the point nilai max dari setiap filter (FFT donk berarti ya?)
+> Hasil sementara : Filter di Theta yang paling menjanjikan
+

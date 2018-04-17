@@ -60,3 +60,79 @@ for j = 1:jMax
     hold;
     xlim([1 30]);
 end
+
+
+%% 9. Frequency Domain (Plotting Per Kanal)
+for i=1:4 % kanal
+	figure;
+	for j=1:3 % kelas
+		dataDiFFT = dataMean{j,i}.ans;
+		Ak = abs(fft(dataDiFFT))/length(dataDiFFT);
+		k = 0:1:length(dataDiFFT)-1;
+		f = k*fs/length(dataDiFFT);
+		subplot(3,1,j); plot(f,Ak);
+		xlabel('\fontsize{8}Hz');
+		ylabel('\fontsize{8}dB');
+		title(['\fontsize{12}' KelasList{j} '\fontsize{9}' CHlist{i}]);
+		xlim([BPlim1 BPlim2]);
+		% ylim([dBlim1 dBlim2]);
+	end
+	print([folder2 sprintf('FFT %s_%d-%d',CHlist{i},BPlim1,BPlim2)],'-dpng');
+end
+
+for j=1:4
+    m1{1,j} = mean([M1{1,j} M1{2,j} M1{3,j}],2);
+    m2{1,j} = mean([M2{1,j} M2{2,j} M2{3,j}],2);
+    m3{1,j} = mean([M3{1,j} M3{2,j} M3{3,j}],2);
+    
+    b1{1,j} = mean([B1{1,j} B1{2,j} B1{3,j}],2);
+    b2{1,j} = mean([B2{1,j} B2{2,j} B2{3,j}],2);
+    b3{1,j} = mean([B3{1,j} B3{2,j} B3{3,j}],2);
+end
+
+for i=1:3
+    for j=1:4
+        fft_M{i,j} = abs(fft(M{i,j}))/length(M{i,j});
+        fft_B{i,j} = abs(fft(B{i,j}))/length(B{i,j});
+        k = 0:1:length(M{i,j})-1;
+        f = k*fs/length(M{i,j});
+    end
+end
+
+CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
+for i = 1:3
+    figure;
+    for j=1:4
+        subplot(2,2,j);
+        hold;
+        plot(f,fft_M{i,j});
+        plot(f,fft_B{i,j});
+        xlim([1 30]);
+        title(sprintf('%s',CHlist{j}))
+        hold;
+    end
+end
+
+% CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
+% for i = 1:3
+%     figure;
+%     for j=1:4
+%         subplot(2,2,j);
+%         hold;
+%         data = m{i,j};
+%         Ak = abs(fft(data))/length(data);
+%         k = 0:1:length(data)-1;
+%         f = k*fs/length(data);
+%         plot(f,Ak);
+%         clear data Ak k f;
+%         data = b{i,j};
+%         Ak = abs(fft(data))/length(data);
+%         k = 0:1:length(data)-1;
+%         f = k*fs/length(data);
+%         plot(f,Ak);
+%         xlim([1 30]);
+%         title(sprintf('%s',CHlist{j}))
+%         hold;
+%         clear data Ak k f;
+%     end
+% end
