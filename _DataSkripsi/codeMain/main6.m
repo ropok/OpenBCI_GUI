@@ -5,8 +5,9 @@
     % scoreAllB = [];
 
     durasiData = 1;
-    subjek = 'subjek5a_9.txt';
+    subjek = 'subjek5a_1.txt';
     folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\';
+    % folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\subjek2c\';
     % folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp13\'; 
     files = dir([folder1 '*.txt']);
     fs = 200;
@@ -14,6 +15,7 @@
     % -- LoadRaw - Notch50Hz - BP1-50Hz (basic preprocessing)
     data = load([folder1 subjek]);
     data = filterNotch50(data, fs);
+    [data, BP] = filterBP(data, fs, 0.2, 45);
     [data, BP] = filterBP(data, fs, 1, 30);
     % --------------------------------- (basic preprocessing)
 

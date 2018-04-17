@@ -113,6 +113,63 @@ for i = 1:3
     end
 end
 
+    CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
+    for i = 1:3
+        figure;
+        for j=1:4
+            subplot(2,2,j);
+            hold;
+            plot(t,M{i,j}, 'r');
+            plot(t,B{i,j}, 'b');
+            hline(rms(M{i,j}(1:30)), 'r:');
+            hline(rms(B{i,j}(1:30)), 'b:');
+            % xlim([1 30]);
+            title(sprintf('%s',CHlist{j}))
+            hold;
+        end
+    end
+
+% -- PowerBand?
+    CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
+    for i = 1:3
+        figure;
+        for j=1:4
+            subplot(2,2,j);
+            hold;
+            plot(f,fft_M{i,j}, 'r');
+            plot(f,fft_B{i,j}, 'b');
+            hline(bandpower(fft_M{i,j}, fs, [1 30]), 'r');
+            hline(bandpower(fft_B{i,j}, fs, [1 30]), 'b');
+
+            % hline(mean(fft_M{i,j}(1:30)), 'r:');
+            % hline(mean(fft_B{i,j}(1:30)), 'b:');
+            xlim([1 30]);
+            title(sprintf('%s',CHlist{j}))
+            hold;
+        end
+    end
+    % -------- ----
+
+
+    CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
+    for i = 1:3
+        figure;
+        for j=1:4
+            subplot(2,2,j);
+            hold;
+            plot(f,fft_M{i,j}, 'r');
+            plot(f,fft_B{i,j}, 'b');
+            % hline(max(fft_M{i,j}(1:30)), 'r');
+            % hline(max(fft_B{i,j}(1:30)), 'b');
+
+            hline(mean(fft_M{i,j}(1:30)), 'r:');
+            hline(mean(fft_B{i,j}(1:30)), 'b:');
+            xlim([1 30]);
+            title(sprintf('%s',CHlist{j}))
+            hold;
+        end
+    end
+
 % CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
 % for i = 1:3
 %     figure;
