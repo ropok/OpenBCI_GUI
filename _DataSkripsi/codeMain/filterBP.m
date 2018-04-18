@@ -1,4 +1,4 @@
-function [data, BP] = filterBP(dataPre, fs, cutOn, cutOff)
+function [data] = filterBP(dataPre, fs, cutOn, cutOff)
     [b,a] = butter(2,[cutOn cutOff]/(fs/2), 'bandpass');
     BP = [cutOn cutOff];
     sizeDataPre = size(dataPre);

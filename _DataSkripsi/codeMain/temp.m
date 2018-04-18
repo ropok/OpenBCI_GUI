@@ -161,7 +161,7 @@ end
             plot(f,fft_B{i,j}, 'b');
             % hline(max(fft_M{i,j}(1:30)), 'r');
             % hline(max(fft_B{i,j}(1:30)), 'b');
-
+            if i == 
             hline(mean(fft_M{i,j}(1:30)), 'r:');
             hline(mean(fft_B{i,j}(1:30)), 'b:');
             xlim([1 30]);
@@ -193,3 +193,46 @@ end
 %         clear data Ak k f;
 %     end
 % end
+
+
+save([folder sprintf('%s_pN.mat',Kode)],'putih');
+save([folder2 'ciriRMS1.mat'],'inputs');
+
+
+% -- JST TP TN
+[inputs,targets] = cancer_dataset;
+targets = targets(1,:);
+nG1 = length(find(targets==1))
+nG2 = length(find(targets==0))
+setdemorandstream(672880951)
+hiddenLayerSize = 10;
+net = patternnet(hiddenLayerSize);
+net.divideParam.trainRatio = 70/100;
+net.divideParam.valRatio   = 15/100;
+net.divideParam.testRatio  = 15/100;
+% net.trainParam.showWindow = false;
+[net,tr] = train(net,inputs,targets);
+outputs = net(inputs);
+errors = gsubtract(targets,outputs);
+performance = perform(net,targets,outputs)
+testX = inputs(:,tr.testInd);
+testT = targets(:,tr.testInd);
+% plotroc(targets,outputs)
+testY = net(testX);
+figure
+plotroc(testT,testY)
+[c,cm,ind,per] = confusion(testT,testY);
+Se1 = per(1,3)
+Sp1 = per(1,4)
+Ac1 = 1-c
+N=length(testT);
+Se2 = cm(2,2)/(cm(2,2)+cm(2,1))
+Sp2 = cm(1,1)/(cm(1,1)+cm(1,2))
+Ac2 = (cm(1,1)+cm(2,2))/N
+
+Answer:
+% - Dalam bentuk rate (%)
+TPR = cm(1,1)/sum(cm(:,1)) % Division is  by elements in the predicted true column
+TNR = cm(2,2)/sum(cm(:,2)) % Same issues:
+FNR = cm(1,2)/sum(cm(:,2))
+FPR = cm(2,1)/sum(cm(:,1))

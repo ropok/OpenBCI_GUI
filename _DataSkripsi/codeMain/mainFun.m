@@ -1,10 +1,12 @@
 %  --- Ekstraksi Ciri RMS
-    
-    close all; clear; clc;
-    durasiData = 1;
-    subjek = 'subjek5a_9.txt';
+function [ciriM, ciriB] = mainFun(subjek, durasiData)
+%myFun - Description
+%
+% Syntax: [ciriM ciriB] = mainFun(data, durasiData)
+%
+% Long description 
+
     folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\';
-    % folder2 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp13\'; 
     files = dir([folder '*.txt']);
     fs = 200;
 
@@ -33,5 +35,8 @@
     % -- output : M, B, sizeData -------------------------------------------
 
     % -- RMS -- Input: M B
-    ciriM = RMS(M(:,1:3))';
-    ciriB = RMS(B(:,1:3))';
+    CHpakai = 2;
+    ciriM = RMS(M(:,1:CHpakai))';
+    ciriB = RMS(B(:,1:CHpakai))';
+
+end
