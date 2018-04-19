@@ -236,3 +236,8 @@ TPR = cm(1,1)/sum(cm(:,1)) % Division is  by elements in the predicted true colu
 TNR = cm(2,2)/sum(cm(:,2)) % Same issues:
 FNR = cm(1,2)/sum(cm(:,2))
 FPR = cm(2,1)/sum(cm(:,1))
+
+
+ciriSesi1Sesi2.RMS2_Merah = ciriMerah;
+ciriSesi1Sesi2.RMS2_Biru = ciriBiru;
+save([folder2 'ciriSesi1Sesi2.mat'],'ciriSesi1Sesi2');

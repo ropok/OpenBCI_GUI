@@ -14,7 +14,7 @@ function loading(String,min,max)
 % Please wait, Load Data Progress . . . . . . . . . . . + progress + %
 % Load Data done.
     progress = (min/max)*100;
-    textDisplayProgress = sprintf('Please wait, %s in progress . . . . . . . . . . . . %.0f %%',String,progress);
+    textDisplayProgress = sprintf('Gucci Gang %s in progress . . . . . . . . . . . . %.0f %%',String,progress);
     textDisplayDone = sprintf('%s done.',String);
     if progress == 100
         clc;

@@ -5,4 +5,4 @@ function [data] = filterBP(dataPre, fs, cutOn, cutOff)
     for j=1:sizeDataPre(2)
         data(:,j) = filter(b,a,dataPre(:,j));
     end
-end
+end 
