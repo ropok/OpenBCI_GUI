@@ -1,4 +1,4 @@
-function JST(inputs, hiddenLayerSize)
+function [akurasiTotal] = JST(inputs, hiddenLayerSize)
 
     % Generate targets
     [~,N] = size(inputs);
@@ -22,7 +22,7 @@ function JST(inputs, hiddenLayerSize)
     % Test the Network
     outputs = net(inputs);
     errors = gsubtract(targets, outputs);
-    performance = perform(net, targets, outputs)
+    performance = perform(net, targets, outputs);
 
     % --- Test
     testX = inputs(:, tr.testInd);
