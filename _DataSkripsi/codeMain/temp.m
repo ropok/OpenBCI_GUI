@@ -113,6 +113,8 @@ for i = 1:3
     end
 end
 
+
+t = [0:200-1]/fs;
     CHlist = {'CH1-Fp1' 'CH2-Fp2' 'CH3-C3' 'CH4-C4'};
     for i = 1:3
         figure;
@@ -241,3 +243,9 @@ FPR = cm(2,1)/sum(cm(:,1))
 ciriSesi1Sesi2.RMS2_Merah = ciriMerah;
 ciriSesi1Sesi2.RMS2_Biru = ciriBiru;
 save([folder2 'ciriSesi1Sesi2.mat'],'ciriSesi1Sesi2');
+save([folder2 'akurasi_Sesi1.mat'],'akurasi_Sesi1');
+save([folder2 'akurasi_Sesi2.mat'],'akurasi_Sesi2');
+save([folder2 'akurasi_Sesi12.mat'],'akurasi_Sesi12');
+
+[max(akurasi_Sesi1(:)) max(akurasi_Sesi2(:)) max(akurasi_Sesi1Sesi2(:))]
+t = [0:200-1]/fs;
