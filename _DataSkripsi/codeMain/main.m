@@ -1,4 +1,4 @@
-%  --- Ekstraksi Ciri RMS
+%  --- Ekstraksi Ciri Semua Ciri
     
     close all; clear; clc;
     durasiData = 4;
