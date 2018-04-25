@@ -51,8 +51,8 @@ function [ciriM, ciriB] = mainLoop(subjek, durasiData)
     % -- output : M B ------------------------------------------------------------
 
     % --  Ekstraksi ciri dengan RMS
-    ciriM = RMS_SD(M);
-    ciriB = RMS_SD(B);
+    ciriM = RMS(M);
+    ciriB = RMS(B);
     % -----------------------------
 
 

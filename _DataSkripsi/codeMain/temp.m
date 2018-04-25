@@ -250,7 +250,36 @@ save([folder2 'akurasi_Sesi12.mat'],'akurasi_Sesi12');
 [max(akurasi_Sesi1(:)) max(akurasi_Sesi2(:)) max(akurasi_Sesi1Sesi2(:))]
 t = [0:200-1]/fs;
 
+save
 
 for i = 1:20
     akurasiJST(i) = JST(inputs, i);
 end
+
+
+
+Cara Save dan Load .net
+1.At what point in my code will i put save net
+
+ Any time after training it and before deleting it. 
+However, give it a unique name so that it is not overwritten 
+or used by mistake. 
+ gregnet1 = net;
+ save gregnet1
+2.Using save net;, which location on the system is the trained network saved?
+
+ What ever directory you are in when you save it UNLESS you 
+specify another directory. 
+3.How can i load the trained network and supply new data that i want to test it with?
+
+ load gregnet1
+ newoutput = gregnet1(newinput);
+Please Note: I want to be able to save the trained neural network such that when i run the code over and over again with the training data set,it gives same output. I have discovered that each time i run my code,it gives a different output which i do not want once i have an acceptable result.
+
+ Then initialize the RNG to the same state before training to 
+obtain reproducibility. See any of my training example posts.
+Hope this helps.
+
+Thank you for formally accepting my answer
+
+Greg
