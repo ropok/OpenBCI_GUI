@@ -249,3 +249,8 @@ save([folder2 'akurasi_Sesi12.mat'],'akurasi_Sesi12');
 
 [max(akurasi_Sesi1(:)) max(akurasi_Sesi2(:)) max(akurasi_Sesi1Sesi2(:))]
 t = [0:200-1]/fs;
+
+
+for i = 1:20
+    akurasiJST(i) = JST(inputs, i);
+end

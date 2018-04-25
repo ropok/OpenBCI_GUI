@@ -1,4 +1,4 @@
-function [akurasiTotal, akurasiTest, akurasiVal, akurasiTrain] = JST(inputs, hiddenLayerSize)
+function [akurasiTotal] = JST(inputs, hiddenLayerSize)
 
     % Generate targets
     [~,N] = size(inputs);
