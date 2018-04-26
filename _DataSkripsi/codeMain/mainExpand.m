@@ -23,9 +23,9 @@ files = dir([folder1 '*.txt']);
 % subjek9 : 77:86
 
 % Mengumpulkan data dari semua objek
-for h = 1:length(files)
+% for h = 1:length(files)
 % for h = 1:1
-% for h = 77:86 % for Test purpose
+for h = 77:86 % for Test purpose
     [M, B] = mainLoop(files(h,1).name, 1);
 
     % -- Mengumpulkan rM seluruh subjek ------

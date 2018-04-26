@@ -21,7 +21,6 @@ function [net] = JST(inputs, maxHiddenNodeSize, targetAkurasi)
     while akurasiTotal < targetAkurasi    
         for HD = 1:maxHiddenNodeSize
             % Membuat Pattern Recognition Network
-            % hiddenNodeSize = 10;
             net = patternnet(HD); % Hidden Node
 
             % Set up Division of Data for Training, Validation, Testing
@@ -38,6 +37,7 @@ function [net] = JST(inputs, maxHiddenNodeSize, targetAkurasi)
             errors = gsubtract(targets, outputs);
             performance = perform(net, targets, outputs);
 
+            % -- Confusion Matrix ------------------------------------------------------------------------------------------
             % --- Test
             testX = inputs(:, tr.testInd);
             testT = targets(:, tr.testInd);
@@ -60,10 +60,14 @@ function [net] = JST(inputs, maxHiddenNodeSize, targetAkurasi)
             % Akurasi = (TP + TN)/total
             % TP = cm(2,2);
             % TN = cm(1,1);
-            akurasiTest = (cmTest(2,2)+cmTest(1,1))/length(testX);
-            akurasiVal = (cmVal(2,2)+cmVal(1,1))/length(valX);
-            akurasiTrain = (cmTrain(2,2)+cmTrain(1,1))/length(trainX);
+            [~,length_test] = size(testX);
+            [~,length_val] = size(valX);
+            [~,length_train] = size(trainX);
+            akurasiTest = (cmTest(2,2)+cmTest(1,1))/length_test;
+            akurasiVal = (cmVal(2,2)+cmVal(1,1))/length_val;
+            akurasiTrain = (cmTrain(2,2)+cmTrain(1,1))/length_train;
             akurasiTotal = sum([cmTest(2,2) cmTest(1,1) cmVal(2,2) cmVal(1,1) cmTrain(2,2) cmTrain(1,1)])/length(inputs);
+            % -- Confusion Matrix ------------------------------------------------------------------------------------------
             
             if akurasiTotal >= tempAkurasi
                 disp(akurasiTotal);
