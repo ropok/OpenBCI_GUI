@@ -16,9 +16,9 @@ function [ciriM, ciriB] = mainLoop(subjek, durasiData)
     % --------------------------------- (basic preprocessing)
 
     % -- input : data ----- theta - alpha - beta
-    data1 = filterBP(data, fs, 1, 3); % delta
-    data2 = filterBP(data, fs, 4, 7); % theta
-    data3 = filterBP(data, fs, 8, 11); % alpha
+    data1 = filterBP(data, fs, 1, 3); % delta -
+    data2 = filterBP(data, fs, 4, 7); % theta -
+    data3 = filterBP(data, fs, 8, 11); % alpha -
     data4 = filterBP(data, fs, 12, 29); % beta
     data5 = filterBP(data, fs, 30, 50); % gamma
 
@@ -53,6 +53,8 @@ function [ciriM, ciriB] = mainLoop(subjek, durasiData)
     % --  Ekstraksi ciri dengan RMS
     ciriM = RMS(M);
     ciriB = RMS(B);
+    % ciriM = M;
+    % ciriB = B;
     % -----------------------------
 
 

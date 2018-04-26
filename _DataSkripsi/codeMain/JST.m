@@ -1,12 +1,12 @@
-function [net] = JST(inputs, maxHiddenLayerSize, targetAkurasi)
+function [net] = JST(inputs, maxHiddenNodeSize, targetAkurasi)
     %JST - Latih Jaringan Saraf Tiruan
     %
-    % Syntax: net = JST(inputs, maxHiddenLayerSize, targetAkurasi)
+    % Syntax: net = JST(inputs, maxHiddenNodeSize, targetAkurasi)
     %
     % Long description 
     % input : 
     % * inputs              : data ciriMerah dan ciriBiru
-    % * maxHiddenLayerSize  : maximum jumlah Hidden Layer untuk pelatihan
+    % * maxHiddenNodeSize  : maximum jumlah Hidden Node untuk pelatihan
     % * targetAkurasi       : goal berupa besar Akurasi 
     % 
     % function JST ini terdiri dari 2 target saja (bisa dimodifikasi lebih lanjut)
@@ -19,10 +19,10 @@ function [net] = JST(inputs, maxHiddenLayerSize, targetAkurasi)
     akurasiTotal = 0;
     tempAkurasi = 0;
     while akurasiTotal < targetAkurasi    
-        for HL = 1:maxHiddenLayerSize
+        for HD = 1:maxHiddenNodeSize
             % Membuat Pattern Recognition Network
-            % hiddenLayerSize = 10;
-            net = patternnet(HL); % Hidden Layer
+            % hiddenNodeSize = 10;
+            net = patternnet(HD); % Hidden Node
 
             % Set up Division of Data for Training, Validation, Testing
             net.divideParam.trainRatio = 70/100;
