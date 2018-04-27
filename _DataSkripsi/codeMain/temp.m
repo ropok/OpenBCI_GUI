@@ -312,5 +312,14 @@ NameCiri = {'ciriDelta_Fp1' ; 'ciriDelta_Fp2' ; 'ciriDelta_C3' ; 'ciriDelta_C4' 
             };
 
 
-            mat2dataset(ciriMerah)
+mat2dataset(ciriMerah)
 dataset2table(ans)
+
+% mat2dataset([subjek2_ subjek3_ subjek4_ subjek5_ subjek6_ subjek7_ subjek8_ subjek9_]);
+table(subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9, 'RowNames', rowNames);
+
+for i = 0:7
+    start = i*30+1;
+    finish = i*30+30;
+    subjek{i} = [ciriMerah(:,start:finish) ciriBiru(:,start:finish)];
+end

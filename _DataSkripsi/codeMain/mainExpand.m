@@ -31,6 +31,7 @@ files = dir([folder1 '*.txt']);
 % subjek7 : 151:180
 % subjek8 : 181:210
 % subjek9 : 211:240
+%  -- subjek : 1:1*30
 
 % Mengumpulkan data dari semua objek
 for h = 1:length(files)
