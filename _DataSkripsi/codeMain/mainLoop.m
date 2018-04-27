@@ -16,6 +16,7 @@ function [ciriM, ciriB] = mainLoop(subjek, durasiData)
     % --------------------------------- (basic preprocessing)
 
     % -- input : data ----- theta - alpha - beta
+    % delta theta alpha dihapuskan, karena keterkaitan dengan frekuensi yang sangat lemah yaitu kedipan mata, bukan ke fokus pada stimulus warna yang menonjolkan atensi
     data1 = filterBP(data, fs, 1, 3); % delta -
     data2 = filterBP(data, fs, 4, 7); % theta -
     data3 = filterBP(data, fs, 8, 11); % alpha -
@@ -48,6 +49,8 @@ function [ciriM, ciriB] = mainLoop(subjek, durasiData)
     % % -- Gabungin data ke dalam satu variable per -- input : MB[1 2 3 ... 11]---
     M = [M1'; M2'; M3'; M4'; M5'; M6'; M7'; M8'; M9'; M10'; M11'];
     B = [B1'; B2'; B3'; B4'; B5'; B6'; B7'; B8'; B9'; B10'; B11'];
+    % M = [M4'; M5'; M6'; M7'; M8'; M9'; M10'; M11'];
+    % B = [B4'; B5'; B6'; B7'; B8'; B9'; B10'; B11'];
     % -- output : M B ------------------------------------------------------------
 
     % --  Ekstraksi ciri dengan RMS
