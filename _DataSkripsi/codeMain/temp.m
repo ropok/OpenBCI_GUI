@@ -258,7 +258,7 @@ end
 
 
 
-Cara Save dan Load .net
+% -- Cara Save dan Load .net
 1.At what point in my code will i put save net
 
  Any time after training it and before deleting it. 
@@ -284,6 +284,7 @@ Thank you for formally accepting my answer
 
 Greg
 
+% -- Filter
 data1 = filterBP(data, fs, 1, 3); % delta -
 data2 = filterBP(data, fs, 4, 7); % theta -
 data3 = filterBP(data, fs, 8, 11); % alpha -
@@ -297,7 +298,8 @@ data9 = filterBP(data, fs, 12, 14); % 13
 data10 = filterBP(data, fs, 25, 27); % 26
 data11 = filterBP(data, fs, 38, 40); % 39
 
-NameCiri = {'ciriDelta_Fp1' ; 'ciriDelta_Fp2' ; 'ciriDelta_C3' ; 'ciriDelta_C4' ; ...
+% -- Labeling Row untuk Nama Ciri
+RowCiri = {'ciriDelta_Fp1' ; 'ciriDelta_Fp2' ; 'ciriDelta_C3' ; 'ciriDelta_C4' ; ...
             'ciriTheta_Fp1' ;  'ciriTheta_Fp2' ;  'ciriTheta_C3' ;  'ciriTheta_C4' ; ... 
             'ciriAlpha_Fp1' ;  'ciriAlpha_Fp2' ;  'ciriAlpha_C3' ;  'ciriAlpha_C4' ; ... 
             'ciriBeta_Fp1' ;  'ciriBeta_Fp2' ;  'ciriBeta_C3' ;  'ciriBeta_C4' ; ... 
@@ -316,10 +318,37 @@ mat2dataset(ciriMerah)
 dataset2table(ans)
 
 % mat2dataset([subjek2_ subjek3_ subjek4_ subjek5_ subjek6_ subjek7_ subjek8_ subjek9_]);
-table(subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9, 'RowNames', rowNames);
+table(subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9, 'RowNames', RowCiri);
 
+% -- Menata variable untuk table
 for i = 0:7
     start = i*30+1;
     finish = i*30+30;
     subjek{i} = [ciriMerah(:,start:finish) ciriBiru(:,start:finish)];
+end
+
+% -- Menata variable untuk table
+subjek2 = subjek{1};
+subjek3 = subjek{2};
+subjek4 = subjek{3};
+subjek5 = subjek{4};
+subjek6 = subjek{5};
+subjek7 = subjek{6};
+subjek8 = subjek{7};
+subjek9 = subjek{8};
+
+% -- Looping JST dengan menggunakan table
+for i = 2:8
+    data = eval(['data1.subjek' num2str(i)]);
+    subjek{i-1} = JST(data, 20, 50);
+
+    clear data;
+end
+% --- Testing Purpose
+
+for i = 2:2
+    data = eval(['data1.subjek' num2str(i)]);
+    subjek{i-1} = JST(data, 20, 50);
+
+    clear data;
 end
