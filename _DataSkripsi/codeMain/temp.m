@@ -340,15 +340,14 @@ subjek9 = subjek{8};
 % -- Looping JST dengan menggunakan table
 for i = 2:8
     data = eval(['data1.subjek' num2str(i)]);
-    subjek{i-1} = JST(data, 20, 50);
+    subjek{i} = JST(data, 20, 50);
 
     clear data;
 end
 % --- Testing Purpose
-
 for i = 2:2
     data = eval(['data1.subjek' num2str(i)]);
-    subjek{i-1} = JST(data, 20, 50);
+    subjek{i} = JST(data, 5, 1);
 
     clear data;
 end

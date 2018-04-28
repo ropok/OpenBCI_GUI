@@ -1,4 +1,4 @@
-function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemp)
+function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
     %JST - Latih Jaringan Saraf Tiruan
     %
     % Syntax: net = JST(inputs, maxHiddenNodeSize, targetAkurasi)
@@ -8,7 +8,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemp)
     % * inputs              : data ciriMerah dan ciriBiru
     % * maxHiddenNodeSize   : maximum jumlah Hidden Node untuk pelatihan
     % * targetAkurasi       : goal berupa besar Akurasi 
-    % * maxAttep            : batasan Coba training
+    % * maxAttemps            : batasan Coba training
     % function JST ini terdiri dari 2 target saja (bisa dimodifikasi lebih lanjut)
 
     % Generate targets
@@ -16,15 +16,16 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemp)
     n = N/2;
     targets(1,1:n) = ones;
         targets(2,n+1:N) = ones;
-    akurasiTotal = 0;
-    tempAkurasi = 0;
-    tried = 0;
+        
     JST_32 = [];
-    Attemp = 0; 
     % while akurasiTotal < targetAkurasi    
     %     for HN = 1:maxHiddenNodeSize
     for HN = 1:maxHiddenNodeSize
-        while Attemp <= maxAttemp
+        akurasiTotal = 0;
+        tempAkurasi = 0;
+        tried = 0;
+        Attemp = 0; 
+        while Attemp <= maxAttemps
                 % Membuat Pattern Recognition Network
                 net = patternnet(HN); % Hidden Node
 
@@ -91,7 +92,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemp)
                     % -- Limiting the try
                     else
                         tried = tried + 1;
-                            if tried == maxAttemp*2;
+                            if tried == maxAttemps*2;
                                 disp(Attemp);
                                 Attemp = Attemp + 1;
                                 tried = 0;
@@ -102,7 +103,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemp)
                 % -- Limiting the try
                 % if akurasiTotal < tempAkurasi
                 %     tried = tried + 1;
-                %         if tried == maxAttemp*2;
+                %         if tried == maxAttemps*2;
                 %             Attemp = Attemp + 1;
                 %             tried = 0;
                 %         end
