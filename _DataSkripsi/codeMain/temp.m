@@ -345,9 +345,12 @@ for i = 2:8
     clear data;
 end
 % --- Testing Purpose
-for i = 2:2
+% -- Looping JST dengan menggunakan table
+close all; clc;
+for i = 2:3
     data = eval(['data1.subjek' num2str(i)]);
-    subjek{i} = JST(data, 5, 1);
+    disp(sprintf('Latih JST untuk Subjek%d',i));
+    subjek{i} = JST(data, 5, 1); % JST(inputs, maxHiddenNode, maxAttemps)
 
     clear data;
 end

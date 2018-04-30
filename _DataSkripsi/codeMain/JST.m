@@ -18,6 +18,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
         targets(2,n+1:N) = ones;
         
     JST_32 = [];
+    maxTried = 20;
     % while akurasiTotal < targetAkurasi    
     %     for HN = 1:maxHiddenNodeSize
     for HN = 1:maxHiddenNodeSize
@@ -27,7 +28,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
         Attemp = 0; 
         while Attemp <= maxAttemps
                 % Membuat Pattern Recognition Network
-                net = patternnet(HN); % Hidden Node
+                net = patternnet(HN,'trainscg','mse'); % Hidden Node
 
                 % Set up Division of Data for Training, Validation, Testing
                 net.divideParam.trainRatio = 70/100;
@@ -92,28 +93,15 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
                     % -- Limiting the try
                     else
                         tried = tried + 1;
-                            if tried == maxAttemps*2;
+                            if tried == maxTried;
                                 disp(Attemp);
                                 Attemp = Attemp + 1;
                                 tried = 0;
                             end
                 end
 
-                % disp(sprintf('%.4f-%d',akurasiTotal,tried));
-                % -- Limiting the try
-                % if akurasiTotal < tempAkurasi
-                %     tried = tried + 1;
-                %         if tried == maxAttemps*2;
-                %             Attemp = Attemp + 1;
-                %             tried = 0;
-                %         end
-                % end
-
-
-            
-                % if akurasiTotal >= targetAkurasi
-                %     break
-                % end
+                % For Safety, init network
+                net = init(net);
         end
     end
     %     end
