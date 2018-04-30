@@ -337,6 +337,16 @@ subjek7 = subjek{6};
 subjek8 = subjek{7};
 subjek9 = subjek{8};
 
+% -- Menata variable untuk table
+subjek2 = subjek{2};
+subjek3 = subjek{3};
+subjek4 = subjek{4};
+subjek5 = subjek{5};
+subjek6 = subjek{6};
+subjek7 = subjek{7};
+subjek8 = subjek{8};
+subjek9 = subjek{9};
+
 % -- Looping JST dengan menggunakan table
 for i = 2:8
     data = eval(['data1.subjek' num2str(i)]);

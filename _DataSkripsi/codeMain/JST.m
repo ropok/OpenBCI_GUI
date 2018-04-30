@@ -39,10 +39,10 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
                 net.trainParam.showWindow = false; % Do not display the train Window
                 [net,tr] = train(net, inputs, targets);
 
-                % Test the Network
-                outputs = net(inputs);
-                errors = gsubtract(targets, outputs);
-                performance = perform(net, targets, outputs);
+                % % Test the Network
+                % outputs = net(inputs);
+                % errors = gsubtract(targets, outputs);
+                % performance = perform(net, targets, outputs);
 
                 % -- Confusion Matrix ------------------------------------------------------------------------------------------
                 % --- Test
@@ -70,9 +70,9 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
                 [~,length_test] = size(testX);
                 [~,length_val] = size(valX);
                 [~,length_train] = size(trainX);
-                akurasiTest = (cmTest(2,2)+cmTest(1,1))/length_test;
-                akurasiVal = (cmVal(2,2)+cmVal(1,1))/length_val;
-                akurasiTrain = (cmTrain(2,2)+cmTrain(1,1))/length_train;
+                % akurasiTest = (cmTest(2,2)+cmTest(1,1))/length_test;
+                % akurasiVal = (cmVal(2,2)+cmVal(1,1))/length_val;
+                % akurasiTrain = (cmTrain(2,2)+cmTrain(1,1))/length_train;
                 akurasiTotal = sum([cmTest(2,2) cmTest(1,1) cmVal(2,2) cmVal(1,1) cmTrain(2,2) cmTrain(1,1)])/length(inputs);
                 % -- Confusion Matrix ------------------------------------------------------------------------------------------
                 

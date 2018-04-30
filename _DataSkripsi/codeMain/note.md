@@ -25,3 +25,13 @@ JST: Variasi cross ciri dan/ persesi
 ## Opsi Keua
 > Plotting Time Domain, untuk mengamati saja
 
+#２０１８年４月３０日（月曜日）晴れ
+.../temp25-Klasifikasi/tabel_Network_32Ciri : 
+* beta
+* gamma
+* 11
+* 22
+* 33
+* 13
+* 26
+* 39
