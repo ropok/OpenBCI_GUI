@@ -337,15 +337,17 @@ subjek7 = subjek{6};
 subjek8 = subjek{7};
 subjek9 = subjek{8};
 
-% -- Menata variable untuk table
-subjek2 = subjek{2};
-subjek3 = subjek{3};
-subjek4 = subjek{4};
-subjek5 = subjek{5};
-subjek6 = subjek{6};
-subjek7 = subjek{7};
-subjek8 = subjek{8};
-subjek9 = subjek{9};
+% -- Menata variable untuk 
+HiddenNode = subjek{1,2}(:,1);
+subjek2 = subjek{1,2}(:,2:3);
+subjek3 = subjek{1,3}(:,2:3);
+subjek4 = subjek{1,4}(:,2:3);
+subjek5 = subjek{1,5}(:,2:3);
+subjek6 = subjek{1,6}(:,2:3);
+subjek7 = subjek{1,7}(:,2:3);
+subjek8 = subjek{1,8}(:,2:3);
+subjek9 = subjek{1,9}(:,2:3);
+JST32Ciri_tabel = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
 
 % -- Looping JST dengan menggunakan table
 for i = 2:8
