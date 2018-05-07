@@ -1,12 +1,12 @@
 %  --- Ekstraksi Ciri RMS
-function [ciriM, ciriB] = mainLoop(subjek, durasiData)
+function [ciriM, ciriB] = mainLoop(folder, subjek, durasiData)
 % mainLoop - Description
 % Loop untuk load semua file .txt yang ada di folder tertentu
 % Syntax: [ciriM, ciriB] = mainLoop(subjek, durasiData)
 %
 % Long description 
 
-    folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\';
+    % folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\';
     fs = 200;
 
     % -- LoadRaw - Notch50Hz - BP1-50Hz (basic preprocessing)

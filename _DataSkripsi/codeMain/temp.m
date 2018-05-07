@@ -324,18 +324,22 @@ table(subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9, 'R
 for i = 0:7
     start = i*30+1;
     finish = i*30+30;
-    subjek{i} = [ciriMerah(:,start:finish) ciriBiru(:,start:finish)];
+    subjek{i+2} = [ciriMerah(:,start:finish) ciriBiru(:,start:finish)];
 end
 
 % -- Menata variable untuk table
-subjek2 = subjek{1};
-subjek3 = subjek{2};
-subjek4 = subjek{3};
-subjek5 = subjek{4};
-subjek6 = subjek{5};
-subjek7 = subjek{6};
-subjek8 = subjek{7};
-subjek9 = subjek{8};
+subjek2 = subjek{2};
+subjek3 = subjek{3};
+subjek4 = subjek{4};
+subjek5 = subjek{5};
+subjek6 = subjek{6};
+subjek7 = subjek{7};
+subjek8 = subjek{8};
+subjek9 = subjek{9};
+
+load('D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp25-Klasifikasi\ciriPerSubjek.mat');
+data1=ciriPerSubjek(13:20,:);
+data1=ciriPerSubjek(13:44,:); % 32 Ciri
 
 % -- Menata variable untuk 
 HiddenNode = subjek{1,2}(:,1);
@@ -347,7 +351,7 @@ subjek6 = subjek{1,6}(:,2:3);
 subjek7 = subjek{1,7}(:,2:3);
 subjek8 = subjek{1,8}(:,2:3);
 subjek9 = subjek{1,9}(:,2:3);
-JST32Ciri_tabel = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
+JST32Ciri_Tabel = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
 
 % -- Looping JST dengan menggunakan table
 for i = 2:8
@@ -365,4 +369,11 @@ for i = 2:3
     subjek{i} = JST(data, 5, 1); % JST(inputs, maxHiddenNode, maxAttemps)
 
     clear data;
+end
+
+% - Testing Loop
+for i = 0:7
+    start = i*15+1;
+    finish = i*15+15;
+    sprintf('%d - %d',start,finish)
 end
