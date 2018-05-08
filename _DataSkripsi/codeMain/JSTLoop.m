@@ -1,7 +1,7 @@
 % % -- Looping JST dengan menggunakan table
 close all; clc;
 folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp28_LatihVariasiSesi\';
-label = 'JST32Ciri_Sesi2';
+label = 'JST32Ciri_Sesi1Sesi2';
 for i = 2:9
     data = eval(['data1.subjek' num2str(i)]);
     disp(sprintf('Latih JST untuk Subjek%d',i));
