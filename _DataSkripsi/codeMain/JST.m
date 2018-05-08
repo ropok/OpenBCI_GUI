@@ -28,7 +28,8 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
         Attemp = 0; 
         while Attemp <= maxAttemps
                 % Membuat Pattern Recognition Network
-                net = patternnet(HN,'trainscg','mse'); % Hidden Node
+                net = newff(inputs,targets,HN,{'tansig','purelin'},'trainscg');
+                % net = patternnet(HN,'trainscg','mse'); % Hidden Node
 
                 % Set up Division of Data for Training, Validation, Testing
                 net.divideParam.trainRatio = 70/100;
@@ -37,7 +38,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
 
                 % Train the Network
                 net.trainParam.showWindow = false; % Do not display the train Window
-                [net,tr] = train(net, inputs, targets);
+                [net,tr] = train(net, inputs, targets); 
 
                 % % Test the Network
                 % outputs = net(inputs);

@@ -1,0 +1,3 @@
+net = patternet
+trainscg
+mse
