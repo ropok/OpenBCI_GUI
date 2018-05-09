@@ -1,9 +1,10 @@
-function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
+function [JST_32] = JST(inputs, maxAttemps)
     %JST - Latih Jaringan Saraf Tiruan
     %
-    % Syntax: net = JST(inputs, maxHiddenNodeSize, targetAkurasi)
-    %
+    % Syntax: net = JST(inputs, mmaxAttemps)
+    % Fixed Hidden Node : 23 24 25
     % Long description 
+    % inputUji : data Uji (data Sesi2)
     % input : 
     % * inputs              : data ciriMerah dan ciriBiru
     % * maxHiddenNodeSize   : maximum jumlah Hidden Node untuk pelatihan
@@ -21,7 +22,7 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
     maxTried = 20;
     % while akurasiTotal < targetAkurasi    
     %     for HN = 1:maxHiddenNodeSize
-    for HN = 1:maxHiddenNodeSize
+    for HN = 23:25
         akurasiTotal = 0;
         tempAkurasi = 0;
         tried = 0;
@@ -82,7 +83,8 @@ function [JST_32] = JST(inputs, maxHiddenNodeSize, maxAttemps)
                 if akurasiTotal > tempAkurasi
                     JST_32{HN,1} = num2str(HN) ;  % Label Jumlah HN
                     JST_32{HN,2} = net;          % Network
-                    JST_32{HN,3} = akurasiTotal*100; % AkurasiTotal
+                    JST_32{HN,3} = tr;
+                    JST_32{HN,4} = akurasiTotal*100; % AkurasiTotal
                     disp(sprintf('Updated JST - Hidden Node(%d) - Akurasi Total(%.2f)', HN, akurasiTotal*100));
                 end
                 if akurasiTotal >= tempAkurasi

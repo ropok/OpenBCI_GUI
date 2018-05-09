@@ -1,0 +1,18 @@
+net = newff
+trainscg
+mse
+tansig
+purelin
+
+Fixed Hidden Node : 23,24,25
+32 ciri (4Channel):
+
+    data4 = filterBP(data, fs, 12, 29); % beta
+    data5 = filterBP(data, fs, 30, 50); % gamma
+
+    data6 = filterBP(data, fs, 10, 12); % 11
+    data7 = filterBP(data, fs, 21, 23); % 22
+    data8 = filterBP(data, fs, 32, 34); % 33
+    data9 = filterBP(data, fs, 12, 14); % 13
+    data10 = filterBP(data, fs, 25, 27); % 26
+    data11 = filterBP(data, fs, 38, 40); % 39
