@@ -29,7 +29,7 @@ function [JST_32] = JST(inputs, maxAttemps)
         Attemp = 0; 
         while Attemp <= maxAttemps
                 % Membuat Pattern Recognition Network
-                net = newff(inputs,targets,HN,{'tansig','purelin'},'trainscg');
+                net = newff(inputs,targets,HN,{'tansig','purelin'},'trainlm');
                 % net = patternnet(HN,'trainscg','mse'); % Hidden Node
 
                 % Set up Division of Data for Training, Validation, Testing
@@ -81,10 +81,11 @@ function [JST_32] = JST(inputs, maxAttemps)
 
                 % --Update JST_32
                 if akurasiTotal > tempAkurasi
-                    JST_32{HN,1} = num2str(HN) ;  % Label Jumlah HN
-                    JST_32{HN,2} = net;          % Network
-                    JST_32{HN,3} = tr;
-                    JST_32{HN,4} = akurasiTotal*100; % AkurasiTotal
+                    indeksSubjek = HN-22;
+                    JST_32{indeksSubjek,1} = num2str(HN) ;  % Label Jumlah HN
+                    JST_32{indeksSubjek,2} = net;          % Network
+                    JST_32{indeksSubjek,3} = tr;
+                    JST_32{indeksSubjek,4} = akurasiTotal*100; % AkurasiTotal
                     disp(sprintf('Updated JST - Hidden Node(%d) - Akurasi Total(%.2f)', HN, akurasiTotal*100));
                 end
                 if akurasiTotal >= tempAkurasi

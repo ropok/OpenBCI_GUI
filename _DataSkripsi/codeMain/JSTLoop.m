@@ -13,6 +13,7 @@ for i = 2:9
     clear data;
     clc;
 end
+% save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp32\dataUji.mat dataUji;
 
 % % -- PerSubjek JST dengan menggunakan table
 % close all; clc;

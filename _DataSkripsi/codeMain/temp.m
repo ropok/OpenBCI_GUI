@@ -377,3 +377,34 @@ for i = 0:7
     finish = i*15+15;
     sprintf('%d - %d',start,finish)
 end
+
+% -- SIM massal
+net = tabelNet_Sesi1.subjek2{1,1};
+data = tabel32Ciri_Sesi2.subjek2;
+tabelNet_Sesi1.subjek2{1,4} = sim(net,data);
+
+net = tabelNet_Sesi1.subjek2{2,1};
+data = tabel32Ciri_Sesi2.subjek2;
+tabelNet_Sesi1.subjek2{2,4} = sim(net,data);
+
+% -- SIM Massal Sesi1
+for nomorSubjek = 2:9
+    data = eval(['dataUji.subjek' num2str(nomorSubjek)]);
+    for row = 1:3
+        net = eval(['tabelNet_Sesi1.subjek' num2str(nomorSubjek) '{' num2str(row) ',1}']);
+        outputUji_Sesi1{row,nomorSubjek} = sim(net,data);
+        clear net;
+    end
+    clear data;
+end
+
+% -- SIM Massal Sesi2
+for nomorSubjek = 2:9
+    data = eval(['dataUji.subjek' num2str(nomorSubjek)]);
+    for row = 1:3
+        net = eval(['tabelNet_Sesi2.subjek' num2str(nomorSubjek) '{' num2str(row) ',1}']);
+        outputUji_Sesi2{row,nomorSubjek} = sim(net,data);
+        clear net;
+    end
+    clear data;
+end
