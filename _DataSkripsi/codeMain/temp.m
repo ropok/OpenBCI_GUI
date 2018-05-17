@@ -352,7 +352,7 @@ subjek7 = subjek{1,7}(:,2:4);
 subjek8 = subjek{1,8}(:,2:4);
 subjek9 = subjek{1,9}(:,2:4);
 tabelNet_Sesi1Sesi2 = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
-save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp31\tabelNet_Sesi1Sesi2.mat tabelNet_Sesi1Sesi2;    
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp31\tabelNet_Sesi1Sesi2.mat tabelNet_Sesi1Sesi2; 
 % -- Looping JST dengan menggunakan table
 for i = 2:8
     data = eval(['data1.subjek' num2str(i)]);
@@ -504,3 +504,58 @@ clearvars -except outputUjiBiner_Sesi1 outputUjiBiner_Sesi2 outputUjiCM_Sesi1 ou
 colNames = {'HiddenNodes', 'Subjek2', 'Subjek3', 'Subjek4', 'Subjek5', 'Subjek6', 'Subjek7', 'Subjek8', 'Subjek9'};
 tabelCM_Sesi1 = array2table(outputUjiCM_Sesi1,'VariableNames',colNames);
 tabelCM_Sesi2 = array2table(outputUjiCM_Sesi2,'VariableNames',colNames);
+
+
+    % ------------------
+    % SUBJEK 1
+    % ------------------
+
+    % -- Untuk Looping pemilihan sesi mana yang akan diekstraksi ciri
+
+    close all; clear; clc;
+
+    folder1 = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp_Subjek1\RAW_Sesi1Sesi2\';
+    ciriMerah = [];
+    ciriBiru = [];
+    files = dir([folder1 '*.txt']); 
+
+    % Mengumpulkan data dari semua objek
+    for h = 1:length(files)
+        [M, B] = mainLoop(folder1, files(h,1).name, 1);
+
+        % -- Mengumpulkan rM seluruh subjek ------
+        ciriMerah = [ciriMerah M];
+        ciriBiru = [ciriBiru B];
+        % -- data_rM data_rB
+
+        loading('Load Data', h, length(files));
+    end
+
+    subjek1 = [ciriMerah ciriBiru];
+    % -- Labeling Row untuk Nama Ciri
+    RowCiri = {'ciriDelta_Fp1' ; 'ciriDelta_Fp2' ; 'ciriDelta_C3' ; 'ciriDelta_C4' ; ...
+    'ciriTheta_Fp1' ;  'ciriTheta_Fp2' ;  'ciriTheta_C3' ;  'ciriTheta_C4' ; ...
+    'ciriAlpha_Fp1' ;  'ciriAlpha_Fp2' ;  'ciriAlpha_C3' ;  'ciriAlpha_C4' ; ...
+    'ciriBeta_Fp1' ;  'ciriBeta_Fp2' ;  'ciriBeta_C3' ;  'ciriBeta_C4' ; ...
+    'ciriGamma_Fp1' ;  'ciriGamma_Fp2' ;  'ciriGamma_C3' ;  'ciriGamma_C4' ; ...
+    'ciri11Hz_Fp1' ;  'ciri11Hz_Fp2' ;  'ciri11Hz_C3' ;  'ciri11Hz_C4' ; ...
+    'ciri22Hz_Fp1' ;  'ciri22Hz_Fp2' ;  'ciri22Hz_C3' ;  'ciri22Hz_C4' ; ...
+    'ciri33Hz_Fp1' ;  'ciri33Hz_Fp2' ;  'ciri33Hz_C3' ;  'ciri33Hz_C4' ; ...
+    'ciri13Hz_Fp1' ;  'ciri13Hz_Fp2' ;  'ciri13Hz_C3' ;  'ciri13Hz_C4' ; ...
+    'ciri26Hz_Fp1' ;  'ciri26Hz_Fp2' ;  'ciri26Hz_C3' ;  'ciri26Hz_C4' ; ...
+    'ciri39Hz_Fp1' ;  'ciri39Hz_Fp2' ;  'ciri39Hz_C3' ;  'ciri39Hz_C4' ; ...
+    };
+    tabel44Ciri_Sesi1Sesi2 = table(subjek1, 'RowNames', RowCiri);
+    save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp_Subjek1\tabel44Ciri_Sesi1Sesi2.mat tabel44Ciri_Sesi1Sesi2
+
+    tabel32Ciri_Sesi1 = tabel44Ciri_Sesi1(13:44,:);
+    tabel32Ciri_Sesi2 = tabel44Ciri_Sesi2(13:44,:);
+    tabel32Ciri_Sesi1Sesi2 = tabel44Ciri_Sesi1Sesi2(13:44,:);
+
+% --- AFTER JSTLoop.m
+
+% -- Menata variable untuk tabel
+HiddenNode = subjek{1,1}(:,1);
+subjek1 = subjek{1,1}(:,2:4);
+tabelNet_Sesi2 = table(HiddenNode, subjek1);
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp_Subjek1\tabelNet_Sesi2.mat tabelNet_Sesi2;

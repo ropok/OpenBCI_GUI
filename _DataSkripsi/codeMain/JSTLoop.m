@@ -2,7 +2,7 @@
 close all; clc;
 % folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp28_LatihVariasiSesi\';
 % label = 'JST32Ciri_Sesi1Sesi2';
-for i = 2:9
+for i = 1:1
     data = eval(['data1.subjek' num2str(i)]);
     % dataUji = eval(['data2.subjek' num2str(i)]); % Sesi2
     disp(sprintf('Latih JST untuk Subjek%d',i));
