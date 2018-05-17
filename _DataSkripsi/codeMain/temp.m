@@ -351,8 +351,8 @@ subjek6 = subjek{1,6}(:,2:4);
 subjek7 = subjek{1,7}(:,2:4);
 subjek8 = subjek{1,8}(:,2:4);
 subjek9 = subjek{1,9}(:,2:4);
-tabelNet_Sesi2 = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
-save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp31\tabelNet_Sesi2.mat tabelNet_Sesi2;
+tabelNet_Sesi1Sesi2 = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp31\tabelNet_Sesi1Sesi2.mat tabelNet_Sesi1Sesi2;    
 % -- Looping JST dengan menggunakan table
 for i = 2:8
     data = eval(['data1.subjek' num2str(i)]);
