@@ -557,5 +557,46 @@ tabelCM_Sesi2 = array2table(outputUjiCM_Sesi2,'VariableNames',colNames);
 % -- Menata variable untuk tabel
 HiddenNode = subjek{1,1}(:,1);
 subjek1 = subjek{1,1}(:,2:4);
-tabelNet_Sesi2 = table(HiddenNode, subjek1);
-save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp_Subjek1\tabelNet_Sesi2.mat tabelNet_Sesi2;
+tabelNet_Sesi1Sesi2 = table(HiddenNode, subjek1);
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp_Subjek1\tabelNet_Sesi1Sesi2.mat tabelNet_Sesi1Sesi2;
+
+% -- Kelompokin NET
+for i = 1:1
+    data = eval(['tabelNet_Sesi2.subjek' num2str(i)]);
+    net_all{1,i} = data{2,1};
+    clear data;
+end
+
+
+% 
+% MANUALLY SIM WORKED!
+% 
+
+inputs = [0 1 2 3 4 5 6 7 8 9 10];
+% inputs = inputs + .1 *rand(size(inputs));
+targets = [0 1 2 3 4 3 2 1 2 3 4];
+% Create a network with 1 neuron in the first layer
+net=newff(inputs,targets,1,{'tansig','tansig'},'trainlm');
+% Train the network
+net = init(net);
+net.trainParam.epochs = 100;
+[net,tr,out]=train(net,inputs,targets);
+%Simulate the network with the inputs
+[Y,Pf,Af,E,perf] = sim(net,inputs);
+%Calculate output manually:
+% Pre-process the data
+for iii = 1:numel(net.inputs{1}.processFcns)
+      inputs = feval( net.inputs{1}.processFcns{iii}, ...
+          'apply', inputs, net.inputs{1}.processSettings{iii} );
+end
+% Calculate the network response
+a1 = tansig(net.IW{1,1}*inputs + net.b{1}); 
+Yc = tansig(net.LW{2,1}*a1 + net.b{2}); 
+% Post-process the data
+for iii = 1:numel(net.outputs{2}.processFcns)
+     Yc = feval( net.outputs{2}.processFcns{iii}, ...
+          'reverse', Yc, net.outputs{2}.processSettings{iii} );
+end
+close all
+% View results
+[Y' Yc']
