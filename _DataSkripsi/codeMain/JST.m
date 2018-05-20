@@ -11,7 +11,7 @@ function [JST_32] = JST(inputs, maxAttemps)
     % * targetAkurasi       : goal berupa besar Akurasi 
     % * maxAttemps            : batasan Coba training
     % function JST ini terdiri dari 2 target saja (bisa dimodifikasi lebih lanjut)
-
+    
     % Generate targets
     [~,N] = size(inputs);
     n = N/2;
@@ -30,6 +30,8 @@ function [JST_32] = JST(inputs, maxAttemps)
         while Attemp <= maxAttemps
                 % Membuat Pattern Recognition Network
                 net = newff(inputs,targets,HN,{'tansig','purelin'},'trainlm');
+                net.inputs{1}.processFcns={'removeconstantrows'};
+                net.outputs{2}.processFcns={'removeconstantrows'};
                 % net = patternnet(HN,'trainscg','mse'); % Hidden Node
 
                 % Set up Division of Data for Training, Validation, Testing

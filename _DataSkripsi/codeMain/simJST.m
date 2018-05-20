@@ -11,13 +11,18 @@ function output_biner = simJST(net,input)
     for i = 1:datum
         data = input(i,:);
         % data = normalize_var(data,-1,1);
-        data = mapstd(data);
+        % data = mapstd(data);
         % HN = data*net.IW{1,1}' + net.b{1}';
         % HN = 2./(1+exp(-2*HN))-1; %tansig
-        HN = data*net.IW{1,1}';
-        HN = 2./(1+exp(-2*HN))-1; %tansig
-        HN = HN  + net.b{1}';
-        output(i,:) = HN*net.LW{2,1}' + net.b{2}';
+        % HN = data*net.IW{1,1}';
+        % HN = 2./(1+exp(-2*HN))-1; %tansig
+        % HN = HN + net.b{1}';
+        % output(i,:) = HN*net.LW{2,1}' + net.b{2}';
+        
+        % Calculate the network response
+        a1 = net.IW{1,1}*inputs + net.b{1}; 
+        a1 = 2./(1+exp(-2*a1))-1
+        Yc = net.LW{2,1}*a1 + net.b{2}; 
         
         % HN = tansig(data*net.IW{1,1}' + net.b{1}');
         % output(i,:) = purelin(HN*net.LW{2,1}' + net.b{2}');

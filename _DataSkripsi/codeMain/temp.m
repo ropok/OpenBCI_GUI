@@ -651,3 +651,7 @@ RowCiri = {'ciriBeta_Fp1' ;  'ciriBeta_Fp2' ;  'ciriBeta_C3' ;  'ciriBeta_C4' ; 
 
 tabel32Ciri_Sesi1Sesi2 = table(subjek1, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9, 'RowNames', RowCiri);
 save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData2\temp1\tabel32Ciri_Sesi1Sesi2.mat tabel32Ciri_Sesi1Sesi2
+
+
+net.outputs{2}.processFcns(1) = [];
+net.inputs{1}.processFcns(2) = [];
