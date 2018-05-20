@@ -600,3 +600,54 @@ end
 close all
 % View results
 [Y' Yc']
+
+
+% 
+% Concat Subjek 1 - 9
+% 
+subjek1_Sesi1 = tabel32Ciri_Sesi1.subjek1;
+subjek2 = tabel32Ciri_Sesi1.subjek2;
+subjek3 = tabel32Ciri_Sesi1.subjek3;
+subjek4 = tabel32Ciri_Sesi1.subjek4;
+subjek5 = tabel32Ciri_Sesi1.subjek5;
+subjek6 = tabel32Ciri_Sesi1.subjek6;
+subjek7 = tabel32Ciri_Sesi1.subjek7;
+subjek8 = tabel32Ciri_Sesi1.subjek8;
+subjek9 = tabel32Ciri_Sesi1.subjek9;
+
+
+subjek1_Sesi2 = tabel32Ciri_Sesi2.subjek1;
+subjek2 = tabel32Ciri_Sesi2.subjek2;
+subjek3 = tabel32Ciri_Sesi2.subjek3;
+subjek4 = tabel32Ciri_Sesi2.subjek4;
+subjek5 = tabel32Ciri_Sesi2.subjek5;
+subjek6 = tabel32Ciri_Sesi2.subjek6;
+subjek7 = tabel32Ciri_Sesi2.subjek7;
+subjek8 = tabel32Ciri_Sesi2.subjek8;
+subjek9 = tabel32Ciri_Sesi2.subjek9;
+
+
+subjek1_Sesi1Sesi2 = tabel32Ciri_Sesi1Sesi2.subjek1;
+subjek2 = tabel32Ciri_Sesi1Sesi2.subjek2;
+subjek3 = tabel32Ciri_Sesi1Sesi2.subjek3;
+subjek4 = tabel32Ciri_Sesi1Sesi2.subjek4;
+subjek5 = tabel32Ciri_Sesi1Sesi2.subjek5;
+subjek6 = tabel32Ciri_Sesi1Sesi2.subjek6;
+subjek7 = tabel32Ciri_Sesi1Sesi2.subjek7;
+subjek8 = tabel32Ciri_Sesi1Sesi2.subjek8;
+subjek9 = tabel32Ciri_Sesi1Sesi2.subjek9;
+
+% -- Labeling Row untuk Nama Ciri
+RowCiri = {'ciriBeta_Fp1' ;  'ciriBeta_Fp2' ;  'ciriBeta_C3' ;  'ciriBeta_C4' ; ... 
+            'ciriGamma_Fp1' ;  'ciriGamma_Fp2' ;  'ciriGamma_C3' ;  'ciriGamma_C4' ; ... 
+            
+            'ciri11Hz_Fp1' ;  'ciri11Hz_Fp2' ;  'ciri11Hz_C3' ;  'ciri11Hz_C4' ; ... 
+            'ciri22Hz_Fp1' ;  'ciri22Hz_Fp2' ;  'ciri22Hz_C3' ;  'ciri22Hz_C4' ; ... 
+            'ciri33Hz_Fp1' ;  'ciri33Hz_Fp2' ;  'ciri33Hz_C3' ;  'ciri33Hz_C4' ; ... 
+            'ciri13Hz_Fp1' ;  'ciri13Hz_Fp2' ;  'ciri13Hz_C3' ;  'ciri13Hz_C4' ; ... 
+            'ciri26Hz_Fp1' ;  'ciri26Hz_Fp2' ;  'ciri26Hz_C3' ;  'ciri26Hz_C4' ; ... 
+            'ciri39Hz_Fp1' ;  'ciri39Hz_Fp2' ;  'ciri39Hz_C3' ;  'ciri39Hz_C4' ; ... 
+            };
+
+tabel32Ciri_Sesi1Sesi2 = table(subjek1, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9, 'RowNames', RowCiri);
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData2\temp1\tabel32Ciri_Sesi1Sesi2.mat tabel32Ciri_Sesi1Sesi2

@@ -73,15 +73,16 @@ end
 %     subjek{i+2} = [ciriMerah(:,start:finish) ciriBiru(:,start:finish)];
 % end
 
-% -- Menata variable untuk table
-subjek2 = subjek{2};
-subjek3 = subjek{3};
-subjek4 = subjek{4};
-subjek5 = subjek{5};
-subjek6 = subjek{6};
-subjek7 = subjek{7};
-subjek8 = subjek{8};
-subjek9 = subjek{9};
+% % -- Menata variable untuk table
+% subjek1 = subjek{1};
+% subjek2 = subjek{2};
+% subjek3 = subjek{3};    
+% subjek4 = subjek{4};
+% subjek5 = subjek{5};
+% subjek6 = subjek{6};
+% subjek7 = subjek{7};
+% subjek8 = subjek{8};
+% subjek9 = subjek{9};
 
 % -- Labeling Row untuk Nama Ciri
 RowCiri = {'ciriDelta_Fp1' ; 'ciriDelta_Fp2' ; 'ciriDelta_C3' ; 'ciriDelta_C4' ; ...

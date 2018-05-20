@@ -1,0 +1,4 @@
+tabel32Ciri_Sesi1 	: Sesi1 saja
+tabel32Ciri_Sesi1Sesi2 	: Sesi1Sesi2 saja
+tabel32Ciri_Sesi2 	: Sesi2 saja
+tabel32Ciri		: gabungan dari Ketiga file di atas
