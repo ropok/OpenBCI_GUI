@@ -1,4 +1,4 @@
-function output_biner = simJST(net,input)
+function Yc = simJST(net,input)
 %simJST - Description
 %
 % Syntax: output_biner = simJST(net,input)
@@ -28,7 +28,7 @@ function output_biner = simJST(net,input)
         % output(i,:) = purelin(HN*net.LW{2,1}' + net.b{2}');
     end
     
-    output_biner = output';
+    % output_biner = output';
 
     % for i = 1:datum
     %     if(output(1,i)>output(2,i))

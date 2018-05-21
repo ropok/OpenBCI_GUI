@@ -353,8 +353,8 @@ subjek6 = subjek{1,6}(:,2:4);
 subjek7 = subjek{1,7}(:,2:4);
 subjek8 = subjek{1,8}(:,2:4);
 subjek9 = subjek{1,9}(:,2:4);
-tabelNet_Sesi2 = table(HiddenNode, subjek1, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
-save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData2\temp1\tabelNet_Sesi2.mat tabelNet_Sesi2; 
+tabelNet_Sesi1Sesi2 = table(HiddenNode, subjek1, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData2\temp1\tabelNet_Sesi1Sesi2.mat tabelNet_Sesi1Sesi2; 
 % -- Looping JST dengan menggunakan table
 for i = 2:8
     data = eval(['data1.subjek' num2str(i)]);
@@ -657,3 +657,19 @@ save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData2\temp1\tabel32Ciri_Sesi1S
 
 net.outputs{2}.processFcns(1) = [];
 net.inputs{1}.processFcns(2) = [];
+
+
+% 
+% tabelnet_reunited
+% 
+labelData = {'tabelNet_Sesi1' 'tabelNet_Sesi2' 'tabelNet_Sesi1Sesi2'};
+for h = 1:3
+    data1 = labelData{h};
+    k = (h-1)*3;
+    for i = 1:9
+        for j = 1:3
+            data = eval([data1 '.subjek' num2str(i)]);
+            tabelNet{j+k,i} = data{j};
+        end
+    end
+end

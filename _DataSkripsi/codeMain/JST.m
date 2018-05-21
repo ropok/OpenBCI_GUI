@@ -22,7 +22,7 @@ function [JST_32] = JST(inputs, maxAttemps)
     maxTried = 20;
     % while akurasiTotal < targetAkurasi    
     %     for HN = 1:maxHiddenNodeSize
-    for HN = 23:25
+    for HN = 23:23
         akurasiTotal = 0;
         tempAkurasi = 0;
         tried = 0;

@@ -8,4 +8,30 @@ tabel Network beserta akurasiTotal dari train
 tabelNet_Sesi1		: Sesi1 saja
 tabelNet_Sesi1Sesi2	: SesiSesi2 saja
 tabelNet_Sesi2		: Sesi2 saja
-tabelNet		: gabungan dari tabelNet_Sesi1 tabelNet_Sesi1Sesi2 tabelNet_Sesi2
+tabelNet alias tabelNet_Separated		: gabungan dari tabelNet_Sesi1 tabelNet_Sesi1Sesi2 tabelNet_Sesi2
+
+tabelNet_United (9x9 cell):
+Sesi1
+Hidden Node	Sub1	Sub2	Sub3	Sub4	Sub5	Sub6	Sub7	Sub8	Sub9
+	23	net	net	net	net	net	net	net	net	net	
+	24	net	net	net	net	net	net	net	net	net	
+	25	net	net	net	net	net	net	net	net	net
+
+Sesi2
+Hidden Node	Sub1	Sub2	Sub3	Sub4	Sub5	Sub6	Sub7	Sub8	Sub9
+	23	net	net	net	net	net	net	net	net	net	
+	24	net	net	net	net	net	net	net	net	net	
+	25	net	net	net	net	net	net	net	net	net
+
+Sesi1Sesi2
+Hidden Node	Sub1	Sub2	Sub3	Sub4	Sub5	Sub6	Sub7	Sub8	Sub9
+	23	net	net	net	net	net	net	net	net	net	
+	24	net	net	net	net	net	net	net	net	net	
+	25	net	net	net	net	net	net	net	net	net
+
+
+
+tabelNet 	: raw Net 9x9
+tabelNet_pr1 	: SIM(tabelNet,dataUji)
+tabelNet_pr2	: biner(tabelNet_pr1)
+tabelNet_pr3	: CM(tabelNet_pr2) - CM: Akurasi, TPR, FDR
