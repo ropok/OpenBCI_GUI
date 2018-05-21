@@ -328,6 +328,7 @@ for i = 0:7
 end
 
 % -- Menata variable untuk table
+subjek1 = subjek{1};
 subjek2 = subjek{2};
 subjek3 = subjek{3};
 subjek4 = subjek{4};
@@ -342,7 +343,8 @@ data1=ciriPerSubjek(13:20,:);
 data1=ciriPerSubjek(13:44,:); % 32 Ciri
 
 % -- Menata variable untuk tabel
-HiddenNode = subjek{1,2}(:,1);
+HiddenNode = subjek{1,1}(:,1);
+subjek1 = subjek{1,1}(:,2:4);
 subjek2 = subjek{1,2}(:,2:4);
 subjek3 = subjek{1,3}(:,2:4);
 subjek4 = subjek{1,4}(:,2:4);
@@ -351,8 +353,8 @@ subjek6 = subjek{1,6}(:,2:4);
 subjek7 = subjek{1,7}(:,2:4);
 subjek8 = subjek{1,8}(:,2:4);
 subjek9 = subjek{1,9}(:,2:4);
-tabelNet_Sesi1Sesi2 = table(HiddenNode, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
-save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp31\tabelNet_Sesi1Sesi2.mat tabelNet_Sesi1Sesi2; 
+tabelNet_Sesi2 = table(HiddenNode, subjek1, subjek2, subjek3, subjek4, subjek5, subjek6, subjek7, subjek8, subjek9);
+save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData2\temp1\tabelNet_Sesi2.mat tabelNet_Sesi2; 
 % -- Looping JST dengan menggunakan table
 for i = 2:8
     data = eval(['data1.subjek' num2str(i)]);

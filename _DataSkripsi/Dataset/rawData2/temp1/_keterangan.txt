@@ -1,4 +1,11 @@
+32 Ciri (Double) untuk Subjek 1 - 9
 tabel32Ciri_Sesi1 	: Sesi1 saja
 tabel32Ciri_Sesi1Sesi2 	: Sesi1Sesi2 saja
 tabel32Ciri_Sesi2 	: Sesi2 saja
 tabel32Ciri		: gabungan dari Ketiga file di atas
+
+tabel Network beserta akurasiTotal dari train
+tabelNet_Sesi1		: Sesi1 saja
+tabelNet_Sesi1Sesi2	: SesiSesi2 saja
+tabelNet_Sesi2		: Sesi2 saja
+tabelNet		: gabungan dari tabelNet_Sesi1 tabelNet_Sesi1Sesi2 tabelNet_Sesi2
