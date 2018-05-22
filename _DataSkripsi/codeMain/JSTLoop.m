@@ -1,25 +1,18 @@
 % % -- Looping JST dengan menggunakan table
 close all; clc;
-% folder = 'D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp28_LatihVariasiSesi\';
-% label = 'JST32Ciri_Sesi1Sesi2';
-for i = 1:9
-    data = eval(['data1.subjek' num2str(i)]);
-    % dataUji = eval(['data2.subjek' num2str(i)]); % Sesi2
-    disp(sprintf('Latih JST untuk Subjek%d',i));
-    subjek{i} = JST(data, 10); % JST(inputs, maxAttemps)
-    % save([folder label '.mat'], 'subjek');
-    % save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp28_LatihVariasiSesi\JST32Ciri_Sesi1.mat subjek;
+labelDataLatih = {'tabel32Ciri_Sesi1' 'tabel32Ciri_Sesi2' 'tabel32Ciri_Sesi1Sesi2'};
+labelDataUji = 'tabel32Ciri_Sesi2';
+for i = 1:3
+    for j = 1:9
+        dataLatih = eval([labelDataLatih{i} '.subjek' num2str(j)]);
+        dataUji = eval([labelDataUji '.subjek' num2str(j)]);
 
-    clear data;
-    clc;
+        disp(sprintf('Latih JST untuk Subjek%d',j));
+
+        % subjek{i} = JST2(dataLatih, 10, dataUji); 
+        [JST{1}{i,j}, JST{2}{i,j}] = JST2(dataLatih, 10, dataUji);
+
+        clear data;
+        clc;
+    end
 end
-% save D:\Jaler\OpenBCI_GUI\_DataSkripsi\Dataset\rawData\temp32\dataUji.mat dataUji;
-
-% % -- PerSubjek JST dengan menggunakan table
-% close all; clc;
-% noSubjek = 2;
-%     data = eval(['data1.subjek' num2str(noSubjek)]);
-%     disp(sprintf('Latih JST untuk Subjek%d',noSubjek));
-%     subjek{noSubjek} = JST(data, 20, 50); % JST(inputs, maxHiddenNode, maxAttemps)
-
-%     clear data;
