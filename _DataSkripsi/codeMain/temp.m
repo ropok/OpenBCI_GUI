@@ -672,4 +672,13 @@ for h = 1:3
             tabelNet{j+k,i} = data{j};
         end
     end
+end 
+
+% 
+% - Test the Loop 'from start:end'
+% 
+for i = 1:5
+    durasiAwal = ((i-1)*200)+1;
+    durasiAkhir = i*200;
+sprintf('%d:%d',durasiAwal,durasiAkhir)
 end

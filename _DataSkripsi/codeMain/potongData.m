@@ -1,21 +1,46 @@
-function [M,B] = potongData(dataPre, fs, durasi)
+function [M,P,B] = potongData(dataPre, fs, durasi)
     durasiFs = fs*durasi;
     sizeDataPre = size(dataPre);
 
-    Mpre.a11 = dataPre(601:1600,:);
-    Mpre.b11 = dataPre(3801:4800,:);
-    Mpre.c11 = dataPre(7001:8000,:);
-    Bpre.a11 = dataPre(2201:3200,:);
-    Bpre.b11 = dataPre(5401:6400,:);
-    Bpre.c11 = dataPre(8601:length(dataPre),:); 
+    Mpre.a = dataPre(601:1600,:);
+    Mpre.b = dataPre(3801:4800,:);
+    Mpre.c = dataPre(7001:8000,:);
 
-    for j = 1:sizeDataPre(2)
-        M{1,j} = Mpre.a11(1:durasiFs,j);
-        M{2,j} = Mpre.b11(1:durasiFs,j);
-        M{3,j} = Mpre.c11(1:durasiFs,j);
-        B{1,j} = Bpre.a11(1:durasiFs,j);
-        B{2,j} = Bpre.b11(1:durasiFs,j);
-        B{3,j} = Bpre.c11(1:durasiFs,j);
+    % Abaikan 1 sekon pertama
+    Ppre.a = [dataPre(201:600,:) ; dataPre(1601:2200,:)]; 
+    Ppre.b = [dataPre(3401:3800,:) ; dataPre(4801:5400,:)];
+    Ppre.c = [dataPre(6601:7000,:) ; dataPre(8001:8600,:)];
+
+    Bpre.a = dataPre(2201:3200,:);
+    Bpre.b = dataPre(5401:6400,:);
+    Bpre.c = dataPre(8601:length(dataPre),:); 
+
+    for j = 1:sizeDataPre(2) % Channel / Kanal
+        for i = 1:5
+            durasiAwal = ((i-1)*fs)+1;
+            durasiAkhir = i*durasiFs;
+    
+            M{i,j} = Mpre.a(durasiAwal:durasiAkhir,j);
+            M{i+5,j} = Mpre.b(durasiAwal:durasiAkhir,j);
+            M{i+10,j} = Mpre.c(durasiAwal:durasiAkhir,j);
+    
+            B{i,j} = Bpre.a(durasiAwal:durasiAkhir,j);
+            B{i+5,j} = Bpre.b(durasiAwal:durasiAkhir,j);
+    
+            P{i,j} = Ppre.a(durasiAwal:durasiAkhir,j);
+            P{i+5,j} = Ppre.b(durasiAwal:durasiAkhir,j);
+            P{i+10,j} = Ppre.c(durasiAwal:durasiAkhir,j);
+        end
+        for i = 1:4
+            durasiAwal = ((i-1)*fs)+1;
+            durasiAkhir = i*durasiFs;
+            B{i+10,j} = Bpre.c(durasiAwal:durasiAkhir,j);
+        end
+            B{15,j} = Bpre.c(801:length(Bpre.c),j);
+
     end
 
 end
+
+
+
