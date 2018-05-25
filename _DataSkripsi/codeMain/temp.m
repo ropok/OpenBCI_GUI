@@ -678,7 +678,17 @@ end
 % - Test the Loop 'from start:end'
 % 
 for i = 1:5
-    durasiAwal = ((i-1)*200)+1;
-    durasiAkhir = i*200;
+    durasiAwal = ((i-1)*10)+1;
+    durasiAkhir = i*10;
 sprintf('%d:%d',durasiAwal,durasiAkhir)
 end
+
+% 
+% K-Fold
+% 
+dataPre = [data(:,1:50) ; data(:,51:100) ; data(:,101:150)];
+dataUji = dataPre(:,1:10);
+dataUji = [dataUji(1:32,:) dataUji(33:64,:) dataUji(65:96,:)];
+dataLatih = dataPre;
+dataLatih(:,1:10) = [];
+dataLatih = [dataLatih(1:32,:) dataLatih(33:64,:) dataLatih(65:96,:)];

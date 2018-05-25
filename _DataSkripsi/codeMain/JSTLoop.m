@@ -9,7 +9,7 @@ for i = 1:3 % Sesi1 Sesi2 Sesi1Sesi2
 
         disp(sprintf('Latih JST untuk Subjek%d - Sesi-%d',j,i));
 
-        [JST{1}{i,j}, JST{2}{i,j}] = JST2(dataLatih, 10, dataUji);
+        [JST{1}{i,j}, JST{2}{i,j}] = JST3(dataLatih, 10, dataUji);
 
         clear data;
         clc;
