@@ -1,5 +1,5 @@
 
-function [netFix,CM] = JST3(dataLatih, maxAttemps, dataUji)
+function [netFix,akurasi,CM] = JST3(dataLatih, maxAttemps, dataUji)
     %JST - Latih Jaringan Saraf Tiruan
     %
     % Syntax: net = JST(dataLatih, mmaxAttemps)
@@ -23,7 +23,7 @@ function [netFix,CM] = JST3(dataLatih, maxAttemps, dataUji)
     JST_32 = [];
     maxTried = 20;
 
-    HN = 24;
+    HN = 25;
         akurasiTotal = 0;
         tempAkurasi = 0;
         tried = 0;
@@ -88,9 +88,10 @@ function [netFix,CM] = JST3(dataLatih, maxAttemps, dataUji)
                 % --Update JST_32
                 if akurasiTotal > tempAkurasi
                     netFix = net;
-                    CM(1) = akurasiTotal; 
-                    CM(2) = TPR;
-                    CM(3) = FDR;
+                    akurasi = akurasiTotal;
+                    % CM(1) = akurasiTotal; 
+                    CM(1) = TPR;
+                    CM(2) = FDR;
                     % indeksSubjek = HN-22;
                     % JST_32{indeksSubjek,1} = num2str(HN) ;  % Label Jumlah HN
                     % JST_32{indeksSubjek,2} = net;          % Network

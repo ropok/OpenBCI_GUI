@@ -678,17 +678,63 @@ end
 % - Test the Loop 'from start:end'
 % 
 for i = 1:5
-    durasiAwal = ((i-1)*10)+1;
-    durasiAkhir = i*10;
-sprintf('%d:%d',durasiAwal,durasiAkhir)
+    Awal = ((i-1)*10)+1;
+    Akhir = i*10;
+sprintf('%d:%d',Awal,Akhir)
 end
 
 % 
 % K-Fold
 % 
+% - Init dataPre untuk dipotong-potong
 dataPre = [data(:,1:50) ; data(:,51:100) ; data(:,101:150)];
-dataUji = dataPre(:,1:10);
-dataUji = [dataUji(1:32,:) dataUji(33:64,:) dataUji(65:96,:)];
+% - ambil dataUji
+dataUji = dataPre(:,1:10); % K-Fold
+dataUji = [dataUji(1:32,:) dataUji(33:64,:) dataUji(65:96,:)]; % Ambil Merah Putih Biru untuk digabungin balik
+% - ambil dataLatih
 dataLatih = dataPre;
-dataLatih(:,1:10) = [];
-dataLatih = [dataLatih(1:32,:) dataLatih(33:64,:) dataLatih(65:96,:)];
+dataLatih(:,1:10) = []; % K-Fold -> hilangin bagian dataUji
+dataLatih = [dataLatih(1:32,:) dataLatih(33:64,:) dataLatih(65:96,:)]; % Ambil Merah Putih Biru untuk digabungin balik
+
+% Test the loop for splitting data
+k = 5;
+for i = 1:k 
+    % Init K-Fold configuration
+    [~,N] = size(data);
+    n = N/3;
+    kn = n/k;
+    Awal = ((i-1)*kn)+1;
+    Akhir = i*kn;
+    sprintf('%d:%d',Awal,Akhir)
+end
+% Test
+
+for i = 1:k 
+    % Init K-Fold configuration
+    [~,N] = size(data);
+    n = N/3;
+    kn = n/k;
+    Awal = ((i-1)*kn)+1;
+    Akhir = i*kn;
+    % K-Fold
+    % - Init dataPre untuk dipotong-potong
+    dataPre = [data(:,1:50) ; data(:,51:100) ; data(:,101:150)];
+    % - ambil dataUji
+    dataUjiPre = dataPre(:,1:10); % K-Fold
+    dataUji{i} = [dataUjiPre(1:32,:) dataUjiPre(33:64,:) dataUjiPre(65:96,:)]; % Ambil Merah Putih Biru untuk digabungin balik
+    % - ambil dataLatih
+    dataLatihPre = dataPre;
+    dataLatihPre(:,1:10) = []; % K-Fold -> hilangin bagian dataUji
+    dataLatih{i} = [dataLatihPre(1:32,:) dataLatihPre(33:64,:) dataLatihPre(65:96,:)]; % Ambil Merah Putih Biru untuk digabungin balik
+end
+
+
+
+% Loop JST untuk CV
+
+for j = 1 : size(dataLatih,2)
+    for i = 1 : size(dataLatih,1)
+        temp(i,j) = CV_Sesi2_25{2}{i,j};
+        % [CV_Sesi2_25{1}{i,j}, CV_Sesi2_25{2}{i,j}, CV_Sesi2_25{3}{i,j}] = JST3(dataLatih{i,j}, 10, dataUji{i,j});
+    end
+end
