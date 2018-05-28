@@ -14,7 +14,7 @@ function [netFix,akurasi,CM] = JST3(dataLatih, maxAttemps, dataUji)
     % function JST ini terdiri dari 2 target saja (bisa dimodifikasi lebih lanjut)
     
     % Generate targets
-    [~,N] = size(dataLatih{1,1});
+    N = size(dataLatih,2);
     n = N/3;
     targets(1,1:n) = ones;
         targets(2,n+1:n*2) = ones;

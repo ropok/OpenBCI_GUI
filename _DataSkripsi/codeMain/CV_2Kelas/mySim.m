@@ -54,7 +54,7 @@ end
 % Step 3. CM
 % 
     % Generate targets
-    [~,N] = size(data);
+    N = size(data,2);
     n = N/2;
     target(1,1:n) = ones;
         target(2,n+1:N) = ones;
